@@ -229,6 +229,19 @@ let deoplete#sources#jedi#show_docstring = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
 "#############
 
+""""""""""""""""""""""""
+" NERDTREE SETTINGS
+
+" When double-click or enter, open in current window
+let NERDTreeMapOpenInTab='\r'
+let NERDTreeMapOpenInTab='<ENTER>'
+
+" Pour NERDTree avec tabs
+map <Leader>n :NERDTreeMirror<CR>
+autocmd VimEnter * NERDTree
+autocmd BufWinEnter * NERDTreeMirror
+
+
 
 " ##################### VUNDLE
 set nocompatible              " be iMproved, required
@@ -271,11 +284,12 @@ Plug 'triglav/vim-visual-increment' "increment list of number
 Plug 'scrooloose/nerdtree' "NERDTree
 Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
 
-Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
+Plug 'ctrlpvim/ctrlp.vim' "ctrl p
 
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
 Plug 'nanotech/jellybeans.vim' "color
 Plug 'tomasr/molokai' "molokai color
 Plug 'alols/vim-love-efm'
