@@ -211,6 +211,24 @@ let g:lightline = {
       \ }
 
 
+"##################
+" DEOPLETE
+let g:deoplete#enable_at_startup = 1
+
+" close preview window automatically
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" Show def for python
+let deoplete#sources#jedi#show_docstring = 1
+
+"##################
+
+
+"#############
+" SUPERTAB
+let g:SuperTabDefaultCompletionType = "<c-n>"
+"#############
+
 
 " ##################### VUNDLE
 set nocompatible              " be iMproved, required
@@ -231,14 +249,19 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Snippets are separated from the engine. Add this if you want them:
 " Plugin 'honza/vim-snippets'
+"
 Plug 'Shougo/deoplete.nvim'
-Plug 'alfredodeza/pytest.vim'
+Plug 'ervandew/supertab'
+
 Plug 'vim-gitgutter'
 Plug 'vim-latex/vim-latex'
 
 Plug 'tmhedberg/SimpylFold' " code folding in python
+Plug 'zchee/deoplete-jedi' "completion python
+
 
 Plug 'mattn/emmet-vim' " HTML plugin
+Plug 'othree/html5.vim' "pour html5
 
 Plug 'scrooloose/syntastic'
 
@@ -246,20 +269,14 @@ Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'triglav/vim-visual-increment' "increment list of number
 
 Plug 'scrooloose/nerdtree' "NERDTree
-
-
-Plug 'nathanaelkane/vim-indent-guides.git'
+Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
 
 Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
 
-Plug 'othree/html5.vim' "pour html5
-
-Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
-
-Plug 'nanotech/jellybeans.vim'
 
 Plug 'itchyny/lightline.vim'
 
+Plug 'nanotech/jellybeans.vim' "color
 Plug 'tomasr/molokai' "molokai color
 Plug 'alols/vim-love-efm'
 Plug 'scwood/vim-hybrid' "color
