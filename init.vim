@@ -6,6 +6,8 @@ syntax on         " syntax highlighting
 filetype plugin on
 filetype indent on
 
+set termguicolors
+
 " Sets shell
 set shell=/bin/bash
 
@@ -58,7 +60,19 @@ nnoremap Q <nop>
 "  n... :  where to save the viminfo files
 "set viminfo='10,f1,\"100,:20,%,n~/.viminfo
 
-autocmd VimEnter * colorscheme jellybeans 
+"autocmd VimEnter * colorscheme jellybeans 
+
+
+" Or if you have Neovim >= 0.1.5
+if (has("termguicolors"))
+	set termguicolors
+endif
+
+" Theme
+syntax enable
+autocmd VimEnter * colorscheme OceanicNext 
+set background=dark
+let g:airline_theme='oceanicnext'
 
 
 """
@@ -232,26 +246,32 @@ Plug 'ctrlpvim/ctrlp.vim' "ctrl p
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
+"Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
 Plug 'nanotech/jellybeans.vim' "color
 Plug 'tomasr/molokai' "molokai color
-Plug 'alols/vim-love-efm'
-Plug 'scwood/vim-hybrid' "color
-Plug 'mhinz/vim-janah' "color
-Plug 'easysid/mod8.vim' "color
-Plug 'AlessandroYorba/Sierra' "color
-Plug 'altercation/vim-colors-solarized' "color
-Plug 'kocakosm/hilal' "color
-Plug 'vim-scripts/obsidian2.vim' "color
-Plug 'tomasr/molokai' "molokai color
-Plug 'alols/vim-love-efm'
-Plug 'scwood/vim-hybrid' "color
-Plug 'mhinz/vim-janah' "color
-Plug 'easysid/mod8.vim' "color
-Plug 'AlessandroYorba/Sierra' "color
-Plug 'altercation/vim-colors-solarized' "color
-Plug 'kocakosm/hilal' "color
-Plug 'vim-scripts/obsidian2.vim' "color
+"Plug 'alols/vim-love-efm'
+"Plug 'scwood/vim-hybrid' "color
+"Plug 'mhinz/vim-janah' "color
+"Plug 'easysid/mod8.vim' "color
+"Plug 'AlessandroYorba/Sierra' "color
+"Plug 'altercation/vim-colors-solarized' "color
+"Plug 'kocakosm/hilal' "color
+"Plug 'vim-scripts/obsidian2.vim' "color
+"Plug 'tomasr/molokai' "molokai color
+"Plug 'alols/vim-love-efm'
+"Plug 'scwood/vim-hybrid' "color
+"Plug 'mhinz/vim-janah' "color
+"Plug 'easysid/mod8.vim' "color
+"Plug 'AlessandroYorba/Sierra' "color
+"Plug 'altercation/vim-colors-solarized' "color
+"Plug 'kocakosm/hilal' "color
+"Plug 'vim-scripts/obsidian2.vim' "color
+Plug 'mhartington/oceanic-next'
+
+" JS syntax highlight
+Plug 'othree/yajs.vim'
+
+Plug 'ryanoasis/vim-devicons'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
