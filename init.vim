@@ -1,7 +1,6 @@
 """""""""""""""""""""""
 " GENERAL SETTINGS
 
-
 filetype on       " enable file type detection
 syntax on         " syntax highlighting
 filetype plugin on
@@ -101,115 +100,14 @@ autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
 autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
 
 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " PYTHON SPECIFICS
-"""" SAVE """" 
-"""" SAVE """" " See docstring in python fold
-"""" SAVE """" let g:SimpylFold_docstring_preview=1
-"""" SAVE """" 
-"""" SAVE """" " Python indentation
-"""" SAVE """" " fix # comment issue
-"""" SAVE """" set cindent
-"""" SAVE """" 
-"""" SAVE """" let python_highlight_all=1
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " VIM LATEX SETTINGS
-"""" SAVE """" 
-"""" SAVE """" " Permet de résoudre le prob :
-"""" SAVE """" " quand on lance un fichier .tex vide, lance également
-"""" SAVE """" " VimLaTeX
-"""" SAVE """" let g:tex_flavor='latex'
-"""" SAVE """" 
-"""" SAVE """" " Vim LaTeX
-"""" SAVE """" vmap ,b "zdi\textbf{<C-R>z}<ESC>
-"""" SAVE """" vmap ,e "zdi\emph{<C-R>z}<ESC>
-"""" SAVE """" vmap ,t "zdi\texttt{<C-R>z}<ESC>
-"""" SAVE """" "
-"""" SAVE """" " Compile with LuaLaTex by default for PDF       
-"""" SAVE """" "let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
-"""" SAVE """" 
-"""" SAVE """" " Sets default PDF reader
-"""" SAVE """" let g:Tex_ViewRule_pdf = 'Preview'
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " NERDTREE SETTINGS
-"""" SAVE """" 
-"""" SAVE """" " When double-click or enter, open in current window
-"""" SAVE """" let NERDTreeMapOpenInTab='\r'
-"""" SAVE """" let NERDTreeMapOpenInTab='<ENTER>'
-"""" SAVE """" 
-"""" SAVE """" " Pour NERDTree avec tabs
-"""" SAVE """" map <Leader>n :NERDTreeMirror<CR>
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " GIT SETTINGS
-"""" SAVE """" 
-"""" SAVE """" " Problème de couleur gitgutter
-"""" SAVE """" highlight clear SignColumn
-"""" SAVE """" highlight GitGutterAdd ctermfg=green
-"""" SAVE """" highlight GitGutterChange ctermfg=yellow
-"""" SAVE """" highlight GitGutterDelete ctermfg=red
-"""" SAVE """" highlight GitGutterChangeDelete ctermfg=yellow
-"""" SAVE """" 
-"""" SAVE """" " So that the git diff split is vertical
-"""" SAVE """" set diffopt+=vertical
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " YouCompleteMe SETTINGS
-"""" SAVE """" 
-"""" SAVE """" " Jump to definition with ,jd and YCM
-"""" SAVE """" nnoremap <leader>jd :YcmCompleter GoTo<CR>
-"""" SAVE """" 
-"""" SAVE """" " Path to python
-"""" SAVE """" let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
-"""" SAVE """" let g:ycm_autoclose_preview_window_after_completion = 1
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " UltiSnips SETTINGS
-"""" SAVE """" " " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"""" SAVE """" " let g:UltiSnipsExpandTrigger="<c-j>"
-"""" SAVE """" " let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"""" SAVE """" " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"""" SAVE """" " 
-"""" SAVE """" " " If you want :UltiSnipsEdit to split your window.
-"""" SAVE """" " let g:UltiSnipsEditSplit="vertical"
-"""" SAVE """" " 
-"""" SAVE """" 
-"""" SAVE """" """"""""""""""""""""""""
-"""" SAVE """" " Syntastic SETTINGS
-"""" SAVE """" set statusline+=%#warningmsg#
-"""" SAVE """" set statusline+=%{SyntasticStatuslineFlag()}
-"""" SAVE """" set statusline+=%*
-"""" SAVE """" 
-"""" SAVE """" "let g:syntastic_always_populate_loc_list = 1
-"""" SAVE """" "let g:syntastic_auto_loc_list = 1
-"""" SAVE """" let g:syntastic_check_on_open = 1
-"""" SAVE """" let g:syntastic_check_on_wq = 0
-"""" SAVE """" 
-"""" SAVE """" " Ignore the HTML error template not recognized
-"""" SAVE """" let g:syntastic_html_tidy_ignore_errors = [ '<template> is not recognized!', 'discarding unexpected <template>', 'discarding unexpected </template>']
-"""" SAVE """" 
-"""" SAVE """" let g:syntastic_html_tidy_exec = 'tidy5'
-"""" SAVE """" 
-"""" SAVE """" 
-"""" SAVE """" """""""""""""""""""""""""""
-"""" SAVE """" " NO IDEA WHAT THOSE DO
-"""" SAVE """" highlight Pmenu ctermfg=0 ctermbg=7 guifg=#ffffff guibg=#0000ff
-"""" SAVE """" 
-"""" SAVE """" set wildchar=<Tab> wildmenu wildmode=full
-
 
 " Vim LighTLine (remplacement de Powerline)
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ }
+" let g:lightline = {
+"       \ 'colorscheme': 'jellybeans',
+"       \ }
 
+" Vim Airline
+let g:airline_powerline_fonts = 1
 
 "##################
 " DEOPLETE
@@ -233,14 +131,52 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " NERDTREE SETTINGS
 
 " When double-click or enter, open in current window
-let NERDTreeMapOpenInTab='\r'
-let NERDTreeMapOpenInTab='<ENTER>'
+"let NERDTreeMapOpenInTab='\r'
+"let NERDTreeMapOpenInTab='<ENTER>'
 
 " Pour NERDTree avec tabs
-map <Leader>n :NERDTreeMirror<CR>
-autocmd VimEnter * NERDTree
-autocmd BufWinEnter * NERDTreeMirror
+map <Leader>nt :NERDTreeToggle<CR>
 
+" Ouvrir au lancement
+"autocmd VimEnter * NERDTree
+"autocmd BufWinEnter * NERDTreeMirror
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""
+" " SNIPPETS
+" " Plugin key-mappings.
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
+" 
+" " SuperTab like snippets behavior.
+" "imap <expr><TAB>
+" " \ pumvisible() ? "\<C-n>" :
+" " \ neosnippet#expandable_or_jumpable() ?
+" " \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" 
+" " For conceal markers.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
+" 
+" " Enable snipMate compatibility feature.
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" 
+" " Tell Neosnippet about the other snippets
+" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="Ï" "MAC ONLY
+let g:UltiSnipsJumpForwardTrigger="î"
+let g:UltiSnipsJumpBackwardTrigger="º"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsListSnippets="œ"
+" """"""""""""""""""""""""""""""""""""""""""""""""
 
 
 " ##################### VUNDLE
@@ -272,6 +208,11 @@ Plug 'vim-latex/vim-latex'
 Plug 'tmhedberg/SimpylFold' " code folding in python
 Plug 'zchee/deoplete-jedi' "completion python
 
+" UltiSnips
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 Plug 'mattn/emmet-vim' " HTML plugin
 Plug 'othree/html5.vim' "pour html5
@@ -287,7 +228,9 @@ Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
 Plug 'ctrlpvim/ctrlp.vim' "ctrl p
 
 
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 Plug 'daylerees/colour-schemes', { 'rtp': 'vim/' } " Lots of colors
 Plug 'nanotech/jellybeans.vim' "color
