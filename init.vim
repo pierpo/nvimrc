@@ -130,11 +130,19 @@ let g:deoplete#enable_at_startup = 1
 " close preview window automatically
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Show def for python
-let deoplete#sources#jedi#show_docstring = 1
+" " Show def for python
+" let deoplete#sources#jedi#show_docstring = 1
+" 
+" " For PHP
+" let g:neocomplete#force_omni_input_patterns = {}
+" let g:neocomplete#force_omni_input_patterns.php =
+" \ '\h\w*\|[^- \t]->\w*'
+" 
+" "##################
+" " PADAWAN
+" let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
 
 "##################
-
 
 "#############
 " SUPERTAB
@@ -221,6 +229,7 @@ Plug 'vim-latex/vim-latex'
 
 Plug 'tmhedberg/SimpylFold' " code folding in python
 Plug 'zchee/deoplete-jedi' "completion python
+Plug 'pbogut/deoplete-padawan' "completion php
 
 " UltiSnips
 " Plug 'Shougo/neosnippet.vim'
@@ -230,8 +239,6 @@ Plug 'honza/vim-snippets'
 
 Plug 'mattn/emmet-vim' " HTML plugin
 Plug 'othree/html5.vim' "pour html5
-
-Plug 'scrooloose/syntastic'
 
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'triglav/vim-visual-increment' "increment list of number
@@ -272,6 +279,9 @@ Plug 'mhartington/oceanic-next'
 Plug 'othree/yajs.vim'
 
 Plug 'ryanoasis/vim-devicons'
+
+Plug 'lumiliet/vim-twig'
+Plug 'neomake/neomake'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
