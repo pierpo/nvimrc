@@ -12,7 +12,7 @@ set termguicolors
 set shell=/bin/bash
 
 " Makes scrolling quicker
-set lazyredraw
+"set lazyredraw
 
 " Activates mouse
 set mouse=a
@@ -34,11 +34,11 @@ set incsearch
 set showmatch
 
 " Indentation methods
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set shiftround
-set noexpandtab
+set expandtab
 
 set laststatus=2
 
@@ -54,12 +54,12 @@ nnoremap Q <nop>
 
 " Or if you have Neovim >= 0.1.5
 if (has("termguicolors"))
-	set termguicolors
+    set termguicolors
 endif
 
 " Theme
 syntax enable
-autocmd VimEnter * colorscheme OceanicNext 
+autocmd VimEnter * colorscheme OceanicNext
 set background=dark
 let g:airline_theme='oceanicnext'
 
@@ -72,17 +72,26 @@ au BufRead,BufNewFile *.z3 setfiletype lisp
 """"""""""""""""""""""""
 " SHORTCUTS
 "
+
+" Leader key setting
+let mapleader = ","
+
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
 
 " Unfold/fold
 nnoremap <Space> za
 
-" Leader key setting
-let mapleader = ","
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
 
 " Shortcut to change buffer
 nnoremap <S-Left> :bprevious<CR>
@@ -90,7 +99,7 @@ nnoremap <S-Right> :bnext<CR>
 
 """""""""""""""""""""""""""
 " NEOMAKE FOR SYNTAX CHECKING
-" 
+"
 autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 """"""""""""""""""""""""
@@ -119,6 +128,14 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""
 " DEOPLETE
 let g:deoplete#enable_at_startup = 1
+"if !exists('g:deoplete#omni#input_patterns')
+"  let g:deoplete#omni#input_patterns = {}
+"endif
+
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" tern
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 " close preview window automatically
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -126,7 +143,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """"""""""""""
 " SUPERTAB
-let g:SuperTabDefaultCompletionType = "<c-n>"
+"let g:SuperTabDefaultCompletionType = "<c-n>"
 """"""""""""""
 
 """"""""""""""""""""""""
@@ -137,21 +154,26 @@ map <Leader>nt :NERDTreeToggle<CR>
 " " SNIPPETS
 " " Plugin key-mappings.
 let g:UltiSnipsExpandTrigger="Ï" "MAC ONLY
-let g:UltiSnipsJumpForwardTrigger="î"
-let g:UltiSnipsJumpBackwardTrigger="º"
+let g:UltiSnipsJumpForwardTrigger="î" "alt i
+let g:UltiSnipsJumpBackwardTrigger="º" "alt u
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
 let g:UltiSnipsListSnippets="œ"
 " """"""""""""""""""""""""""""""""""""""""""""""""
+"
+"
+" Vim Notes
+let g:notes_directories = ['~/Notes']
+vmap <Leader>ns :NoteFromSelectedText<CR>
+
 
 " ##################### VUNDLE
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.config/nvim/plugged
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
@@ -174,6 +196,7 @@ Plug 'othree/html5-syntax.vim'
 
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'triglav/vim-visual-increment' "increment list of number
+Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
 Plug 'scrooloose/nerdtree' "NERDTree
 Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
@@ -200,6 +223,19 @@ Plug 'digitaltoad/vim-pug' "jade and pug
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'moll/vim-node'
 Plug 'tpope/vim-fugitive'
+
+Plug 'alols/vim-love-efm'
+Plug 'docteurklein/vim-symfony'
+
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'Slava/tern-meteor'
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+
+Plug 'mattn/emmet-vim'
+
 
 " All of your Plugins must be added before the following line
 call plug#end()
