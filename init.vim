@@ -34,9 +34,9 @@ set incsearch
 set showmatch
 
 " Indentation methods
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set shiftround
 set expandtab
 
@@ -57,6 +57,12 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
+" Color column 80
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+endif
+
 " Theme
 syntax enable
 autocmd VimEnter * colorscheme OceanicNext
@@ -68,6 +74,11 @@ let g:airline_theme='oceanicnext'
 au BufRead,BufNewFile *.shimple setfiletype java
 au BufRead,BufNewFile *.shimple_test setfiletype java
 au BufRead,BufNewFile *.z3 setfiletype lisp
+
+"""
+" Browse through quickfix window
+nnoremap <leader><Up> :cp<Enter>
+nnoremap <leader><Down> :cn<Enter>
 
 """"""""""""""""""""""""
 " SHORTCUTS
@@ -236,6 +247,7 @@ Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 
 Plug 'mattn/emmet-vim'
 
+Plug 'rking/ag.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
