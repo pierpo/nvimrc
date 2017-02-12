@@ -196,6 +196,9 @@ let g:tex_flavor='latex'
 vmap ,b "zdi\textbf{<C-R>z}<ESC>
 vmap ,e "zdi\emph{<C-R>z}<ESC>
 vmap ,t "zdi\texttt{<C-R>z}<ESC>
+
+" Override UltiSnips shortcut if LaTeX file
+autocmd FileType tex,latex imap <C-J> <Plug>IMAP_JumpForward
 "
 " Compile with LuaLaTex by default for PDF       
 "let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
@@ -215,6 +218,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/deoplete.nvim'
 
 Plug 'vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'vim-latex/vim-latex'
 
 Plug 'tmhedberg/SimpylFold' " code folding in python
