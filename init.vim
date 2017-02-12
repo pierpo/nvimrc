@@ -1,3 +1,8 @@
+set scrolljump=5
+set nocursorcolumn
+set nocursorline
+set norelativenumber
+syntax sync minlines=256
 """""""""""""""""""""""
 " GENERAL SETTINGS
 
@@ -8,11 +13,14 @@ filetype indent on
 
 set termguicolors
 
+" Cursor line in insert mode
+autocmd InsertEnter,InsertLeave * set cul!
+
 " Sets shell
 set shell=/bin/bash
 
 " Makes scrolling quicker
-"set lazyredraw
+set lazyredraw
 
 " Activates mouse
 set mouse=a
@@ -41,6 +49,9 @@ set shiftround
 set expandtab
 
 set laststatus=2
+
+" Shows result of substitute commands like '%s/azer/azer' live
+set inccommand=nosplit
 
 " Don't split words when breaking lines
 set linebreak
@@ -99,7 +110,7 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor$',
+    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
@@ -136,15 +147,21 @@ let g:used_javascript_libs = 'angularjs'
 " Vim Airline
 let g:airline_powerline_fonts = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""
+" " SNIPPETS
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Mac azerty only
+" use Alt Maj P to display list of snippets
+let g:UltiSnipsListSnippets="∏"
+" """"""""""""""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""
 " DEOPLETE
 let g:deoplete#enable_at_startup = 1
-"if !exists('g:deoplete#omni#input_patterns')
-"  let g:deoplete#omni#input_patterns = {}
-"endif
 
-" deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
@@ -154,30 +171,38 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """"""""""""""
 " SUPERTAB
-"let g:SuperTabDefaultCompletionType = "<c-n>"
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 """"""""""""""
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
 map <Leader>nt :NERDTreeToggle<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""
-" " SNIPPETS
-" " Plugin key-mappings.
-let g:UltiSnipsExpandTrigger="Ï" "MAC ONLY
-let g:UltiSnipsJumpForwardTrigger="î" "alt i
-let g:UltiSnipsJumpBackwardTrigger="º" "alt u
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-let g:UltiSnipsListSnippets="œ"
-" """"""""""""""""""""""""""""""""""""""""""""""""
-"
-"
 " Vim Notes
 let g:notes_directories = ['~/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
+
+" VIM LATEX SETTINGS
+
+" Permet de résoudre le prob :
+" quand on lance un fichier .tex vide, lance également
+" VimLaTeX
+let g:tex_flavor='latex'
+
+" Vim LaTeX
+vmap ,b "zdi\textbf{<C-R>z}<ESC>
+vmap ,e "zdi\emph{<C-R>z}<ESC>
+vmap ,t "zdi\texttt{<C-R>z}<ESC>
+"
+" Compile with LuaLaTex by default for PDF       
+"let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
+
+" Sets default PDF reader
+let g:Tex_ViewRule_pdf = 'Preview'
+
 
 
 " ##################### VUNDLE
@@ -188,7 +213,6 @@ filetype off                  " required
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
-Plug 'ervandew/supertab'
 
 Plug 'vim-gitgutter'
 Plug 'vim-latex/vim-latex'
@@ -229,6 +253,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lumiliet/vim-twig'
 Plug 'neomake/neomake'
 
+Plug 'vim-ruby/vim-ruby'
+
 Plug 'kchmck/vim-coffee-script' "coffee script
 Plug 'digitaltoad/vim-pug' "jade and pug
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -249,6 +275,26 @@ Plug 'mattn/emmet-vim'
 
 Plug 'rking/ag.vim'
 
+Plug 'vim-latex/vim-latex' " vim latex
+
+Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
+
+Plug 'majutsushi/tagbar'
+
+
+"" Angular
+Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'burnettk/vim-angular'
+Plug 'matthewsimo/angular-vim-snippets'
+Plug 'ervandew/supertab'
+
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
+
+
+"TODO
+"try this
+"junegunn/vim-easy-align
