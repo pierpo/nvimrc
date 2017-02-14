@@ -13,6 +13,9 @@ filetype indent on
 
 set termguicolors
 
+" Allows to change buffer without saving it
+set hidden
+
 " Cursor line in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
 
@@ -42,9 +45,9 @@ set incsearch
 set showmatch
 
 " Indentation methods
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set shiftround
 set expandtab
 
@@ -104,13 +107,12 @@ nnoremap <Leader>mm :make<CR>
 " Unfold/fold
 nnoremap <Space> za
 
-
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage$',
+    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage|node_modules|bower_components$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
@@ -172,14 +174,21 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """"""""""""""
 " SUPERTAB
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-let g:UltiSnipsExpandTrigger="<C-j>"
+
+" Map ALT-SPACE to expand snippet (MAC ONLY)
+let g:UltiSnipsExpandTrigger=" "
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 """"""""""""""
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
-map <Leader>nt :NERDTreeToggle<CR>
+"map <Leader>nt :NERDTreeToggle<CR>
+map <Leader>nt :NERDTreeMirrorToggle<CR>
+map <Leader>nf :NERDTreeFind<CR>
 
+" Add folder icons in NERD tree
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 
 " Vim Notes
 let g:notes_directories = ['~/Notes']
@@ -285,6 +294,12 @@ Plug 'vim-latex/vim-latex' " vim latex
 Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
 
 Plug 'majutsushi/tagbar'
+
+"Plug 'christoomey/vim-tmux-navigator'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+" Local vimrc
+Plug 'embear/vim-localvimrc'
 
 
 "" Angular
