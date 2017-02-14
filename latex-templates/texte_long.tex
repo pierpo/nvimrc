@@ -1,0 +1,101 @@
+\documentclass{scrreprt}
+\usepackage{listings}
+
+\usepackage{wrapfig}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{eurosym}
+\setcounter{secnumdepth}{3}
+\usepackage{underscore}
+\usepackage{indentfirst}
+\usepackage[bookmarks=true]{hyperref}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\title{%
+\flushright
+\rule{16cm}{5pt}\vskip1cm
+\Huge{<+Titre1+>}\\
+\vspace{2cm}
+~\\
+\vspace{2cm}
+<+Titre2+>\\
+\vspace{2cm}
+\LARGE{~\\}
+\vspace{2cm}
+\LARGE{~\\}
+\vspace{2cm}
+<+Auteur+>\\
+\vfill
+\rule{16cm}{5pt}
+}
+\date{}
+\author{}
+\usepackage{lipsum}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\addtolength{\oddsidemargin}{-.675in}
+\addtolength{\evensidemargin}{-.675in}
+\addtolength{\textwidth}{1.45in}
+\addtolength{\topmargin}{-.275in}
+\addtolength{\textheight}{1.05in}
+	
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Introduction}
+
+<+Contenu+>
+
+\begingroup
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
+\chapter{<+Chapitre2+>}
+\endgroup
+
+
+\end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%% DEUX IMAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[htb]
+    \centering
+    \begin{subfigure}[b]{0.20\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=1.7\textwidth]{images/menu/menu-grise.png}
+        \caption{Menu avec "ma commande" grisé}
+        \label{fig:menu-grise}
+    \end{subfigure}
+    \hspace{8ex}
+    \begin{subfigure}[b]{0.20\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=1.7\textwidth]{images/menu/menu-non-grise.png}
+        \caption{Menu avec "ma commande" actif}
+        \label{fig:menu-non-grise}
+    \end{subfigure}
+\end{figure}
+
+%%%%%%%%%%%%% UNE IMAGE %%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htb]    
+    \centering
+    \begin{subfigure}[b]{0.20\textwidth}
+        \centering
+        \includegraphics[width=\textwidth,height=1.7\textwidth]{images/menu/menu-langue.png}
+    \end{subfigure}
+    \caption{Menu langue}
+    \label{fig:menu-langue}
+\end{figure}

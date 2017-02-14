@@ -1,0 +1,37 @@
+<+	+>	!comp!	!exe!
+%        File: !comp!expand("%:p:t")!comp!
+%     Created: !comp!strftime("%a %b %d %I:00 %p %Y ").substitute(strftime('%Z'), '\<\(\w\)\(\w*\)\>\(\W\|$\)', '\1', 'g')!comp!
+% Last Change: !comp!strftime("%a %b %d %I:00 %p %Y ").substitute(strftime('%Z'), '\<\(\w\)\(\w*\)\>\(\W\|$\)', '\1', 'g')!comp!
+%
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb,calc}
+
+\usepackage{enumitem}
+
+\usepackage{indentfirst}
+
+% Pour augmenter l'interligne :
+\renewcommand{\baselinestretch}{1.0}
+
+\setlength{\parindent}{30pt}
+\setlength{\parskip}{1ex}
+\setlength{\textwidth}{15cm}
+\setlength{\textheight}{24cm}
+\setlength{\oddsidemargin}{0.2cm}
+\setlength{\evensidemargin}{-.7cm}
+\setlength{\topmargin}{-.5in}
+
+\title{\LARGE \bfseries <+Title+> \\
+\Large <+Title2+> \\
+~\\
+\LARGE \bfseries <+Title3+>}
+\author{<+Name+>}
+\date{\today}
+
+\begin{document}
+\maketitle 
+<++>
+\end{document}
