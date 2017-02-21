@@ -154,21 +154,21 @@ let g:airline_powerline_fonts = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" Mac azerty only
-" use Alt Maj P to display list of snippets
-let g:UltiSnipsListSnippets="∏"
-" """"""""""""""""""""""""""""""""""""""""""""""""
-"
-" Fix ultisnips performances
-let g:loaded_python_provider=1
-let g:python_host_skip_check=1
-let g:python_host_prog='/usr/local/bin/python'
-let g:python3_host_skip_check=1
-let g:python3_host_prog='/usr/local/bin/python3'
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
 
 """""""""""""""""""
 " DEOPLETE
@@ -185,10 +185,6 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " SUPERTAB
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
-" Map ALT-SPACE to expand snippet (MAC ONLY)
-let g:UltiSnipsExpandTrigger=" "
-" Map CTRL-J to expand snippet (MAC ONLY)
-let g:UltiSnipsExpandTrigger="<C-J>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""
@@ -220,7 +216,7 @@ vmap ,e "zdi\emph{<C-R>z}<ESC>
 vmap ,t "zdi\texttt{<C-R>z}<ESC>
 
 " Override UltiSnips shortcut if LaTeX file
-autocmd FileType tex,latex imap <C-J> <Plug>IMAP_JumpForward
+"autocmd FileType tex,latex imap <C-J> <Plug>IMAP_JumpForward
 "
 " Compile with LuaLaTex by default for PDF       
 "let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
@@ -248,9 +244,10 @@ Plug 'tmhedberg/SimpylFold' " code folding in python
 Plug 'zchee/deoplete-jedi' "completion python
 Plug 'pbogut/deoplete-padawan' "completion php
 
-" UltiSnips
-Plug 'SirVer/ultisnips'
+" Snippets
 Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 
 Plug 'mattn/emmet-vim' " HTML plugin
 Plug 'othree/html5.vim' "pour html5
