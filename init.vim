@@ -110,6 +110,9 @@ nnoremap <Space> za
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
+" Update all buffers from disk
+nnoremap <Leader>ub :bufdo e!<CR>
+
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage|node_modules|bower_components$',
@@ -159,6 +162,13 @@ let g:UltiSnipsEditSplit="vertical"
 " use Alt Maj P to display list of snippets
 let g:UltiSnipsListSnippets="∏"
 " """"""""""""""""""""""""""""""""""""""""""""""""
+"
+" Fix ultisnips performances
+let g:loaded_python_provider=1
+let g:python_host_skip_check=1
+let g:python_host_prog='/usr/local/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog='/usr/local/bin/python3'
 
 """""""""""""""""""
 " DEOPLETE
@@ -177,6 +187,8 @@ autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 " Map ALT-SPACE to expand snippet (MAC ONLY)
 let g:UltiSnipsExpandTrigger=" "
+" Map CTRL-J to expand snippet (MAC ONLY)
+let g:UltiSnipsExpandTrigger="<C-J>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""
@@ -189,6 +201,7 @@ map <Leader>nf :NERDTreeFind<CR>
 
 " Add folder icons in NERD tree
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
 
 " Vim Notes
 let g:notes_directories = ['~/Notes']
@@ -301,6 +314,11 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Local vimrc
 Plug 'embear/vim-localvimrc'
 
+" CSS3 highlighting
+Plug 'hail2u/vim-css3-syntax'
+
+" LESS highlighting
+Plug 'groenewege/vim-less'
 
 "" Angular
 Plug 'pangloss/vim-javascript'
@@ -308,6 +326,9 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'burnettk/vim-angular'
 Plug 'matthewsimo/angular-vim-snippets'
 Plug 'ervandew/supertab'
+
+" Node
+Plug 'moll/vim-node'
 
 
 " All of your Plugins must be added before the following line
