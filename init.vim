@@ -3,6 +3,7 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
+
 """""""""""""""""""""""
 " GENERAL SETTINGS
 
@@ -15,6 +16,11 @@ set termguicolors
 
 " Allows to change buffer without saving it
 set hidden
+
+" Sets the current directory to the directory of the current file we are
+" working on
+" Useful to autocomplete relative paths
+set autochdir
 
 " Cursor line in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
@@ -61,6 +67,9 @@ set linebreak
 
 " Tabulations for Makefile
 autocmd FileType make setlocal noexpandtab
+
+" No json quote conceal
+let g:vim_json_syntax_conceal = 0
 "
 " Deactivate ex mode
 map q: <Nop>
@@ -80,6 +89,7 @@ endif
 " Theme
 syntax enable
 autocmd VimEnter * colorscheme OceanicNext
+autocmd VimEnter * AirlineRefresh
 set background=dark
 let g:airline_theme='oceanicnext'
 
@@ -88,11 +98,6 @@ let g:airline_theme='oceanicnext'
 au BufRead,BufNewFile *.shimple setfiletype java
 au BufRead,BufNewFile *.shimple_test setfiletype java
 au BufRead,BufNewFile *.z3 setfiletype lisp
-
-"""
-" Browse through quickfix window
-nnoremap <leader><Up> :cp<Enter>
-nnoremap <leader><Down> :cn<Enter>
 
 """"""""""""""""""""""""
 " SHORTCUTS
@@ -115,7 +120,7 @@ nnoremap <Leader>ub :bufdo e!<CR>
 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage|node_modules|bower_components$',
+    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage|node_modules|bower_components|dist|\vagrant-mssql-express$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
@@ -173,6 +178,9 @@ let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippet
 """""""""""""""""""
 " DEOPLETE
 let g:deoplete#enable_at_startup = 1
+
+" Deactivate preview window
+set completeopt-=preview
 
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
@@ -291,9 +299,9 @@ Plug 'docteurklein/vim-symfony'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-Plug 'Slava/tern-meteor'
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+"Plug 'Slava/tern-meteor'
+"Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
 
 Plug 'mattn/emmet-vim'
 
@@ -327,6 +335,10 @@ Plug 'ervandew/supertab'
 " Node
 Plug 'moll/vim-node'
 
+" Insert brackets automatically
+"Plug 'jiangmiao/auto-pairs'
+
+Plug 'elzr/vim-json'
 
 " All of your Plugins must be added before the following line
 call plug#end()
