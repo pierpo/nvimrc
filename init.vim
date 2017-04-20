@@ -12,15 +12,13 @@ syntax on         " syntax highlighting
 filetype plugin on
 filetype indent on
 
-set termguicolors
-
 " Allows to change buffer without saving it
 set hidden
 
 " Sets the current directory to the directory of the current file we are
 " working on
 " Useful to autocomplete relative paths
-set autochdir
+" set autochdir
 
 " Cursor line in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
@@ -88,8 +86,7 @@ endif
 
 " Theme
 syntax enable
-autocmd VimEnter * colorscheme OceanicNext
-autocmd VimEnter * AirlineRefresh
+
 set background=dark
 let g:airline_theme='oceanicnext'
 
@@ -106,6 +103,14 @@ au BufRead,BufNewFile *.z3 setfiletype lisp
 " Leader key setting
 let mapleader = ","
 
+nmap é :cp<CR>
+nmap à :cn<CR>
+
+" Remap square brackets for azerty mac keyboard
+nnoremap § [
+nnoremap è ]
+nnoremap ° ,
+
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
 
@@ -118,12 +123,18 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)|\cache|\vendor|\coverage|node_modules|bower_components|dist|\vagrant-mssql-express$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
+" Vertical split for diffs
+set diffopt+=vertical
+
+" Makes Ag search in project directory and not current directory
+let g:ag_working_path_mode = 'r'
+
+" Bind C-p to fzf
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>fc :Commits<CR>
+nnoremap <silent> <leader>ft :Tags<CR>
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " Shortcut to change buffer
 nnoremap <S-Left> :bprevious<CR>
@@ -157,6 +168,9 @@ let g:used_javascript_libs = 'angularjs'
 " Vim Airline
 let g:airline_powerline_fonts = 1
 
+" Display buffer name
+let g:airline#extensions#tabline#enabled = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -178,6 +192,8 @@ let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippet
 """""""""""""""""""
 " DEOPLETE
 let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#auto_complete_delay=150
 
 " Deactivate preview window
 set completeopt-=preview
@@ -226,7 +242,7 @@ vmap ,t "zdi\texttt{<C-R>z}<ESC>
 " Override UltiSnips shortcut if LaTeX file
 "autocmd FileType tex,latex imap <C-J> <Plug>IMAP_JumpForward
 "
-" Compile with LuaLaTex by default for PDF       
+" Compile with LuaLaTex by default for PDF
 "let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
 
 " Sets default PDF reader
@@ -268,7 +284,7 @@ Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 Plug 'scrooloose/nerdtree' "NERDTree
 Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
 
-Plug 'ctrlpvim/ctrlp.vim' "ctrl p
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -299,10 +315,6 @@ Plug 'docteurklein/vim-symfony'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
-"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
-"Plug 'Slava/tern-meteor'
-"Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-
 Plug 'mattn/emmet-vim'
 
 Plug 'rking/ag.vim'
@@ -313,7 +325,6 @@ Plug 'tpope/vim-surround' " surround, to add surrounding characters around selec
 
 Plug 'majutsushi/tagbar'
 
-"Plug 'christoomey/vim-tmux-navigator'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Local vimrc
@@ -335,10 +346,17 @@ Plug 'ervandew/supertab'
 " Node
 Plug 'moll/vim-node'
 
+Plug 'easymotion/vim-easymotion'
+
 " Insert brackets automatically
 "Plug 'jiangmiao/auto-pairs'
 
 Plug 'elzr/vim-json'
+
+Plug 'tpope/vim-commentary'
+
+" Select by indent
+Plug 'michaeljsmith/vim-indent-object'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -348,3 +366,5 @@ filetype plugin indent on    " required
 "TODO
 "try this
 "junegunn/vim-easy-align
+
+colorscheme OceanicNext
