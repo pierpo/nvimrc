@@ -15,6 +15,13 @@ filetype indent on
 " Allows to change buffer without saving it
 set hidden
 
+" Excludes end of line character
+" for example, y$ no longer copies the end of line
+nmap $ g_
+
+" Makes Y copy until the end of the line (but not the whole line)
+nmap Y yg_
+
 " Sets the current directory to the directory of the current file we are
 " working on
 " Useful to autocomplete relative paths
@@ -87,8 +94,6 @@ endif
 " Theme
 syntax enable
 
-set background=dark
-let g:airline_theme='oceanicnext'
 
 """
 " Filetype syntax
@@ -103,7 +108,7 @@ au BufRead,BufNewFile *.z3 setfiletype lisp
 " Leader key setting
 let mapleader = ","
 
-nmap é :cp<CR>
+nmap ç :cp<CR>
 nmap à :cn<CR>
 
 " Remap square brackets for azerty mac keyboard
@@ -114,11 +119,14 @@ nnoremap ° ,
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
 
+" Map ,gdd to disable buggy gitgutter
+nnoremap <Leader>gdd :GitGutterDisable<CR>
+
 " Unfold/fold
 nnoremap <Space> za
 
-" <Ctrl-l> redraws the screen and removes any search highlighting.
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+" <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
+nnoremap <silent>  :nohl<CR>
 
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
@@ -173,11 +181,10 @@ let g:airline#extensions#tabline#enabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap <C-m>     <Plug>(neosnippet_expand_or_jump)
+smap <C-m>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-m>     <Plug>(neosnippet_expand_target)
+imap <C-m>     <Plug>(neosnippet_expand_or_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -289,10 +296,6 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'nanotech/jellybeans.vim' "color
-Plug 'tomasr/molokai' "molokai color
-Plug 'mhartington/oceanic-next'
-
 " JS syntax highlight
 Plug 'othree/yajs.vim'
 
@@ -358,6 +361,19 @@ Plug 'tpope/vim-commentary'
 " Select by indent
 Plug 'michaeljsmith/vim-indent-object'
 
+" Many languages support
+Plug 'sheerun/vim-polyglot'
+
+" Vim lion, similar to tabularize but quicker shortcuts
+Plug 'tommcdo/vim-lion'
+
+" Colors
+Plug 'nanotech/jellybeans.vim' "color
+Plug 'tomasr/molokai' "molokai color
+Plug 'mhartington/oceanic-next'
+Plug 'chriskempson/base16-vim'
+Plug 'flazz/vim-colorschemes'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -367,4 +383,8 @@ filetype plugin indent on    " required
 "try this
 "junegunn/vim-easy-align
 
-colorscheme OceanicNext
+"colorscheme OceanicNext
+colorscheme base16-ashes
+
+set background=dark
+let g:airline_theme='base16_ashes'
