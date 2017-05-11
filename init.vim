@@ -103,7 +103,12 @@ au BufRead,BufNewFile *.z3 setfiletype lisp
 
 """"""""""""""""""""""""
 " SHORTCUTS
-"
+
+" Move panes using C-hjkl
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 " Leader key setting
 let mapleader = ","
@@ -234,29 +239,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:notes_directories = ['~/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
 
-" VIM LATEX SETTINGS
-
-" Permet de résoudre le prob :
-" quand on lance un fichier .tex vide, lance également
-" VimLaTeX
-let g:tex_flavor='latex'
-
-" Vim LaTeX
-vmap ,b "zdi\textbf{<C-R>z}<ESC>
-vmap ,e "zdi\emph{<C-R>z}<ESC>
-vmap ,t "zdi\texttt{<C-R>z}<ESC>
-
-" Override UltiSnips shortcut if LaTeX file
-"autocmd FileType tex,latex imap <C-J> <Plug>IMAP_JumpForward
-"
-" Compile with LuaLaTex by default for PDF
-"let g:Tex_CompileRule_pdf = 'lualatex -synctex=1 -interaction=nonstopmode $*'
-
-" Sets default PDF reader
-let g:Tex_ViewRule_pdf = 'Preview'
-
-
-
 " ##################### VUNDLE
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -268,8 +250,6 @@ Plug 'Shougo/deoplete.nvim'
 
 Plug 'vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'vim-latex/vim-latex'
 
 Plug 'tmhedberg/SimpylFold' " code folding in python
 Plug 'zchee/deoplete-jedi' "completion python
