@@ -6,6 +6,10 @@ syntax sync minlines=256
 
 """""""""""""""""""""""
 " GENERAL SETTINGS
+"
+
+" Enable spellcheck for markdown files
+autocmd Filetype markdown set spell spelllang=en_us
 
 filetype on       " enable file type detection
 syntax on         " syntax highlighting
@@ -80,7 +84,7 @@ let g:vim_json_syntax_conceal = 0
 map q: <Nop>
 nnoremap Q <nop>
 
-" Or if you have Neovim >= 0.1.5
+" Necessary for colors
 if (has("termguicolors"))
     set termguicolors
 endif
@@ -210,9 +214,6 @@ let g:deoplete#auto_complete_delay=150
 " Deactivate preview window
 set completeopt-=preview
 
-" tern
-autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-
 " close preview window automatically
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """""""""""""""""""
@@ -220,10 +221,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """"""""""""""
 " SUPERTAB
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-""""""""""""""
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
@@ -235,7 +233,8 @@ map <Leader>nf :NERDTreeFind<CR>
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:DevIconsEnableFoldersOpenClose = 1
 
-" Vim Notes
+""""""""""""""""""""""""
+" VIM NOTES
 let g:notes_directories = ['~/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
 
