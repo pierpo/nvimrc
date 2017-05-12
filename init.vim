@@ -68,7 +68,7 @@ set expandtab
 
 set laststatus=2
 
-" Shows result of substitute commands like '%s/azer/azer' live
+" Shows result of substitute commands live
 set inccommand=nosplit
 
 " Don't split words when breaking lines
@@ -124,6 +124,10 @@ nmap à :cn<CR>
 nnoremap § [
 nnoremap è ]
 nnoremap ° ,
+
+" Keep selection after re-indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
