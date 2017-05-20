@@ -8,6 +8,9 @@ syntax sync minlines=256
 " GENERAL SETTINGS
 "
 
+" Rg vim grep
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
 
@@ -29,7 +32,7 @@ nmap Y yg_
 " Sets the current directory to the directory of the current file we are
 " working on
 " Useful to autocomplete relative paths
-" set autochdir
+set autochdir
 
 " Cursor line in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
@@ -151,11 +154,11 @@ set diffopt+=vertical
 let g:ag_working_path_mode = 'r'
 
 " Bind C-p to fzf
-nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
 nnoremap <silent> <leader>ft :Tags<CR>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg -g ""'
 
 " Shortcut to change buffer
 nnoremap <S-Left> :bprevious<CR>
@@ -205,6 +208,8 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+let g:gfm_syntax_emoji_conceal = 1
 
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
@@ -304,8 +309,7 @@ Plug 'xolox/vim-misc'
 Plug 'mattn/emmet-vim'
 
 Plug 'rking/ag.vim'
-
-Plug 'vim-latex/vim-latex' " vim latex
+Plug 'jremmen/vim-ripgrep'
 
 Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
 
@@ -356,6 +360,9 @@ Plug 'tomasr/molokai' "molokai color
 Plug 'mhartington/oceanic-next'
 Plug 'chriskempson/base16-vim'
 Plug 'flazz/vim-colorschemes'
+
+" Github markdown
+Plug 'rhysd/vim-gfm-syntax'
 
 " All of your Plugins must be added before the following line
 call plug#end()
