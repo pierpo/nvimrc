@@ -22,6 +22,8 @@ filetype indent on
 " Allows to change buffer without saving it
 set hidden
 
+"imap jk <Esc>
+
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
 nmap $ g_
@@ -36,6 +38,11 @@ set autochdir
 
 " Cursor line in insert mode
 autocmd InsertEnter,InsertLeave * set cul!
+
+" Auto expand ()
+inoremap (<CR> (<CR>)<C-c>O
+inoremap {<CR> {<CR>}<C-c>O
+inoremap [<CR> [<CR>]<C-c>O
 
 " Sets shell
 set shell=/bin/bash
@@ -154,11 +161,10 @@ set diffopt+=vertical
 let g:ag_working_path_mode = 'r'
 
 " Bind C-p to fzf
-nnoremap <silent> <C-p> :GFiles<CR>
+nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
 nnoremap <silent> <leader>ft :Tags<CR>
-let $FZF_DEFAULT_COMMAND = 'rg -g ""'
 
 " Shortcut to change buffer
 nnoremap <S-Left> :bprevious<CR>
@@ -212,7 +218,10 @@ endif
 let g:gfm_syntax_emoji_conceal = 1
 
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/'
+
+" let g:neosnippet#scope_aliases = {}
+" let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
 
 """""""""""""""""""
 " DEOPLETE
@@ -229,8 +238,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """"""""""""""
 " SUPERTAB
-autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
@@ -340,6 +348,7 @@ Plug 'easymotion/vim-easymotion'
 
 " Insert brackets automatically
 "Plug 'jiangmiao/auto-pairs'
+Plug 'vimwiki/vimwiki'
 
 Plug 'elzr/vim-json'
 
