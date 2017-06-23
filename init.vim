@@ -24,6 +24,14 @@ set hidden
 
 "imap jk <Esc>
 
+" <CR>: close popup and save indent.
+" Otherwise, pressing enter with an exact match with Deoplete does not break
+" line
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return deoplete#mappings#smart_close_popup() . "\<CR>"
+endfunction
+
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
 nmap $ g_
@@ -239,6 +247,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """"""""""""""
 " SUPERTAB
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"let g:SuperTabDefaultCompletionType = "<c-n>"
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
@@ -339,7 +348,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'burnettk/vim-angular'
 Plug 'matthewsimo/angular-vim-snippets'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 
 " Node
 Plug 'moll/vim-node'
