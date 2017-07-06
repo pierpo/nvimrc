@@ -278,10 +278,6 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plug 'tmhedberg/SimpylFold' " code folding in python
-Plug 'zchee/deoplete-jedi' "completion python
-Plug 'pbogut/deoplete-padawan' "completion php
-
 " Snippets
 Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
@@ -308,7 +304,6 @@ Plug 'othree/yajs.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'lumiliet/vim-twig'
 Plug 'neomake/neomake'
 
 Plug 'vim-ruby/vim-ruby'
@@ -325,11 +320,8 @@ Plug 'docteurklein/vim-symfony'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
-Plug 'mattn/emmet-vim'
-
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
-
 Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
 
 Plug 'majutsushi/tagbar'
@@ -346,12 +338,6 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'groenewege/vim-less'
 
 Plug 'pangloss/vim-javascript'
-
-"" Angular
-"Plug 'othree/javascript-libraries-syntax.vim'
-"Plug 'burnettk/vim-angular'
-"Plug 'matthewsimo/angular-vim-snippets'
-"Plug 'ervandew/supertab'
 
 " Node
 Plug 'moll/vim-node'
