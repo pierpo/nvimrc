@@ -200,7 +200,8 @@ autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 """""""""""""""""""""""""
-let g:used_javascript_libs = 'angularjs'
+"let g:used_javascript_libs = 'angularjs'
+let g:jsx_ext_required = 0
 
 """"""""""""""""""""""""
 " Vim Airline
@@ -236,6 +237,7 @@ let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/'
 let g:deoplete#enable_at_startup = 1
 
 let g:deoplete#auto_complete_delay=150
+let g:deoplete#file#enable_buffer_path = 1
 
 " Deactivate preview window
 set completeopt-=preview
@@ -343,11 +345,12 @@ Plug 'hail2u/vim-css3-syntax'
 " LESS highlighting
 Plug 'groenewege/vim-less'
 
-"" Angular
 Plug 'pangloss/vim-javascript'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'burnettk/vim-angular'
-Plug 'matthewsimo/angular-vim-snippets'
+
+"" Angular
+"Plug 'othree/javascript-libraries-syntax.vim'
+"Plug 'burnettk/vim-angular'
+"Plug 'matthewsimo/angular-vim-snippets'
 "Plug 'ervandew/supertab'
 
 " Node
@@ -367,7 +370,7 @@ Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 
 " Many languages support
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 
 " Vim lion, similar to tabularize but quicker shortcuts
 Plug 'tommcdo/vim-lion'
@@ -382,6 +385,14 @@ Plug 'flazz/vim-colorschemes'
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
 
+" React
+Plug 'mxw/vim-jsx'
+
+Plug 'jaawerth/neomake-local-eslint-first'
+
+" PostCSS syntax
+Plug 'alexlafroscia/postcss-syntax.vim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -392,7 +403,9 @@ filetype plugin indent on    " required
 "junegunn/vim-easy-align
 
 "colorscheme OceanicNext
-colorscheme base16-ashes
+"let g:airline_theme='oceanicnext'
 
 set background=dark
+
 let g:airline_theme='base16_ashes'
+colorscheme base16-ashes
