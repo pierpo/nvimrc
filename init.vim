@@ -170,6 +170,7 @@ let g:ag_working_path_mode = 'r'
 
 " Bind C-p to fzf
 nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <leader>pp :GFiles<CR>
 nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
 nnoremap <silent> <leader>ft :Tags<CR>
@@ -183,6 +184,7 @@ nnoremap <S-Right> :bnext<CR>
 "
 autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_css_enabled_makers = ['stylelint']
 """"""""""""""""""""""""
 
 """"""""""""""""""""""""
@@ -216,8 +218,12 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap <C-j>     <Plug>(neosnippet_jump)
+
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+autocmd BufRead,BufNewFile   *.snip set noexpandtab
 
 " For conceal markers.
 if has('conceal')
