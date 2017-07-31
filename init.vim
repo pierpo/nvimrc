@@ -51,6 +51,15 @@ autocmd InsertEnter,InsertLeave * set cul!
 inoremap (<CR> (<CR>)<C-c>O
 inoremap {<CR> {<CR>}<C-c>O
 inoremap [<CR> [<CR>]<C-c>O
+inoremap ({<CR> ({<CR>})<C-c>O
+
+" Escape in terminal mode
+tnoremap <Esc> <C-\><C-n>
+
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
 
 " Sets shell
 set shell=/bin/bash
@@ -162,6 +171,9 @@ nnoremap <silent>  :nohl<CR>
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
 
+" Copy filename to system clipboard
+nnoremap <Leader>cfn :let @+=@%<CR>
+
 " Vertical split for diffs
 set diffopt+=vertical
 
@@ -223,7 +235,7 @@ imap <C-j>     <Plug>(neosnippet_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-autocmd BufRead,BufNewFile   *.snip set noexpandtab
+" autocmd BufRead,BufNewFile   *.snip set noexpandtab
 
 " For conceal markers.
 if has('conceal')
@@ -384,6 +396,9 @@ Plug 'jaawerth/neomake-local-eslint-first'
 
 " PostCSS syntax
 Plug 'alexlafroscia/postcss-syntax.vim'
+
+" Apprentice colorscheme
+Plug 'romainl/Apprentice'
 
 " All of your Plugins must be added before the following line
 call plug#end()
