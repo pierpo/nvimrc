@@ -191,6 +191,11 @@ nnoremap <silent> <leader>ft :Tags<CR>
 nnoremap <S-Left> :bprevious<CR>
 nnoremap <S-Right> :bnext<CR>
 
+
+""""""""""""""""""""""""""
+" GUTENTAGS
+let g:gutentags_ctags_exclude = ['coverage', 'node_modules']
+
 """""""""""""""""""""""""""
 " NEOMAKE FOR SYNTAX CHECKING
 "
@@ -212,6 +217,19 @@ autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
 " Coffee specifics
 "
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+"""""""""""""""""""""""""
+" VIMUX
+" https://blog.bugsnag.com/tmux-and-vim/
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Zoom the tmux runner pane
+map <Leader>vz :VimuxZoomRunner<CR>
 
 """""""""""""""""""""""""
 "let g:used_javascript_libs = 'angularjs'
@@ -272,8 +290,8 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
 "map <Leader>nt :NERDTreeToggle<CR>
-map <Leader>nt :NERDTreeMirrorToggle<CR>
-map <Leader>nf :NERDTreeFind<CR>
+" map <Leader>nt :NERDTreeMirrorToggle<CR>
+" map <Leader>nf :NERDTreeFind<CR>
 
 " Add folder icons in NERD tree
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -294,7 +312,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/deoplete.nvim'
 
 Plug 'vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Snippets
 Plug 'honza/vim-snippets'
@@ -309,8 +327,7 @@ Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'triglav/vim-visual-increment' "increment list of number
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
-Plug 'scrooloose/nerdtree' "NERDTree
-Plug 'jistr/vim-nerdtree-tabs' "pour que NERDTree persiste d'un tab a l'autre
+" Plug 'scrooloose/nerdtree' "NERDTree
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
@@ -344,7 +361,7 @@ Plug 'tpope/vim-surround' " surround, to add surrounding characters around selec
 
 Plug 'majutsushi/tagbar'
 
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Local vimrc
 Plug 'embear/vim-localvimrc'
@@ -400,6 +417,13 @@ Plug 'alexlafroscia/postcss-syntax.vim'
 " Apprentice colorscheme
 Plug 'romainl/Apprentice'
 
+" Gruvbox colorscheme
+Plug 'morhetz/gruvbox'
+
+Plug 'benmills/vimux'
+
+Plug 'ludovicchabant/vim-gutentags'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -416,3 +440,6 @@ set background=dark
 
 let g:airline_theme='base16_ashes'
 colorscheme base16-ashes
+
+" let g:airline_theme='apprentice'
+" colorscheme apprentice
