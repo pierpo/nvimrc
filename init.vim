@@ -9,7 +9,7 @@ syntax sync minlines=256
 "
 
 " Rg vim grep
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
@@ -71,7 +71,7 @@ set lazyredraw
 set mouse=a
 
 " Numbers the lines
-set nu
+set number
 
 set smartindent   " smart code indentation
 set smarttab      " smart tabs
@@ -112,13 +112,13 @@ map q: <Nop>
 nnoremap Q <nop>
 
 " Necessary for colors
-if (has("termguicolors"))
+if (has('termguicolors'))
     set termguicolors
 endif
 
 " Color column 80
 if (exists('+colorcolumn'))
-    set colorcolumn=80
+    set colorcolumn=100
     highlight ColorColumn ctermbg=9
 endif
 
@@ -148,13 +148,15 @@ nmap ç :cp<CR>
 nmap à :cn<CR>
 
 " Remap square brackets for azerty mac keyboard
-nnoremap § [
-nnoremap è ]
-nnoremap ° ,
+map § [
+map è ]
+nnoremap gè g]
 
 " Keep selection after re-indenting
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
 
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
@@ -311,7 +313,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'Shougo/deoplete.nvim'
 
-Plug 'vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Snippets
@@ -423,6 +425,9 @@ Plug 'morhetz/gruvbox'
 Plug 'benmills/vimux'
 
 Plug 'ludovicchabant/vim-gutentags'
+
+" Split lines (like js objects)
+Plug 'AndrewRadev/splitjoin.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
