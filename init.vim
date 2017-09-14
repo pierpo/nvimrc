@@ -1,12 +1,19 @@
+"""""""""""""""""""""""
+" Initialization
+"
+scriptencoding utf-8
+augroup vimrc
+  autocmd!
+augroup END
+
+"""""""""""""""""""""""
+" GENERAL SETTINGS
+"
 set scrolljump=5
 set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
-
-"""""""""""""""""""""""
-" GENERAL SETTINGS
-"
 
 " Rg vim grep
 " command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
@@ -102,7 +109,7 @@ set inccommand=nosplit
 set linebreak
 
 " Tabulations for Makefile
-autocmd FileType make setlocal noexpandtab
+autocmd vimrc FileType make setlocal noexpandtab
 
 " No json quote conceal
 let g:vim_json_syntax_conceal = 0
@@ -142,7 +149,7 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Leader key setting
-let mapleader = ","
+let g:mapleader = ","
 
 nmap ç :cp<CR>
 nmap à :cn<CR>
@@ -201,7 +208,7 @@ let g:gutentags_ctags_exclude = ['coverage', 'node_modules']
 """""""""""""""""""""""""""
 " NEOMAKE FOR SYNTAX CHECKING
 "
-autocmd! BufWritePost * Neomake
+autocmd! vimrc BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_css_enabled_makers = ['stylelint']
 """"""""""""""""""""""""
@@ -303,10 +310,6 @@ let g:DevIconsEnableFoldersOpenClose = 1
 " VIM NOTES
 let g:notes_directories = ['~/Notes']
 vmap <Leader>ns :NoteFromSelectedText<CR>
-
-" ##################### VUNDLE
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 call plug#begin('~/.config/nvim/plugged')
