@@ -15,6 +15,9 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+" Netrw NERDTree style
+let g:netrw_liststyle = 3
+
 " Rg vim grep
 " command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
@@ -28,6 +31,8 @@ filetype indent on
 
 " Allows to change buffer without saving it
 set hidden
+
+set undofile
 
 "imap jk <Esc>
 
@@ -431,6 +436,9 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
+
+" More recent netrw
+Plug 'eiginn/netrw'
 
 " All of your Plugins must be added before the following line
 call plug#end()
