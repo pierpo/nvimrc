@@ -15,11 +15,14 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+" Search for currently selected text using //
+vnoremap // y/\V<C-R>"<CR>
+
 " Netrw NERDTree style
 let g:netrw_liststyle = 3
 
-" Rg vim grep
-" command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" Create file with ,gf if it does not exist
+map <leader>gf :e <cfile><cr>
 
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
@@ -66,7 +69,7 @@ inoremap [<CR> [<CR>]<C-c>O
 inoremap ({<CR> ({<CR>})<C-c>O
 
 " Escape in terminal mode
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
 
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -169,6 +172,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
+nnoremap <Leader>agnt :Ag "<C-R><C-W>" --ignore "*test*"<CR>
+nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
 
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
@@ -193,13 +198,21 @@ set diffopt+=vertical
 
 " Makes Ag search in project directory and not current directory
 let g:ag_working_path_mode = 'r'
+let g:rg_derive_root = 1
 
 " Bind C-p to fzf
-nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>pp :GFiles<CR>
 nnoremap <silent> <leader>fb :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
 nnoremap <silent> <leader>ft :Tags<CR>
+
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+nnoremap <silent> <C-p> :ProjectFiles<CR>
 
 " Shortcut to change buffer
 nnoremap <S-Left> :bprevious<CR>
@@ -303,7 +316,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """"""""""""""""""""""""
 " NERDTREE SETTINGS
-"map <Leader>nt :NERDTreeToggle<CR>
+" map <Leader>nt :NERDTreeToggle<CR>
 " map <Leader>nt :NERDTreeMirrorToggle<CR>
 " map <Leader>nf :NERDTreeFind<CR>
 
@@ -440,6 +453,11 @@ Plug 'AndrewRadev/splitjoin.vim'
 " More recent netrw
 Plug 'eiginn/netrw'
 
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+
+"Colorscheme
+Plug 'fcpg/vim-farout'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -459,3 +477,17 @@ colorscheme base16-ashes
 
 " let g:airline_theme='apprentice'
 " colorscheme apprentice
+
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ 'javascript': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
+    \ 'javascript.jsx': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
+    \ }
+
+let g:LanguageClient_diagnosticsEnable = 0
+
+nnoremap <Leader>lsp :LanguageClientStart<CR>
+nnoremap <Leader>gd  :call LanguageClient_textDocument_definition()<CR>
+nnoremap <Leader>rn  :call LanguageClient_textDocument_rename()<CR>
