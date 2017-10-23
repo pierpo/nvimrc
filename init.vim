@@ -15,14 +15,20 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+" Refresh syntax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+
 " Search for currently selected text using //
 vnoremap // y/\V<C-R>"<CR>
 
 " Netrw NERDTree style
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 
 " Create file with ,gf if it does not exist
 map <leader>gf :e <cfile><cr>
+
+" Repeat command in other tmux pane
+nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
 
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
@@ -123,7 +129,7 @@ autocmd vimrc FileType make setlocal noexpandtab
 let g:vim_json_syntax_conceal = 0
 "
 " Deactivate ex mode
-map q: <Nop>
+" map q: <Nop>
 nnoremap Q <nop>
 
 " Necessary for colors
@@ -200,6 +206,8 @@ set diffopt+=vertical
 let g:ag_working_path_mode = 'r'
 let g:rg_derive_root = 1
 
+let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+
 " Bind C-p to fzf
 " nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>pp :GFiles<CR>
@@ -267,7 +275,7 @@ let g:jsx_ext_required = 0
 let g:airline_powerline_fonts = 1
 
 " Display buffer name
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
@@ -458,6 +466,22 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 "Colorscheme
 Plug 'fcpg/vim-farout'
 
+" Better CTRL-X/CTRL-A
+Plug 'tpope/vim-speeddating'
+
+Plug 'tpope/vim-vinegar'
+
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+
+" :Gbrowse
+Plug 'tpope/vim-rhubarb'
+
+Plug 'leafgarland/typescript-vim'
+
+" Theme
+Plug 'joshdick/onedark.vim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -472,8 +496,10 @@ filetype plugin indent on    " required
 
 set background=dark
 
-let g:airline_theme='base16_ashes'
-colorscheme base16-ashes
+" let g:airline_theme='base16_ashes'
+" colorscheme base16-ashes
+let g:airline_theme='onedark'
+colorscheme onedark
 
 " let g:airline_theme='apprentice'
 " colorscheme apprentice
@@ -491,3 +517,4 @@ let g:LanguageClient_diagnosticsEnable = 0
 nnoremap <Leader>lsp :LanguageClientStart<CR>
 nnoremap <Leader>gd  :call LanguageClient_textDocument_definition()<CR>
 nnoremap <Leader>rn  :call LanguageClient_textDocument_rename()<CR>
+
