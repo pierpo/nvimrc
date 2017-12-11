@@ -24,12 +24,26 @@ vnoremap // y/\V<C-R>"<CR>
 " Netrw NERDTree style
 " let g:netrw_liststyle = 3
 
+" Fix html indent
+let g:html_indent_script1 = 'inc'
+let g:html_indent_style1  = 'inc'
+let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section'
+
 " Create file with ,gf if it does not exist
-map <leader>gf :e <cfile><cr>
+map <Leader>gf :e <cfile><cr>
 
-" Repeat command in other tmux pane
-nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
+map <Leader>ex :Explore<cr>
 
+" " Repeat command in other tmux pane
+" nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
+
+" Use Rg with :grep
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+set nospell
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
 
@@ -177,9 +191,15 @@ nnoremap gè g]
 vnoremap < <gv
 vnoremap > >gv
 
-nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
-nnoremap <Leader>agnt :Ag "<C-R><C-W>" --ignore "*test*"<CR>
+map <Leader>ta :!tmux send-keys -t 0.1 C-c C-m C-p C-m<CR><CR>
+map <Leader>tb :!tmux send-keys -t 0.2 C-c C-m C-p C-m<CR><CR>
+map <Leader>tc :!tmux send-keys -t 0.3 C-c C-m C-p C-m<CR><CR>
+map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
+
+" nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
+" nnoremap <Leader>agnt :Ag "<C-R><C-W>" --ignore "*test*"<CR>
 nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
+nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
@@ -197,13 +217,14 @@ nnoremap <silent>  :nohl<CR>
 nnoremap <Leader>ub :bufdo e!<CR>
 
 " Copy filename to system clipboard
-nnoremap <Leader>cfn :let @+=@%<CR>
+nnoremap <Leader>cfn :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
+nnoremap <Leader>cfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+="`" . @% . "`"<CR>:set autochdir<CR>
 
 " Vertical split for diffs
 set diffopt+=vertical
 
 " Makes Ag search in project directory and not current directory
-let g:ag_working_path_mode = 'r'
+" let g:ag_working_path_mode = 'r'
 let g:rg_derive_root = 1
 
 let $FZF_DEFAULT_COMMAND= 'ag -g ""'
@@ -269,13 +290,6 @@ map <Leader>vz :VimuxZoomRunner<CR>
 """""""""""""""""""""""""
 "let g:used_javascript_libs = 'angularjs'
 let g:jsx_ext_required = 0
-
-""""""""""""""""""""""""
-" Vim Airline
-let g:airline_powerline_fonts = 1
-
-" Display buffer name
-" let g:airline#extensions#tabline#enabled = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
@@ -386,7 +400,7 @@ Plug 'docteurklein/vim-symfony'
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
-Plug 'rking/ag.vim'
+" Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
 
@@ -461,8 +475,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 " More recent netrw
 Plug 'eiginn/netrw'
 
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-
 "Colorscheme
 Plug 'fcpg/vim-farout'
 
@@ -481,6 +493,14 @@ Plug 'leafgarland/typescript-vim'
 
 " Theme
 Plug 'joshdick/onedark.vim'
+
+Plug 'kana/vim-textobj-user'
+Plug 'Julian/vim-textobj-variable-segment'
+
+" Useful to use the :ProjectRootCD function :)
+Plug 'dbakker/vim-projectroot'
+
+Plug 'metalelf0/base16-black-metal-scheme'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -505,16 +525,28 @@ colorscheme onedark
 " colorscheme apprentice
 
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'python': ['pyls'],
-    \ 'javascript': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
-    \ 'javascript.jsx': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
-    \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+"     \ 'python': ['pyls'],
+"     \ 'javascript': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
+"     \ 'javascript.jsx': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
+"     \ }
 
-let g:LanguageClient_diagnosticsEnable = 0
+" let g:LanguageClient_diagnosticsEnable = 0
 
-nnoremap <Leader>lsp :LanguageClientStart<CR>
-nnoremap <Leader>gd  :call LanguageClient_textDocument_definition()<CR>
-nnoremap <Leader>rn  :call LanguageClient_textDocument_rename()<CR>
+" nnoremap <Leader>lsp :LanguageClientStart<CR>
+" nnoremap <Leader>gd  :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <Leader>rn  :call LanguageClient_textDocument_rename()<CR>
+
+
+set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
+
+""""""""""""""""""""""""
+" Vim Airline
+let g:airline_powerline_fonts = 1
+let g:airline_section_b = ''
+let g:airline_section_x = ''
+let g:airline_section_y = ''
+let airline_section_z = '%3p%% %3l/%L:%3v'
+let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 
