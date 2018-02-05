@@ -22,17 +22,13 @@ noremap <F12> <Esc>:syntax sync fromstart<CR>
 vnoremap // y/\V<C-R>"<CR>
 
 " Netrw NERDTree style
-" let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 1
+autocmd FileType netrw setl bufhidden=delete
 
 " Fix html indent
 let g:html_indent_script1 = 'inc'
 let g:html_indent_style1  = 'inc'
 let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section'
-
-" Create file with ,gf if it does not exist
-map <Leader>gf :e <cfile><cr>
-
-map <Leader>ex :Explore<cr>
 
 " " Repeat command in other tmux pane
 " nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
@@ -66,6 +62,9 @@ inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return deoplete#mappings#smart_close_popup() . "\<CR>"
 endfunction
+
+" Switch
+let g:switch_mapping = "gs"
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
@@ -199,6 +198,7 @@ map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 " nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
 " nnoremap <Leader>agnt :Ag "<C-R><C-W>" --ignore "*test*"<CR>
 nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
+nnoremap <Leader>rm "pyiW:Rg "<C-R>p([$\(]\\|\s\w)" -g "!*.integration.*" -g "!*.unit.*" -g "!*.test.*"<CR>``
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Map ,m to :make
@@ -206,6 +206,11 @@ nnoremap <Leader>mm :make<CR>
 
 " Map ,gdd to disable buggy gitgutter
 nnoremap <Leader>gdd :GitGutterDisable<CR>
+"
+" Create file with ,gf if it does not exist
+map <Leader>gf :e <cfile><cr>
+
+map <Leader>ex :Explore<cr>
 
 " Unfold/fold
 nnoremap <Space> za
@@ -502,6 +507,9 @@ Plug 'dbakker/vim-projectroot'
 
 Plug 'metalelf0/base16-black-metal-scheme'
 
+" Switch true to false
+Plug 'AndrewRadev/switch.vim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -547,6 +555,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_b = ''
 let g:airline_section_x = ''
 let g:airline_section_y = ''
-let airline_section_z = '%3p%% %3l/%L:%3v'
+" let g:airline_section_z = '%3p%% %3l/%L:%2v'
+let g:airline_section_z = '%3l/%L:%2v'
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 
+nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
+nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
