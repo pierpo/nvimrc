@@ -15,14 +15,15 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+" Exit insort mode with jk
+inoremap jk <Esc>
+
 " Refresh syntax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 
 " Search for currently selected text using //
 vnoremap // y/\V<C-R>"<CR>
 
-" Netrw NERDTree style
-" let g:netrw_liststyle = 1
 autocmd FileType netrw setl bufhidden=delete
 
 " Fix html indent
@@ -34,7 +35,7 @@ let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,b
 " nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
 
 " Use Rg with :grep
-if executable("rg")
+if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
@@ -58,13 +59,14 @@ set undofile
 " <CR>: close popup and save indent.
 " Otherwise, pressing enter with an exact match with Deoplete does not break
 " line
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return deoplete#mappings#smart_close_popup() . "\<CR>"
-endfunction
+
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return deoplete#mappings#smart_close_popup() . "\<CR>"
+" endfunction
 
 " Switch
-let g:switch_mapping = "gs"
+let g:switch_mapping = 'gs'
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
@@ -159,15 +161,12 @@ endif
 " Theme
 syntax enable
 
-
-"""
-" Filetype syntax
-au BufRead,BufNewFile *.shimple setfiletype java
-au BufRead,BufNewFile *.shimple_test setfiletype java
-au BufRead,BufNewFile *.z3 setfiletype lisp
-
 """"""""""""""""""""""""
 " SHORTCUTS
+
+function Conflicts()
+  :cexpr system('git lconflicts') | copen
+endfunction
 
 " Move panes using C-hjkl
 noremap <C-h> <C-w>h
@@ -176,7 +175,7 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Leader key setting
-let g:mapleader = ","
+let g:mapleader = ','
 
 nmap ç :cp<CR>
 nmap à :cn<CR>
@@ -232,7 +231,7 @@ set diffopt+=vertical
 " let g:ag_working_path_mode = 'r'
 let g:rg_derive_root = 1
 
-let $FZF_DEFAULT_COMMAND= 'ag -g ""'
+let $FZF_DEFAULT_COMMAND= 'ag --hidden -g ""'
 
 " Bind C-p to fzf
 " nnoremap <silent> <C-p> :Files<CR>
@@ -252,6 +251,13 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 nnoremap <S-Left> :bprevious<CR>
 nnoremap <S-Right> :bnext<CR>
 
+"""""""""""""""""""""""""""
+" PRETTIER
+
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#trailing_comma = 'all'
+
+nnoremap <Leader>p :Prettier<CR>
 
 """"""""""""""""""""""""""
 " GUTENTAGS
@@ -261,7 +267,7 @@ let g:gutentags_ctags_exclude = ['coverage', 'node_modules']
 " NEOMAKE FOR SYNTAX CHECKING
 "
 autocmd! vimrc BufWritePost * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
 let g:neomake_css_enabled_makers = ['stylelint']
 """"""""""""""""""""""""
 
@@ -307,6 +313,8 @@ imap <C-j>     <Plug>(neosnippet_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
+
 " autocmd BufRead,BufNewFile   *.snip set noexpandtab
 
 " For conceal markers.
@@ -335,6 +343,9 @@ set completeopt-=preview
 " close preview window automatically
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 """""""""""""""""""
+
+" enable tyepscript plugin for javascript
+let g:nvim_typescript#javascript_support = 1
 
 """"""""""""""
 " SUPERTAB
@@ -494,7 +505,7 @@ Plug 'tpope/vim-repeat'
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
-Plug 'leafgarland/typescript-vim'
+" Plug 'leafgarland/typescript-vim'
 
 " Theme
 Plug 'joshdick/onedark.vim'
@@ -507,13 +518,35 @@ Plug 'dbakker/vim-projectroot'
 
 Plug 'metalelf0/base16-black-metal-scheme'
 
+" Plug 'mhartington/nvim-typescript'
+
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
+
+" Delete enclosing if, tag...
+Plug 'AndrewRadev/deleft.vim'
+
+" Cycle arguments/properties
+Plug 'AndrewRadev/sideways.vim'
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+
+" Plug 'flowtype/vim-flow'
 
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
 
+
+" Sideways mappings
+nnoremap <Leader>gh :SidewaysLeft<cr>
+nnoremap <Leader>gl :SidewaysRight<cr>
+omap aa <Plug>SidewaysArgumentTextobjA
+xmap aa <Plug>SidewaysArgumentTextobjA
+omap ia <Plug>SidewaysArgumentTextobjI
+xmap ia <Plug>SidewaysArgumentTextobjI
 
 "TODO
 "try this
@@ -526,8 +559,12 @@ set background=dark
 
 " let g:airline_theme='base16_ashes'
 " colorscheme base16-ashes
-let g:airline_theme='onedark'
-colorscheme onedark
+
+" let g:airline_theme='onedark'
+" colorscheme onedark
+
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
 
 " let g:airline_theme='apprentice'
 " colorscheme apprentice
@@ -561,3 +598,11 @@ let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
 nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
+
+" /usr/local/bin/python
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
+
+" FLOW
+let g:flow#autoclose = 1
+let g:flow#enable = 0
