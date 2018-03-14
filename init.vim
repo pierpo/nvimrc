@@ -15,8 +15,54 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
-" Exit insort mode with jk
-inoremap jk <Esc>
+" Sets shell
+set shell=/bin/bash
+
+" Makes scrolling quicker
+set lazyredraw
+
+" Activates mouse
+set mouse=a
+
+" Numbers the lines
+set number
+
+set smartindent   " smart code indentation
+set smarttab      " smart tabs
+
+set backspace=2
+
+" Disable spell checking
+set nospell
+
+" Search parameters
+set ignorecase
+set hlsearch
+set incsearch
+
+" Shows matching parenthesis
+set showmatch
+
+" Indentation methods
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set shiftround
+set expandtab
+
+set laststatus=2
+
+" Shows result of substitute commands live
+set inccommand=nosplit
+
+" Don't split words when breaking lines
+set linebreak
+
+" Fix orphan buffers of netrw
+autocmd FileType netrw setl bufhidden=delete
+
+" Tabulations for Makefile
+autocmd vimrc FileType make setlocal noexpandtab
 
 " Refresh syntax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
@@ -24,7 +70,6 @@ noremap <F12> <Esc>:syntax sync fromstart<CR>
 " Search for currently selected text using //
 vnoremap // y/\V<C-R>"<CR>
 
-autocmd FileType netrw setl bufhidden=delete
 
 " Fix html indent
 let g:html_indent_script1 = 'inc'
@@ -40,7 +85,6 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-set nospell
 " Enable spellcheck for markdown files
 autocmd Filetype markdown set spell spelllang=en_us
 
@@ -52,21 +96,8 @@ filetype indent on
 " Allows to change buffer without saving it
 set hidden
 
+" Keep track of undos of previous sessions
 set undofile
-
-"imap jk <Esc>
-
-" <CR>: close popup and save indent.
-" Otherwise, pressing enter with an exact match with Deoplete does not break
-" line
-
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-"   return deoplete#mappings#smart_close_popup() . "\<CR>"
-" endfunction
-
-" Switch
-let g:switch_mapping = 'gs'
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
@@ -96,49 +127,6 @@ tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-l> <C-\><C-N><C-w>l
-
-" Sets shell
-set shell=/bin/bash
-
-" Makes scrolling quicker
-set lazyredraw
-
-" Activates mouse
-set mouse=a
-
-" Numbers the lines
-set number
-
-set smartindent   " smart code indentation
-set smarttab      " smart tabs
-
-set backspace=2
-
-" Search parameters
-set ignorecase
-set hlsearch
-set incsearch
-
-" Shows matching parenthesis
-set showmatch
-
-" Indentation methods
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set shiftround
-set expandtab
-
-set laststatus=2
-
-" Shows result of substitute commands live
-set inccommand=nosplit
-
-" Don't split words when breaking lines
-set linebreak
-
-" Tabulations for Makefile
-autocmd vimrc FileType make setlocal noexpandtab
 
 " No json quote conceal
 let g:vim_json_syntax_conceal = 0
@@ -606,3 +594,6 @@ let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
 " FLOW
 let g:flow#autoclose = 1
 let g:flow#enable = 0
+
+" Switch
+let g:switch_mapping = 'gs'
