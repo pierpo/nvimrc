@@ -15,6 +15,11 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 
+filetype on       " enable file type detection
+filetype plugin on
+filetype indent on
+syntax on         " syntax highlighting
+
 " Sets shell
 set shell=/bin/bash
 
@@ -58,11 +63,43 @@ set inccommand=nosplit
 " Don't split words when breaking lines
 set linebreak
 
+" Necessary for colors
+if (has('termguicolors'))
+    set termguicolors
+endif
+
+" Color column 80
+if (exists('+colorcolumn'))
+    set colorcolumn=100
+    highlight ColorColumn ctermbg=9
+endif
+
+" Theme
+syntax enable
+
+" Vertical split for diffs
+set diffopt+=vertical
+
+" Allows to change buffer without saving it
+set hidden
+
+" Keep track of undos of previous sessions
+set undofile
+
+" Sets the current directory to the directory of the current file we are
+" working on
+" Useful to autocomplete relative paths
+set autochdir
+
 " Fix orphan buffers of netrw
-autocmd FileType netrw setl bufhidden=delete
+augroup fixnetrw
+  autocmd FileType netrw setl bufhidden=delete
+augroup END
 
 " Tabulations for Makefile
-autocmd vimrc FileType make setlocal noexpandtab
+augroup noexpandtabmakefile
+  autocmd vimrc FileType make setlocal noexpandtab
+augroup END
 
 " Refresh syntax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
@@ -70,34 +107,22 @@ noremap <F12> <Esc>:syntax sync fromstart<CR>
 " Search for currently selected text using //
 vnoremap // y/\V<C-R>"<CR>
 
+" Leader key setting
+let g:mapleader = ','
 
 " Fix html indent
 let g:html_indent_script1 = 'inc'
 let g:html_indent_style1  = 'inc'
 let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section'
 
-" " Repeat command in other tmux pane
-" nmap <leader>r :!tmux send-keys -t 0:0.1 C-p C-j <CR><CR>
-
-" Use Rg with :grep
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
 " Enable spellcheck for markdown files
-autocmd Filetype markdown set spell spelllang=en_us
+augroup markdownspell
+  autocmd Filetype markdown set spell spelllang=en_us
+augroup END
 
-filetype on       " enable file type detection
-syntax on         " syntax highlighting
-filetype plugin on
-filetype indent on
-
-" Allows to change buffer without saving it
-set hidden
-
-" Keep track of undos of previous sessions
-set undofile
+" Deactivate ex mode
+" Still available with q:
+nnoremap Q <nop>
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
@@ -106,13 +131,10 @@ nmap $ g_
 " Makes Y copy until the end of the line (but not the whole line)
 nmap Y yg_
 
-" Sets the current directory to the directory of the current file we are
-" working on
-" Useful to autocomplete relative paths
-set autochdir
-
 " Cursor line in insert mode
-autocmd InsertEnter,InsertLeave * set cul!
+augroup cursorlineinsert
+  autocmd InsertEnter,InsertLeave * set cul!
+augroup END
 
 " Auto expand ()
 inoremap (<CR> (<CR>)<C-c>O
@@ -128,26 +150,14 @@ tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-l> <C-\><C-N><C-w>l
 
+" Use Rg with :grep
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 " No json quote conceal
 let g:vim_json_syntax_conceal = 0
-"
-" Deactivate ex mode
-" map q: <Nop>
-nnoremap Q <nop>
-
-" Necessary for colors
-if (has('termguicolors'))
-    set termguicolors
-endif
-
-" Color column 80
-if (exists('+colorcolumn'))
-    set colorcolumn=100
-    highlight ColorColumn ctermbg=9
-endif
-
-" Theme
-syntax enable
 
 """"""""""""""""""""""""
 " SHORTCUTS
@@ -161,9 +171,6 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-
-" Leader key setting
-let g:mapleader = ','
 
 nmap ç :cp<CR>
 nmap à :cn<CR>
@@ -182,8 +189,6 @@ map <Leader>tb :!tmux send-keys -t 0.2 C-c C-m C-p C-m<CR><CR>
 map <Leader>tc :!tmux send-keys -t 0.3 C-c C-m C-p C-m<CR><CR>
 map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 
-" nnoremap <Leader>ag :Ag "<C-R><C-W>"<CR>
-" nnoremap <Leader>agnt :Ag "<C-R><C-W>" --ignore "*test*"<CR>
 nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
 nnoremap <Leader>rm "pyiW:Rg "<C-R>p([$\(]\\|\s\w)" -g "!*.integration.*" -g "!*.unit.*" -g "!*.test.*"<CR>``
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
@@ -193,17 +198,17 @@ nnoremap <Leader>mm :make<CR>
 
 " Map ,gdd to disable buggy gitgutter
 nnoremap <Leader>gdd :GitGutterDisable<CR>
-"
+
 " Create file with ,gf if it does not exist
 map <Leader>gf :e <cfile><cr>
-
-map <Leader>ex :Explore<cr>
 
 " Unfold/fold
 nnoremap <Space> za
 
 " <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
 nnoremap <silent>  :nohl<CR>
+" <Ctrl--> (qwerty)
+nnoremap <silent>  :nohl<CR>
 
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
@@ -211,9 +216,7 @@ nnoremap <Leader>ub :bufdo e!<CR>
 " Copy filename to system clipboard
 nnoremap <Leader>cfn :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
 nnoremap <Leader>cfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+="`" . @% . "`"<CR>:set autochdir<CR>
-
-" Vertical split for diffs
-set diffopt+=vertical
+nnoremap <Leader>ccfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
 
 " Makes Ag search in project directory and not current directory
 " let g:ag_working_path_mode = 'r'
@@ -235,10 +238,6 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
 
-" Shortcut to change buffer
-nnoremap <S-Left> :bprevious<CR>
-nnoremap <S-Right> :bnext<CR>
-
 """""""""""""""""""""""""""
 " PRETTIER
 
@@ -249,13 +248,16 @@ nnoremap <Leader>p :Prettier<CR>
 
 """"""""""""""""""""""""""
 " GUTENTAGS
-let g:gutentags_ctags_exclude = ['coverage', 'node_modules']
+let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
 
 """""""""""""""""""""""""""
 " NEOMAKE FOR SYNTAX CHECKING
 "
-autocmd! vimrc BufWritePost * Neomake
+augroup neomakesyntax
+  autocmd! vimrc BufWritePost * Neomake
+augroup END
 let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+" let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_css_enabled_makers = ['stylelint']
 """"""""""""""""""""""""
 
@@ -263,15 +265,19 @@ let g:neomake_css_enabled_makers = ['stylelint']
 " C SPECIFICS
 "
 " Indentation for C files
-autocmd BufRead,BufNewFile   *.c setlocal sw=8
-autocmd BufRead,BufNewFile   *.h setlocal sw=8
-autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
-autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
+augroup cindentgroup
+  autocmd BufRead,BufNewFile   *.c setlocal sw=8
+  autocmd BufRead,BufNewFile   *.h setlocal sw=8
+  autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
+  autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
+augroup END
 
 """""""""""""""""""""""""
 " Coffee specifics
 "
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+augroup coffeeexpand
+  autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+augroup END
 
 """""""""""""""""""""""""
 " VIMUX
@@ -301,7 +307,9 @@ imap <C-j>     <Plug>(neosnippet_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
+augroup neosnippettab
+  autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
+augroup END
 
 " autocmd BufRead,BufNewFile   *.snip set noexpandtab
 
@@ -325,31 +333,17 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay=150
 let g:deoplete#file#enable_buffer_path = 1
 
+let g:deoplete#_omni_patterns = {'xhtml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'xml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'html': ['<', '</', '<[^>]*\s[[:alnum:]-]*']}
+" let g:deoplete#omni#input_patterns = {}
+" let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
+
 " Deactivate preview window
 set completeopt-=preview
 
 " close preview window automatically
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-"""""""""""""""""""
-
-" enable tyepscript plugin for javascript
-let g:nvim_typescript#javascript_support = 1
-
-""""""""""""""
-" SUPERTAB
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-
-""""""""""""""""""""""""
-" NERDTREE SETTINGS
-" map <Leader>nt :NERDTreeToggle<CR>
-" map <Leader>nt :NERDTreeMirrorToggle<CR>
-" map <Leader>nf :NERDTreeFind<CR>
-
-" Add folder icons in NERD tree
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
+augroup closepreviewwindow
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+augroup END
 """"""""""""""""""""""""
 " VIM NOTES
 let g:notes_directories = ['~/Notes']
@@ -376,17 +370,12 @@ Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'triglav/vim-visual-increment' "increment list of number
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
-" Plug 'scrooloose/nerdtree' "NERDTree
-
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 
 " JS syntax highlight
 Plug 'othree/yajs.vim'
-
-Plug 'ryanoasis/vim-devicons'
 
 Plug 'neomake/neomake'
 
@@ -460,9 +449,6 @@ Plug 'mxw/vim-jsx'
 
 Plug 'jaawerth/neomake-local-eslint-first'
 
-" PostCSS syntax
-Plug 'alexlafroscia/postcss-syntax.vim'
-
 " Apprentice colorscheme
 Plug 'romainl/Apprentice'
 
@@ -493,8 +479,6 @@ Plug 'tpope/vim-repeat'
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
-" Plug 'leafgarland/typescript-vim'
-
 " Theme
 Plug 'joshdick/onedark.vim'
 
@@ -506,7 +490,8 @@ Plug 'dbakker/vim-projectroot'
 
 Plug 'metalelf0/base16-black-metal-scheme'
 
-" Plug 'mhartington/nvim-typescript'
+" Close a buffer without closing the window
+Plug 'rbgrouleff/bclose.vim'
 
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
@@ -522,6 +507,10 @@ Plug 'prettier/vim-prettier', {
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 " Plug 'flowtype/vim-flow'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -552,7 +541,7 @@ set background=dark
 " colorscheme onedark
 
 colorscheme gruvbox
-let g:airline_theme='gruvbox'
+" let g:airline_theme='gruvbox'
 
 " let g:airline_theme='apprentice'
 " colorscheme apprentice
@@ -576,13 +565,16 @@ set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 
 """"""""""""""""""""""""
 " Vim Airline
-let g:airline_powerline_fonts = 1
-let g:airline_section_b = ''
-let g:airline_section_x = ''
-let g:airline_section_y = ''
-" let g:airline_section_z = '%3p%% %3l/%L:%2v'
-let g:airline_section_z = '%3l/%L:%2v'
-let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
+" let g:airline_powerline_fonts = 1
+" let g:airline_section_b = ''
+" let g:airline_section_x = ''
+" let g:airline_section_y = ''
+" " let g:airline_section_z = '%3p%% %3l/%L:%2v'
+" let g:airline_section_z = '%3l/%L:%2v'
+" let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
+let g:lightline = {
+\ 'colorscheme': 'gruvbox',
+\ }
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
 nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
@@ -594,6 +586,35 @@ let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
 " FLOW
 let g:flow#autoclose = 1
 let g:flow#enable = 0
+let g:javascript_plugin_flow = 1
 
 " Switch
 let g:switch_mapping = 'gs'
+
+
+
+
+
+
+let g:LanguageClient_serverCommands = {
+\ 'javascript': ['flow-language-server', '--stdio'],
+\ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ }
+
+" Otherwise overrides the quickfix list used by :grep :'(
+let g:LanguageClient_diagnosticsList = ''
+
+let g:LanguageClient_rootMarkers = {
+\ 'javascript': ['package.json'],
+\ 'javascript.jsx': ['package.json'],
+\ }
+
+
+" (Optionally) automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+let g:LanguageClient_diagnosticsList = 'Location'
+
+nnoremap <silent> <Leader>K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <Leader>gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
