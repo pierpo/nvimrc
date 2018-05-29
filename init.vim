@@ -190,8 +190,10 @@ map <Leader>tc :!tmux send-keys -t 0.3 C-c C-m C-p C-m<CR><CR>
 map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 
 nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
-nnoremap <Leader>rm "pyiW:Rg "<C-R>p([$\(]\\|\s\w)" -g "!*.integration.*" -g "!*.unit.*" -g "!*.test.*"<CR>``
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
+
+" Find JSS Class to check for dead classes
+nnoremap <Leader>fcl /classes.<C-R><C-W><CR>
 
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
@@ -199,8 +201,12 @@ nnoremap <Leader>mm :make<CR>
 " Map ,gdd to disable buggy gitgutter
 nnoremap <Leader>gdd :GitGutterDisable<CR>
 
-" Create file with ,gf if it does not exist
-map <Leader>gf :e <cfile><cr>
+" Fuzzy find path with ,gf (useful when a project uses absolute imports
+" instead of relative)
+map <Leader>gf :call fzf#vim#files('', {'options':'--query '.expand('<cfile>')})<CR>
+
+" Create file with ,gF if it does not exist
+map <Leader>gF :e <cfile><cr>
 
 " Unfold/fold
 nnoremap <Space> za
@@ -596,22 +602,22 @@ let g:switch_mapping = 'gs'
 
 
 
-let g:LanguageClient_serverCommands = {
-\ 'javascript': ['flow-language-server', '--stdio'],
-\ 'javascript.jsx': ['flow-language-server', '--stdio'],
-\ }
+" let g:LanguageClient_serverCommands = {
+" \ 'javascript': ['flow-language-server', '--stdio'],
+" \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+" \ }
 
 " Otherwise overrides the quickfix list used by :grep :'(
 let g:LanguageClient_diagnosticsList = ''
 
-let g:LanguageClient_rootMarkers = {
-\ 'javascript': ['package.json'],
-\ 'javascript.jsx': ['package.json'],
-\ }
+" let g:LanguageClient_rootMarkers = {
+" \ 'javascript': ['package.json'],
+" \ 'javascript.jsx': ['package.json'],
+" \ }
 
 
 " (Optionally) automatically start language servers.
-let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_autoStart = 1
 
 let g:LanguageClient_diagnosticsList = 'Location'
 
