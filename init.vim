@@ -139,6 +139,8 @@ augroup END
 " Auto expand ()
 inoremap (<CR> (<CR>)<C-c>O
 inoremap {<CR> {<CR>}<C-c>O
+inoremap {,<CR> {<CR>},<C-c>O
+inoremap {;<CR> {<CR>};<C-c>O
 inoremap [<CR> [<CR>]<C-c>O
 inoremap ({<CR> ({<CR>})<C-c>O
 
