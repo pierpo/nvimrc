@@ -24,7 +24,7 @@ syntax on         " syntax highlighting
 set shell=/bin/bash
 
 " Makes scrolling quicker
-set lazyredraw
+" set lazyredraw
 
 " Activates mouse
 set mouse=a
@@ -89,7 +89,7 @@ set undofile
 " Sets the current directory to the directory of the current file we are
 " working on
 " Useful to autocomplete relative paths
-set autochdir
+" set autochdir
 
 " Fix orphan buffers of netrw
 augroup fixnetrw
