@@ -316,8 +316,6 @@ augroup neosnippettab
   autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
 augroup END
 
-" autocmd BufRead,BufNewFile   *.snip set noexpandtab
-
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -360,10 +358,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/deoplete.nvim'
 
 Plug 'airblade/vim-gitgutter'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Snippets
-Plug 'honza/vim-snippets'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
@@ -372,7 +368,6 @@ Plug 'othree/html5.vim' "pour html5
 Plug 'othree/html5-syntax.vim'
 
 Plug 'godlygeek/tabular' "align stuff plugin
-Plug 'triglav/vim-visual-increment' "increment list of number
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -386,10 +381,7 @@ Plug 'neomake/neomake'
 
 Plug 'vim-ruby/vim-ruby'
 
-Plug 'kchmck/vim-coffee-script' "coffee script
-Plug 'digitaltoad/vim-pug' "jade and pug
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'moll/vim-node'
 Plug 'tpope/vim-fugitive'
 
 Plug 'alols/vim-love-efm'
@@ -406,25 +398,13 @@ Plug 'majutsushi/tagbar'
 
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-" Local vimrc
-Plug 'embear/vim-localvimrc'
-
 " CSS3 highlighting
 Plug 'hail2u/vim-css3-syntax'
-
-" LESS highlighting
-Plug 'groenewege/vim-less'
 
 Plug 'pangloss/vim-javascript'
 
 " Node
 Plug 'moll/vim-node'
-
-Plug 'easymotion/vim-easymotion'
-
-" Insert brackets automatically
-"Plug 'jiangmiao/auto-pairs'
-Plug 'vimwiki/vimwiki'
 
 Plug 'elzr/vim-json'
 
@@ -433,19 +413,6 @@ Plug 'tpope/vim-commentary'
 " Select by indent
 Plug 'michaeljsmith/vim-indent-object'
 
-" Many languages support
-"Plug 'sheerun/vim-polyglot'
-
-" Vim lion, similar to tabularize but quicker shortcuts
-Plug 'tommcdo/vim-lion'
-
-" Colors
-Plug 'nanotech/jellybeans.vim' "color
-Plug 'tomasr/molokai' "molokai color
-Plug 'mhartington/oceanic-next'
-Plug 'chriskempson/base16-vim'
-Plug 'flazz/vim-colorschemes'
-
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
 
@@ -453,9 +420,6 @@ Plug 'rhysd/vim-gfm-syntax'
 Plug 'mxw/vim-jsx'
 
 Plug 'jaawerth/neomake-local-eslint-first'
-
-" Apprentice colorscheme
-Plug 'romainl/Apprentice'
 
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
@@ -473,27 +437,18 @@ Plug 'eiginn/netrw'
 "Colorscheme
 Plug 'fcpg/vim-farout'
 
-" Better CTRL-X/CTRL-A
-Plug 'tpope/vim-speeddating'
-
 Plug 'tpope/vim-vinegar'
-
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
-" Theme
-Plug 'joshdick/onedark.vim'
-
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
 
 " Useful to use the :ProjectRootCD function :)
 Plug 'dbakker/vim-projectroot'
-
-Plug 'metalelf0/base16-black-metal-scheme'
 
 " Close a buffer without closing the window
 Plug 'rbgrouleff/bclose.vim'
@@ -511,7 +466,6 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
-" Plug 'flowtype/vim-flow'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
