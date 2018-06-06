@@ -210,9 +210,6 @@ map <Leader>gf :call fzf#vim#files('', {'options':'--query '.expand('<cfile>')})
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
 
-" Unfold/fold
-nnoremap <Space> za
-
 " <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
 nnoremap <silent>  :nohl<CR>
 " <Ctrl--> (qwerty)
