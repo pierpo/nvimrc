@@ -604,18 +604,18 @@ let g:switch_mapping = 'gs'
 
 
 
-" let g:LanguageClient_serverCommands = {
-" \ 'javascript': ['flow-language-server', '--stdio'],
-" \ 'javascript.jsx': ['flow-language-server', '--stdio'],
-" \ }
+let g:LanguageClient_serverCommands = {
+\ 'javascript': ['flow-language-server', '--stdio'],
+\ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ }
 
 " Otherwise overrides the quickfix list used by :grep :'(
 let g:LanguageClient_diagnosticsList = ''
 
-" let g:LanguageClient_rootMarkers = {
-" \ 'javascript': ['package.json'],
-" \ 'javascript.jsx': ['package.json'],
-" \ }
+let g:LanguageClient_rootMarkers = {
+\ 'javascript': ['package.json'],
+\ 'javascript.jsx': ['package.json'],
+\ }
 
 
 " (Optionally) automatically start language servers.
