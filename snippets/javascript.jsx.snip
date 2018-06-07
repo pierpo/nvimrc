@@ -43,6 +43,7 @@ options word
 snippet rncompo
 	// @flow
 	import * as React from 'react';
+	import { View } from 'react-native';
 
 	type Props = {};
 
@@ -54,7 +55,7 @@ snippet rncompo
 		}
 	}
 
-	export default ${1};
+	export default $1;
 
 snippet indexcompo
 	// @flow
@@ -64,12 +65,12 @@ snippet indexcompo
 snippet testsnap
 	import * as React from 'react';
 	import ShallowRenderer from 'react-test-renderer/shallow';
-	import ${1:Component} from './${1}';
+	import ${1:Component} from './$1';
 
-	describe('<${1}/>', () => {
+	describe('<$1/>', () => {
 		it('renders correctly', () => {
 			const renderer = new ShallowRenderer();
-			renderer.render(<${1} ${2:props} />);
+			renderer.render(<$1 ${2:props} />);
 			const result = renderer.getRenderOutput();
 			expect(result).toMatchSnapshot();
 		});
