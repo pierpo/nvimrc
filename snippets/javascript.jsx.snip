@@ -75,3 +75,33 @@ snippet testsnap
 			expect(result).toMatchSnapshot();
 		});
 	});
+
+snippet trad
+options word
+	I18n.t('${1}')
+
+snippet ttrad
+options word
+	{I18n.t('${1}')}
+
+snippet rcomment
+	{/* ${1:TARGET} */}
+
+snippet importd
+	import ${1} from '${2}';
+
+snippet flow
+	// @flow
+
+snippet it
+	it('${1}', () => {
+		${2:TARGET}
+	});
+
+snippet describe
+	describe('${1}', () => {
+		${2:TARGET}
+	});
+
+snippet strt
+	\${${1:TARGET}}
