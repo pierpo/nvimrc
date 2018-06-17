@@ -8,16 +8,6 @@ snippet func
     ${3:TARGET}
   }${4}
 
-snippet desc
-  describe('${1:title}', function () {
-    ${2:body}
-  });
-
-snippet it
-  it('should ${1:text}', function() {
-    ${2:body}
-  });${3}
-
 snippet exp
   module.exports = {
     ${1:exports}
@@ -63,6 +53,7 @@ snippet indexcompo
 	export { default } from './${1:Component}';
 
 snippet testsnap
+	// @flow
 	import * as React from 'react';
 	import ShallowRenderer from 'react-test-renderer/shallow';
 	import ${1:Component} from './$1';
@@ -104,4 +95,31 @@ snippet describe
 	});
 
 snippet strt
+options word
 	\${${1:TARGET}}
+
+snippet ali
+options word
+	alignItems: '${1}'
+
+snippet jus
+options word
+	justifyContent: '${1}'
+
+snippet ct
+options word
+	center
+
+snippet c
+	<${1:Component} ${2:Props}/>
+
+snippet p
+options word
+	${1:prop}={${2:value}}
+
+snippet att
+options word
+	${1:attr}="${2:value}"
+
+snippet decprop
+	const { ${1} } = this.props;
