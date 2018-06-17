@@ -232,7 +232,7 @@ let $FZF_DEFAULT_COMMAND= 'ag --hidden -g ""'
 " Bind C-p to fzf
 " nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>pp :GFiles<CR>
-nnoremap <silent> <leader>fb :Buffers<CR>
+nnoremap <silent> <leader>; :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
 nnoremap <silent> <leader>ft :Tags<CR>
 
@@ -324,7 +324,7 @@ endif
 let g:gfm_syntax_emoji_conceal = 1
 
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/'
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
 
 " let g:neosnippet#scope_aliases = {}
 " let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
@@ -337,8 +337,8 @@ let g:deoplete#auto_complete_delay=150
 let g:deoplete#file#enable_buffer_path = 1
 
 let g:deoplete#_omni_patterns = {'xhtml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'xml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'html': ['<', '</', '<[^>]*\s[[:alnum:]-]*']}
-" let g:deoplete#omni#input_patterns = {}
-" let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
 
 " Deactivate preview window
 set completeopt-=preview
@@ -456,9 +456,6 @@ Plug 'rbgrouleff/bclose.vim'
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
 
-" Delete enclosing if, tag...
-Plug 'AndrewRadev/deleft.vim'
-
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
@@ -553,8 +550,15 @@ let g:switch_mapping = 'gs'
 
 
 
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
+" " TYPESCRIPT SERVER
+" let g:LanguageClient_serverCommands = {
+" \ 'javascript': ['javascript-typescript-stdio'],
+" \ 'javascript.jsx': ['javascript-typescript-stdio'],
+" \ }
 
+" FLOW SERVER
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['flow-language-server', '--stdio'],
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
