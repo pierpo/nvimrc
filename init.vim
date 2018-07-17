@@ -341,12 +341,12 @@ let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
 
 " Deactivate preview window
-set completeopt-=preview
+" set completeopt-=preview
 
 " close preview window automatically
-augroup closepreviewwindow
-  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-augroup END
+" augroup closepreviewwindow
+"   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" augroup END
 """"""""""""""""""""""""
 " VIM NOTES
 let g:notes_directories = ['~/Notes']
@@ -459,6 +459,11 @@ Plug 'AndrewRadev/switch.vim'
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
+Plug 'leafgarland/typescript-vim'
+Plug 'fatih/vim-go'
+
+Plug 'tpope/vim-abolish'
+
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
@@ -540,8 +545,6 @@ let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
 
 " FLOW
-let g:flow#autoclose = 1
-let g:flow#enable = 0
 let g:javascript_plugin_flow = 1
 
 " Switch
@@ -554,14 +557,15 @@ nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 " " TYPESCRIPT SERVER
 " let g:LanguageClient_serverCommands = {
-" \ 'javascript': ['javascript-typescript-stdio'],
-" \ 'javascript.jsx': ['javascript-typescript-stdio'],
+" \ 'typescript': ['javascript-typescript-stdio'],
 " \ }
 
 " FLOW SERVER
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['flow-language-server', '--stdio'],
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ 'typescript': ['javascript-typescript-stdio'],
+\ 'go': ['go-langserver'],
 \ }
 
 " Otherwise overrides the quickfix list used by :grep :'(
@@ -581,3 +585,19 @@ let g:LanguageClient_diagnosticsList = 'Location'
 nnoremap <silent> <Leader>K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> <Leader>gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" Close preview on end of autocomplete
+autocmd CompleteDone * silent! pclose!
+
+" Fix broken <C-l> in netrw
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+
+function! NetrwMapping()
+  nnoremap <buffer> <c-l> :wincmd l<cr>
+endfunction
+
+" Always keep the gutter on the left
+autocmd BufRead,BufNewFile * setlocal signcolumn=yes
