@@ -262,6 +262,7 @@ augroup neomakesyntax
   autocmd! vimrc BufWritePost * Neomake
 augroup END
 let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_typescript_enabled_makers = ['tslint']
 " let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_css_enabled_makers = ['stylelint']
 """"""""""""""""""""""""
@@ -453,6 +454,13 @@ Plug 'rbgrouleff/bclose.vim'
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
 
+Plug 'arcticicestudio/nord-vim'
+Plug 'AlessandroYorba/Sierra'
+Plug 'aereal/vim-colors-japanesque'
+Plug 'dracula/vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'xolox/vim-colorscheme-switcher'
+
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
@@ -498,7 +506,8 @@ set background=dark
 " let g:airline_theme='onedark'
 " colorscheme onedark
 
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme hilal
 " let g:airline_theme='gruvbox'
 
 " let g:airline_theme='apprentice'
@@ -531,7 +540,7 @@ set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 " let g:airline_section_z = '%3l/%L:%2v'
 " let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 let g:lightline = {
-\ 'colorscheme': 'gruvbox',
+\ 'colorscheme': 'seoul256',
 \ }
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
@@ -541,23 +550,16 @@ nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
 
-" FLOW
-let g:javascript_plugin_flow = 1
-
 " Switch
 let g:switch_mapping = 'gs'
 
 
-
-
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
-" " TYPESCRIPT SERVER
-" let g:LanguageClient_serverCommands = {
-" \ 'typescript': ['javascript-typescript-stdio'],
-" \ }
+" FLOW SYNTAX
+let g:javascript_plugin_flow = 1
 
-" FLOW SERVER
+" LANGUAGE SERVERS
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['flow-language-server', '--stdio'],
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
@@ -571,8 +573,10 @@ let g:LanguageClient_diagnosticsList = ''
 let g:LanguageClient_rootMarkers = {
 \ 'javascript': ['package.json'],
 \ 'javascript.jsx': ['package.json'],
+\ 'typescript': ['package.json'],
 \ }
 
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " (Optionally) automatically start language servers.
 " let g:LanguageClient_autoStart = 1
@@ -598,3 +602,6 @@ endfunction
 
 " Always keep the gutter on the left
 autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+
+" Update the gutter more frequently
+set updatetime=100
