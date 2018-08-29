@@ -37,7 +37,7 @@ set smarttab      " smart tabs
 
 set backspace=2
 
-" Disable spell checking
+" Disable spell checkinm
 set nospell
 
 " Search parameters
@@ -69,10 +69,10 @@ if (has('termguicolors'))
 endif
 
 " Color column 80
-if (exists('+colorcolumn'))
-    set colorcolumn=100
-    highlight ColorColumn ctermbg=9
-endif
+" if (exists('+colorcolumn'))
+"     set colorcolumn=100
+"     highlight ColorColumn ctermbg=9
+" endif
 
 " Theme
 syntax enable
@@ -122,7 +122,7 @@ augroup END
 
 " Deactivate ex mode
 " Still available with q:
-nnoremap Q <nop>
+" nnoremap Q <nop>
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
@@ -143,6 +143,7 @@ inoremap {,<CR> {<CR>},<C-c>O
 inoremap {;<CR> {<CR>};<C-c>O
 inoremap [<CR> [<CR>]<C-c>O
 inoremap ({<CR> ({<CR>})<C-c>O
+inoremap `<CR> `<CR>`<C-c><<O
 
 " Escape in terminal mode
 " tnoremap <Esc> <C-\><C-n>
@@ -186,10 +187,19 @@ nnoremap gè g]
 vnoremap < <gv
 vnoremap > >gv
 
+function ClearPaneAndRepeatCommand(pane)
+  execute '!tmux send-keys -t ' . '0.2' . ' -R \; clear-history'
+  execute '!tmux send-keys -t ' . '0.2' . ' C-c C-m C-l C-p C-m'
+endfunction
+
 map <Leader>ta :!tmux send-keys -t 0.1 C-c C-m C-p C-m<CR><CR>
+map <Leader>tka :execute ClearPaneAndRepeatCommand(0.1)<CR><CR>
 map <Leader>tb :!tmux send-keys -t 0.2 C-c C-m C-p C-m<CR><CR>
+map <Leader>tkb :execute ClearPaneAndRepeatCommand(0.2)<CR><CR>
 map <Leader>tc :!tmux send-keys -t 0.3 C-c C-m C-p C-m<CR><CR>
+map <Leader>tkc :execute ClearPaneAndRepeatCommand(0.3)<CR><CR>
 map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
+map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
 
 nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
@@ -205,7 +215,10 @@ nnoremap <Leader>gdd :GitGutterDisable<CR>
 
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
 " instead of relative)
-map <Leader>gf :call fzf#vim#files('', {'options':'--query '.expand('<cfile>')})<CR>
+map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
+
+" Same but remove the first 4 characters (very specific: it's for a project that has weird js aliases)
+map <Leader>ngf :call fzf#vim#files('', {'options':'--query '.'\'''.strpart(expand('<cfile>'), 4)})<CR>
 
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
@@ -218,10 +231,20 @@ nnoremap <silent>  :nohl<CR>
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
 
+" WHEN USING AUTOCHDIR (might be useful if I switch back to using autochdir)
+" " Copy filename to system clipboard
+" nnoremap <Leader>cfn :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
+" " Copy filepath to system clipboard with `` (for Trello)
+" nnoremap <Leader>cfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+="`" . @% . "`"<CR>:set autochdir<CR>
+" " Copy filepath to system clipboard
+" nnoremap <Leader>ccfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
+
 " Copy filename to system clipboard
-nnoremap <Leader>cfn :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
-nnoremap <Leader>cfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+="`" . @% . "`"<CR>:set autochdir<CR>
-nnoremap <Leader>ccfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
+nnoremap <Leader>cfn :let @+=@%<CR>
+" Copy filepath to system clipboard with `` (for Trello)
+nnoremap <Leader>cfp :let @+="`" . @% . "`"<CR>
+" Print filepath
+nnoremap <Leader>pfp :echo @%<CR>
 
 " Makes Ag search in project directory and not current directory
 " let g:ag_working_path_mode = 'r'
@@ -229,8 +252,6 @@ let g:rg_derive_root = 1
 
 let $FZF_DEFAULT_COMMAND= 'ag --hidden -g ""'
 
-" Bind C-p to fzf
-" nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <leader>pp :GFiles<CR>
 nnoremap <silent> <leader>; :Buffers<CR>
 nnoremap <silent> <leader>fc :Commits<CR>
@@ -240,6 +261,9 @@ function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
 
+" Bind C-p to fzf
+" Besides, execute it in the root directory of the project
+" Actually, it's no use if noautochdir is set (but let's keep it anyway)
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
 
@@ -250,6 +274,11 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#trailing_comma = 'all'
 
 nnoremap <Leader>p :Prettier<CR>
+
+" Format on save with neoformat
+augroup jsformat
+  autocmd BufWritePre *.js Neoformat
+augroup END
 
 """"""""""""""""""""""""""
 " GUTENTAGS
@@ -461,6 +490,9 @@ Plug 'dracula/vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'xolox/vim-colorscheme-switcher'
 
+" Styled components
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
@@ -468,6 +500,9 @@ Plug 'leafgarland/typescript-vim'
 Plug 'fatih/vim-go'
 
 Plug 'tpope/vim-abolish'
+
+" Code formatter
+Plug 'sbdchd/neoformat'
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
@@ -506,8 +541,8 @@ set background=dark
 " let g:airline_theme='onedark'
 " colorscheme onedark
 
-" colorscheme gruvbox
-colorscheme hilal
+colorscheme gruvbox
+" colorscheme hilal
 " let g:airline_theme='gruvbox'
 
 " let g:airline_theme='apprentice'
@@ -540,7 +575,7 @@ set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 " let g:airline_section_z = '%3l/%L:%2v'
 " let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
 let g:lightline = {
-\ 'colorscheme': 'seoul256',
+\ 'colorscheme': 'gruvbox',
 \ }
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
@@ -605,3 +640,41 @@ autocmd BufRead,BufNewFile * setlocal signcolumn=yes
 
 " Update the gutter more frequently
 set updatetime=100
+
+" Close all non visible buffers
+function! Wipeout()
+  " list of *all* buffer numbers
+  let l:buffers = range(1, bufnr('$'))
+
+  " what tab page are we in?
+  let l:currentTab = tabpagenr()
+  try
+    " go through all tab pages
+    let l:tab = 0
+    while l:tab < tabpagenr('$')
+      let l:tab += 1
+
+      " go through all windows
+      let l:win = 0
+      while l:win < winnr('$')
+        let l:win += 1
+        " whatever buffer is in this window in this tab, remove it from
+        " l:buffers list
+        let l:thisbuf = winbufnr(l:win)
+        call remove(l:buffers, index(l:buffers, l:thisbuf))
+      endwhile
+    endwhile
+
+    " if there are any buffers left, delete them
+    if len(l:buffers)
+      execute 'bwipeout' join(l:buffers)
+    endif
+  finally
+    " go back to our original tab page
+    execute 'tabnext' l:currentTab
+  endtry
+endfunction
+
+
+" TODO
+" write a function that greps the current filename without trailing .js and index.js
