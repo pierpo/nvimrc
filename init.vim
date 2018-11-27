@@ -126,7 +126,7 @@ augroup END
 
 " Excludes end of line character
 " for example, y$ no longer copies the end of line
-nmap $ g_
+" nmap $ g_
 
 " Makes Y copy until the end of the line (but not the whole line)
 nmap Y yg_
@@ -210,9 +210,6 @@ nnoremap <Leader>fcl /classes.<C-R><C-W><CR>
 " Map ,m to :make
 nnoremap <Leader>mm :make<CR>
 
-" Map ,gdd to disable buggy gitgutter
-nnoremap <Leader>gdd :GitGutterDisable<CR>
-
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
 " instead of relative)
 map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
@@ -220,8 +217,18 @@ map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfil
 " Same but remove the first 4 characters (very specific: it's for a project that has weird js aliases)
 map <Leader>ngf :call fzf#vim#files('', {'options':'--query '.'\'''.strpart(expand('<cfile>'), 4)})<CR>
 
+" search for current file usage
+map <Leader>fcf :execute ':Rg "'. expand('%:h') .'"'<CR>
+
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
+
+" Creates missing directories (useful when used with ,gF above)
+function WriteCreatingDirs()
+    execute ':silent !mkdir -p %:h'
+    write
+endfunction
+command W call WriteCreatingDirs()
 
 " <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
 nnoremap <silent>  :nohl<CR>
@@ -274,6 +281,7 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#trailing_comma = 'all'
 
 nnoremap <Leader>p :Prettier<CR>
+nnoremap <Leader>w :noautocmd w<CR>
 
 " Format on save with neoformat
 augroup jsformat
@@ -437,6 +445,9 @@ Plug 'elzr/vim-json'
 
 Plug 'tpope/vim-commentary'
 
+" Allows proper jsx commenting
+Plug 'suy/vim-context-commentstring'
+
 " Select by indent
 Plug 'michaeljsmith/vim-indent-object'
 
@@ -450,6 +461,9 @@ Plug 'jaawerth/neomake-local-eslint-first'
 
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
+
+" OceanicNext colorscheme
+Plug 'mhartington/oceanic-next'
 
 Plug 'benmills/vimux'
 
@@ -467,12 +481,14 @@ Plug 'fcpg/vim-farout'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
+Plug 'kana/vim-textobj-line'
 
 " Useful to use the :ProjectRootCD function :)
 Plug 'dbakker/vim-projectroot'
@@ -513,6 +529,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
+" Filter the quickfix list
+Plug 'romainl/vim-qf'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -530,7 +549,7 @@ xmap ia <Plug>SidewaysArgumentTextobjI
 "try this
 "junegunn/vim-easy-align
 
-"colorscheme OceanicNext
+colorscheme OceanicNext
 "let g:airline_theme='oceanicnext'
 
 set background=dark
@@ -541,7 +560,7 @@ set background=dark
 " let g:airline_theme='onedark'
 " colorscheme onedark
 
-colorscheme gruvbox
+" colorscheme gruvbox
 " colorscheme hilal
 " let g:airline_theme='gruvbox'
 
@@ -574,8 +593,11 @@ set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 " " let g:airline_section_z = '%3p%% %3l/%L:%2v'
 " let g:airline_section_z = '%3l/%L:%2v'
 " let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
+" let g:lightline = {
+" \ 'colorscheme': 'gruvbox',
+" \ }
 let g:lightline = {
-\ 'colorscheme': 'gruvbox',
+\ 'colorscheme': 'oceanicnext',
 \ }
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
@@ -612,6 +634,7 @@ let g:LanguageClient_rootMarkers = {
 \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap <Leader>ctx :call LanguageClient_contextMenu()<CR>
 
 " (Optionally) automatically start language servers.
 " let g:LanguageClient_autoStart = 1
@@ -678,3 +701,9 @@ endfunction
 
 " TODO
 " write a function that greps the current filename without trailing .js and index.js
+
+
+
+augroup envfiletype
+  autocmd BufRead,BufNewFile .env.* setlocal ft=sh
+augroup END
