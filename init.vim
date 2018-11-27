@@ -327,11 +327,11 @@ let g:jsx_ext_required = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " " SNIPPETS
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-imap <C-j>     <Plug>(neosnippet_jump)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+imap <C-j> <Plug>(neosnippet_jump)
 
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
@@ -349,9 +349,6 @@ let g:gfm_syntax_emoji_conceal = 1
 
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
-
-" let g:neosnippet#scope_aliases = {}
-" let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
 
 """""""""""""""""""
 " DEOPLETE
@@ -371,6 +368,7 @@ let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
 " augroup closepreviewwindow
 "   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 " augroup END
+
 """"""""""""""""""""""""
 " VIM NOTES
 let g:notes_directories = ['~/Notes']
@@ -379,14 +377,18 @@ vmap <Leader>ns :NoteFromSelectedText<CR>
 " set the runtime path to include Vundle and initialize
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'Shougo/deoplete.nvim'
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-gitgutter'
+
+Plug 'neomake/neomake'
 
 " Snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/deoplete.nvim'
 
+" HTML
 Plug 'mattn/emmet-vim' " HTML plugin
 Plug 'othree/html5.vim' "pour html5
 Plug 'othree/html5-syntax.vim'
@@ -394,15 +396,9 @@ Plug 'othree/html5-syntax.vim'
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-
 Plug 'itchyny/lightline.vim'
 
-Plug 'neomake/neomake'
-
 Plug 'vim-ruby/vim-ruby'
-
-Plug 'othree/javascript-libraries-syntax.vim'
 
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
@@ -415,33 +411,32 @@ Plug 'tpope/vim-surround' " surround, to add surrounding characters around selec
 " CSS3 highlighting
 Plug 'hail2u/vim-css3-syntax'
 
-Plug 'pangloss/vim-javascript'
-
-" Node
+" JavaScript
 Plug 'moll/vim-node'
-
-Plug 'elzr/vim-json'
-
-Plug 'tpope/vim-commentary'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
 
 " Allows proper jsx commenting
 Plug 'suy/vim-context-commentstring'
 
-" Select by indent
-Plug 'michaeljsmith/vim-indent-object'
+" React
+Plug 'mxw/vim-jsx'
+
+" Styled components
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
+" Typescript
+Plug 'leafgarland/typescript-vim'
+
+Plug 'elzr/vim-json'
 
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
-
-" React
-Plug 'mxw/vim-jsx'
 
 Plug 'jaawerth/neomake-local-eslint-first'
 
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
-
-Plug 'benmills/vimux'
 
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -457,13 +452,19 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
+Plug 'benmills/vimux'
+
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-line'
+
+" Select by indent
+Plug 'michaeljsmith/vim-indent-object'
 
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
@@ -474,25 +475,14 @@ Plug 'AlessandroYorba/Sierra'
 Plug 'dracula/vim'
 Plug 'mhartington/oceanic-next'
 
-
-" Styled components
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
-
-" Typescript
-Plug 'leafgarland/typescript-vim'
 
 " Go
 Plug 'fatih/vim-go'
 
 " Code formatter
 Plug 'sbdchd/neoformat'
-
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
