@@ -1,0 +1,9 @@
+snippet ifnull
+	if [[  -z ${1} ]]; then
+		${2}
+	fi
+
+snippet ifnotnull
+	if [[  -n ${1} ]]; then
+		${2}
+	fi
