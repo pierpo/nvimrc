@@ -201,7 +201,7 @@ map <Leader>tkc :execute ClearPaneAndRepeatCommand(0.3)<CR><CR>
 map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
 
-nnoremap <Leader>rg :Rg "<C-R><C-W>"<CR>
+nnoremap <Leader>rg :grep "<C-R><C-W>"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Find JSS Class to check for dead classes
@@ -217,8 +217,8 @@ map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfil
 " Same but remove the first 4 characters (very specific: it's for a project that has weird js aliases)
 map <Leader>ngf :call fzf#vim#files('', {'options':'--query '.'\'''.strpart(expand('<cfile>'), 4)})<CR>
 
-" search for current file usage
-map <Leader>fcf :execute ':Rg "'. expand('%:h') .'"'<CR>
+" search for current file usage in ES6
+map <Leader>fcf :execute ':grep ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
 
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
@@ -238,24 +238,10 @@ nnoremap <silent>  :nohl<CR>
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
 
-" WHEN USING AUTOCHDIR (might be useful if I switch back to using autochdir)
-" " Copy filename to system clipboard
-" nnoremap <Leader>cfn :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
-" " Copy filepath to system clipboard with `` (for Trello)
-" nnoremap <Leader>cfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+="`" . @% . "`"<CR>:set autochdir<CR>
-" " Copy filepath to system clipboard
-" nnoremap <Leader>ccfp :set noautochdir<CR>:ProjectRootCD<CR>:let @+=@%<CR>:set autochdir<CR>
-
 " Copy filename to system clipboard
 nnoremap <Leader>cfn :let @+=@%<CR>
 " Copy filepath to system clipboard with `` (for Trello)
 nnoremap <Leader>cfp :let @+="`" . @% . "`"<CR>
-" Print filepath
-nnoremap <Leader>pfp :echo @%<CR>
-
-" Makes Ag search in project directory and not current directory
-" let g:ag_working_path_mode = 'r'
-let g:rg_derive_root = 1
 
 let $FZF_DEFAULT_COMMAND= 'ag --hidden -g ""'
 
@@ -277,10 +263,10 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 """""""""""""""""""""""""""
 " PRETTIER
 
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#trailing_comma = 'all'
+" let g:prettier#config#bracket_spacing = 'true'
+" let g:prettier#config#trailing_comma = 'all'
 
-nnoremap <Leader>p :Prettier<CR>
+" nnoremap <Leader>p :Prettier<CR>
 nnoremap <Leader>w :noautocmd w<CR>
 
 " Format on save with neoformat
@@ -417,19 +403,12 @@ Plug 'neomake/neomake'
 Plug 'vim-ruby/vim-ruby'
 
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'tpope/vim-fugitive'
-
-Plug 'alols/vim-love-efm'
-Plug 'docteurklein/vim-symfony'
 
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 
-" Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
-
-Plug 'majutsushi/tagbar'
 
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -462,9 +441,6 @@ Plug 'jaawerth/neomake-local-eslint-first'
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
 
-" OceanicNext colorscheme
-Plug 'mhartington/oceanic-next'
-
 Plug 'benmills/vimux'
 
 Plug 'ludovicchabant/vim-gutentags'
@@ -473,15 +449,14 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'AndrewRadev/splitjoin.vim'
 
 " More recent netrw
-Plug 'eiginn/netrw'
-
-"Colorscheme
-Plug 'fcpg/vim-farout'
+" Plug 'eiginn/netrw'
 
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
 
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
@@ -490,21 +465,15 @@ Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-line'
 
-" Useful to use the :ProjectRootCD function :)
-Plug 'dbakker/vim-projectroot'
-
-" Close a buffer without closing the window
-Plug 'rbgrouleff/bclose.vim'
-
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
 
+" Colorschemes
 Plug 'arcticicestudio/nord-vim'
 Plug 'AlessandroYorba/Sierra'
-Plug 'aereal/vim-colors-japanesque'
 Plug 'dracula/vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'xolox/vim-colorscheme-switcher'
+Plug 'mhartington/oceanic-next'
+
 
 " Styled components
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
@@ -512,17 +481,18 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
+" Typescript
 Plug 'leafgarland/typescript-vim'
-Plug 'fatih/vim-go'
 
-Plug 'tpope/vim-abolish'
+" Go
+Plug 'fatih/vim-go'
 
 " Code formatter
 Plug 'sbdchd/neoformat'
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -538,8 +508,8 @@ filetype plugin indent on    " required
 
 
 " Sideways mappings
-nnoremap <Leader>gh :SidewaysLeft<cr>
-nnoremap <Leader>gl :SidewaysRight<cr>
+nnoremap [g :SidewaysLeft<cr>
+nnoremap ]g :SidewaysRight<cr>
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
