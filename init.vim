@@ -145,6 +145,9 @@ inoremap [<CR> [<CR>]<C-c>O
 inoremap ({<CR> ({<CR>})<C-c>O
 inoremap `<CR> `<CR>`<C-c><<O
 
+inoremap (( ()<C-c>i
+inoremap {{ {}<C-c>i
+
 " Escape in terminal mode
 " tnoremap <Esc> <C-\><C-n>
 
@@ -175,14 +178,6 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-nmap ç :cp<CR>
-nmap à :cn<CR>
-
-" Remap square brackets for azerty mac keyboard
-map § [
-map è ]
-nnoremap gè g]
-
 " Keep selection after re-indenting
 vnoremap < <gv
 vnoremap > >gv
@@ -203,12 +198,6 @@ map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
 
 nnoremap <Leader>rg :grep "<C-R><C-W>"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
-
-" Find JSS Class to check for dead classes
-nnoremap <Leader>fcl /classes.<C-R><C-W><CR>
-
-" Map ,m to :make
-nnoremap <Leader>mm :make<CR>
 
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
 " instead of relative)
@@ -434,6 +423,7 @@ Plug 'elzr/vim-json'
 Plug 'rhysd/vim-gfm-syntax'
 
 Plug 'jaawerth/neomake-local-eslint-first'
+Plug 'functiform/neomake-local-flow.vim'
 
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
@@ -565,7 +555,8 @@ nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
 
 " /usr/local/bin/python
 let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+" let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
 
 " Switch
 let g:switch_mapping = 'gs'
@@ -578,8 +569,8 @@ let g:javascript_plugin_flow = 1
 
 " LANGUAGE SERVERS
 let g:LanguageClient_serverCommands = {
-\ 'javascript': ['flow-language-server', '--stdio'],
-\ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ 'javascript': ['./node_modules/.bin/flow', 'lsp'],
+\ 'javascript.jsx': ['./node_modules/.bin/flow', 'lsp'],
 \ 'typescript': ['javascript-typescript-stdio'],
 \ 'go': ['go-langserver'],
 \ }
@@ -667,3 +658,6 @@ endfunction
 augroup envfiletype
   autocmd BufRead,BufNewFile .env.* setlocal ft=sh
 augroup END
+
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
