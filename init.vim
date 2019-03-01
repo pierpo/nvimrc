@@ -147,6 +147,10 @@ inoremap `<CR> `<CR>`<C-c><<O
 
 inoremap (( ()<C-c>i
 inoremap {{ {}<C-c>i
+inoremap [[ []<C-c>i
+inoremap "" ""<C-c>i
+inoremap '' ''<C-c>i
+inoremap `` ``<C-c>i
 
 " Escape in terminal mode
 " tnoremap <Esc> <C-\><C-n>
