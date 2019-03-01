@@ -3,6 +3,9 @@ snippet if
     ${2:TARGET}
 	}
 
+snippet ifl
+  if (${1}) return;
+
 snippet func
   function ${1:functionName} (${2:functionArgs}) {
     ${3:TARGET}
@@ -27,8 +30,14 @@ snippet clblack
 snippet clblue
   console.log('%c${1:var}', 'background: blue; color: white');
 
+snippet clvblue
+  console.log('%c${1:var}', 'background: blue; color: white', $1);
+
 snippet clred
   console.log('%c${1:var}', 'background: red; color: white');
+
+snippet clvred
+  console.log('%c${1:var}', 'background: red; color: white', $1);
 
 snippet clv
   console.log('${1:var}: ', $1);
@@ -113,6 +122,9 @@ options word
 
 snippet rcomment
 	{/* ${1:TARGET} */}
+
+snippet import
+	import { ${1} } from '${2}';
 
 snippet importd
 	import ${1} from '${2}';
@@ -226,6 +238,11 @@ snippet styledtheme
 snippet ifc
 	{${1:condition} && ${2:TARGET}}
 
+snippet mapc
+	{${1:array}.map(${2:element} => {
+		${3}
+	})}
+
 snippet flowfixme
 alias flowfix
 	// $FlowFixMe
@@ -275,3 +292,24 @@ snippet writefile
 
 snippet esl
 	// eslint-disable-next-line
+
+snippet exportconstfunction
+alias ecfunc
+	export const ${1} = (${2}) => {
+		${3}
+	}
+
+snippet constfunction
+alias cfunc
+	const ${1} = (${2}) => {
+		${3}
+	}
+
+snippet req
+	const ${2} = require('${1}');
+
+snippet ifnothtml
+  if (!(${1:element} instanceof HTMLElement)) return;
+
+snippet fuck
+	window.fakjnsdkqwjnasjdo();
