@@ -1,0 +1,14 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "javascriptreact"],
+  "languageserver": {
+    "flow": {
+      "command": "./node_modules/.bin/flow",
+      "args": ["lsp"],
+      "filetypes": ["javascript", "javascriptreact"],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": [".flowconfig"]
+    }
+  }
+}

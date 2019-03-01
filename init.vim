@@ -262,26 +262,9 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 " nnoremap <Leader>p :Prettier<CR>
 nnoremap <Leader>w :noautocmd w<CR>
 
-" Format on save with neoformat
-augroup jsformat
-  autocmd BufWritePre *.js Neoformat
-augroup END
-
 """"""""""""""""""""""""""
 " GUTENTAGS
 let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
-
-"""""""""""""""""""""""""""
-" NEOMAKE FOR SYNTAX CHECKING
-"
-augroup neomakesyntax
-  autocmd! vimrc BufWritePost * Neomake
-augroup END
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_typescript_enabled_makers = ['tslint']
-" let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_css_enabled_makers = ['stylelint']
-""""""""""""""""""""""""
 
 """"""""""""""""""""""""
 " C SPECIFICS
@@ -374,12 +357,9 @@ Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'neomake/neomake'
-
 " Snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/deoplete.nvim'
 
 " HTML
 Plug 'mattn/emmet-vim' " HTML plugin
@@ -425,9 +405,6 @@ Plug 'elzr/vim-json'
 
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
-
-Plug 'jaawerth/neomake-local-eslint-first'
-Plug 'functiform/neomake-local-flow.vim'
 
 " Gruvbox colorscheme
 Plug 'morhetz/gruvbox'
@@ -475,13 +452,7 @@ Plug 'AndrewRadev/sideways.vim'
 " Go
 Plug 'fatih/vim-go'
 
-" Code formatter
-Plug 'sbdchd/neoformat'
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " Filter the quickfix list
 Plug 'romainl/vim-qf'
@@ -492,8 +463,8 @@ filetype plugin indent on    " required
 
 
 " Sideways mappings
-nnoremap [g :SidewaysLeft<cr>
-nnoremap ]g :SidewaysRight<cr>
+" nnoremap [g :SidewaysLeft<cr>
+" nnoremap ]g :SidewaysRight<cr>
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
@@ -521,37 +492,17 @@ set background=dark
 " let g:airline_theme='apprentice'
 " colorscheme apprentice
 
-
-" let g:LanguageClient_serverCommands = {
-"     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-"     \ 'python': ['pyls'],
-"     \ 'javascript': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
-"     \ 'javascript.jsx': ['~/.bin/javascript-typescript-langserver/lib/language-server-stdio.js'],
-"     \ }
-
-" let g:LanguageClient_diagnosticsEnable = 0
-
-" nnoremap <Leader>lsp :LanguageClientStart<CR>
-" nnoremap <Leader>gd  :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <Leader>rn  :call LanguageClient_textDocument_rename()<CR>
-
-
-set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
-
 """"""""""""""""""""""""
-" Vim Airline
-" let g:airline_powerline_fonts = 1
-" let g:airline_section_b = ''
-" let g:airline_section_x = ''
-" let g:airline_section_y = ''
-" " let g:airline_section_z = '%3p%% %3l/%L:%2v'
-" let g:airline_section_z = '%3l/%L:%2v'
-" let g:webdevicons_enable_airline_statusline_fileformat_symbols = 0
-" let g:lightline = {
-" \ 'colorscheme': 'gruvbox',
-" \ }
+set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 let g:lightline = {
 \ 'colorscheme': 'oceanicnext',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+\ },
+\ 'component_function': {
+\   'cocstatus': 'coc#status'
+\ },
 \ }
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
@@ -565,40 +516,8 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " Switch
 let g:switch_mapping = 'gs'
 
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-
 " FLOW SYNTAX
 let g:javascript_plugin_flow = 1
-
-" LANGUAGE SERVERS
-let g:LanguageClient_serverCommands = {
-\ 'javascript': ['./node_modules/.bin/flow', 'lsp'],
-\ 'javascript.jsx': ['./node_modules/.bin/flow', 'lsp'],
-\ 'typescript': ['javascript-typescript-stdio'],
-\ 'go': ['go-langserver'],
-\ }
-
-" Otherwise overrides the quickfix list used by :grep :'(
-let g:LanguageClient_diagnosticsList = ''
-
-let g:LanguageClient_rootMarkers = {
-\ 'javascript': ['package.json'],
-\ 'javascript.jsx': ['package.json'],
-\ 'typescript': ['package.json'],
-\ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <Leader>ctx :call LanguageClient_contextMenu()<CR>
-
-" (Optionally) automatically start language servers.
-" let g:LanguageClient_autoStart = 1
-
-let g:LanguageClient_diagnosticsList = 'Location'
-
-nnoremap <silent> <Leader>K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> <Leader>gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " Close preview on end of autocomplete
 autocmd CompleteDone * silent! pclose!
@@ -665,3 +584,110 @@ augroup END
 
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
+
+
+
+
+
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[a` and `]a` for navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
