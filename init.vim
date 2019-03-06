@@ -253,13 +253,6 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
 
-"""""""""""""""""""""""""""
-" PRETTIER
-
-" let g:prettier#config#bracket_spacing = 'true'
-" let g:prettier#config#trailing_comma = 'all'
-
-" nnoremap <Leader>p :Prettier<CR>
 nnoremap <Leader>w :noautocmd w<CR>
 
 """"""""""""""""""""""""""
@@ -659,11 +652,11 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+vmap ga  <Plug>(coc-codeaction-selected)
+nmap ga  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap gac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
