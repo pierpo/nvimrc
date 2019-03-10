@@ -578,11 +578,6 @@ augroup END
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 
-
-
-
-
-
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
 
