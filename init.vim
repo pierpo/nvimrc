@@ -236,7 +236,7 @@ nnoremap <Leader>cfn :let @+=@%<CR>
 " Copy filepath to system clipboard with `` (for Trello)
 nnoremap <Leader>cfp :let @+="`" . @% . "`"<CR>
 
-let $FZF_DEFAULT_COMMAND= 'rg --files --hidden'
+let $FZF_DEFAULT_COMMAND= 'rg --hidden --files'
 
 nnoremap <silent> <leader>pp :GFiles<CR>
 nnoremap <silent> <leader>; :Buffers<CR>

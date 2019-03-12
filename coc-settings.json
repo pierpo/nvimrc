@@ -1,5 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+  "suggest.snippetIndicator": "►",
   "suggest.minTriggerInputLength": 2,
   "diagnostic.virtualText": true,
   "diagnostic.locationlist": true,
