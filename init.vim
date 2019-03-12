@@ -348,7 +348,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " Snippets
 Plug 'Shougo/neosnippet'
@@ -450,6 +450,9 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Filter the quickfix list
 Plug 'romainl/vim-qf'
 
+" Instead of gitgutter
+Plug 'mhinz/vim-signify'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -462,6 +465,14 @@ omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
+
+" Vim signify text objects
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
+
+let g:signify_vcs_list = ['git']
 
 "TODO
 "try this
