@@ -1,5 +1,11 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+  "list.nextKeymap": "<C-n>",
+  "list.previousKeymap": "<C-p>",
+  "list.maxHeight": 15,
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
   "suggest.snippetIndicator": "►",
   "suggest.minTriggerInputLength": 2,
   "diagnostic.virtualText": true,
