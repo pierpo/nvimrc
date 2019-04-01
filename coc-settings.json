@@ -1,4 +1,5 @@
 {
+  "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
   "list.nextKeymap": "<C-n>",
   "list.previousKeymap": "<C-p>",
