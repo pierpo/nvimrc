@@ -14,6 +14,7 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
+set wildoptions=pum
 
 filetype on       " enable file type detection
 filetype plugin on
