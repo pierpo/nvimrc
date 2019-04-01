@@ -272,13 +272,6 @@ augroup cindentgroup
 augroup END
 
 """""""""""""""""""""""""
-" Coffee specifics
-"
-augroup coffeeexpand
-  autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
-augroup END
-
-"""""""""""""""""""""""""
 " VIMUX
 " https://blog.bugsnag.com/tmux-and-vim/
 
