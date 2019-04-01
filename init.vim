@@ -217,6 +217,8 @@ map <Leader>fcf :execute ':grep ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
 
+nmap <Leader>gmove :Gmove <C-R>=expand('%:p')<CR>
+
 " Creates missing directories (useful when used with ,gF above)
 function WriteCreatingDirs()
     execute ':silent !mkdir -p %:h'
