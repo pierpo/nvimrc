@@ -15,7 +15,7 @@
   "diagnostic.virtualTextPrefix": " ‣ ",
   "languageserver": {
     "flow": {
-      "command": "flow",
+      "command": "./node_modules/.bin/flow",
       "args": ["lsp"],
       "filetypes": ["javascript", "javascriptreact"],
       "initializationOptions": {},
