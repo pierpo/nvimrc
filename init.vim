@@ -14,7 +14,10 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
-set wildoptions=pum
+
+if has('nvim-0.4.0')
+  set wildoptions=pum
+endif
 
 filetype on       " enable file type detection
 filetype plugin on
