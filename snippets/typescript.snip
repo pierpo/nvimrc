@@ -189,3 +189,20 @@ snippet phaserscene
 			${2:initialize here}
 		}
 	}
+
+snippet namesp
+	namespace ${1:`expand('%:t:r')`} {
+		$2
+	}
+
+snippet esl
+	// eslint-disable-next-line
+
+snippet for
+	for (let ${1:i}; $1 < ${2:stg.length}; $1++) {
+		${3:TARGET}
+	}
+
+snippet p5mouse
+options word
+	p.map(p.mouseX, 0, p.width, ${1:min}, ${2:max})

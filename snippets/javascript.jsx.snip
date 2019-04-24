@@ -319,3 +319,19 @@ options word
 	then((${1:res}) => {
 		${2:body}
 	})
+
+snippet success
+options word
+	chalk.black.bgGreen(' SUCCESS ')
+
+snippet failure
+options word
+	chalk.black.bgRed(' FAILURE ')
+
+snippet successtick
+options word
+	chalk.green('✓')
+
+snippet progress
+options word
+  chalk.yellow('…')
