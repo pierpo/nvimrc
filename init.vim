@@ -221,6 +221,8 @@ map <Leader>fcf :execute ':grep ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
 map <Leader>gF :e <cfile><cr>
 
 nmap <Leader>gmove :Gmove <C-R>=expand('%:p')<CR>
+nmap <Leader>test :e <C-R>=expand('%:r') . '.test.js'<CR><CR>
+nmap <Leader>vtest :vs <C-R>=expand('%:r') . '.test.js'<CR><CR>
 
 " Creates missing directories (useful when used with ,gF above)
 function WriteCreatingDirs()
