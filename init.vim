@@ -365,11 +365,10 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'vim-ruby/vim-ruby'
 
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-notes'
+" Plug 'xolox/vim-misc'
 
-Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-surround' " surround, to add surrounding characters around selection
+" Plug 'jremmen/vim-ripgrep'
 
 " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
@@ -409,6 +408,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 " More recent netrw
 " Plug 'eiginn/netrw'
 
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -433,9 +433,9 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'AndrewRadev/switch.vim'
 
 " Colorschemes
-Plug 'arcticicestudio/nord-vim'
-Plug 'AlessandroYorba/Sierra'
-Plug 'dracula/vim'
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'AlessandroYorba/Sierra'
+" Plug 'dracula/vim'
 Plug 'mhartington/oceanic-next'
 
 " Cycle arguments/properties
@@ -444,7 +444,7 @@ Plug 'AndrewRadev/sideways.vim'
 " Go
 Plug 'fatih/vim-go'
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " Filter the quickfix list
 Plug 'romainl/vim-qf'
@@ -473,27 +473,9 @@ xmap ac <plug>(signify-motion-outer-visual)
 
 let g:signify_vcs_list = ['git']
 
-"TODO
-"try this
-"junegunn/vim-easy-align
-
 colorscheme OceanicNext
-"let g:airline_theme='oceanicnext'
 
 set background=dark
-
-" let g:airline_theme='base16_ashes'
-" colorscheme base16-ashes
-
-" let g:airline_theme='onedark'
-" colorscheme onedark
-
-" colorscheme gruvbox
-" colorscheme hilal
-" let g:airline_theme='gruvbox'
-
-" let g:airline_theme='apprentice'
-" colorscheme apprentice
 
 """"""""""""""""""""""""
 set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
