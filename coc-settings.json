@@ -13,9 +13,15 @@
   "diagnostic.locationlist": true,
   "diagnostic.enableMessage": "jump",
   "diagnostic.virtualTextPrefix": " ‣ ",
+  "eslint.filetypes": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact"
+  ],
   "languageserver": {
     "flow": {
-      "command": "./node_modules/.bin/flow",
+      "command": "flow",
       "args": ["lsp"],
       "filetypes": ["javascript", "javascriptreact"],
       "initializationOptions": {},
