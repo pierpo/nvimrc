@@ -180,6 +180,11 @@ function Conflicts()
   :cexpr system('git lconflicts') | copen
 endfunction
 
+function WatchTests()
+  let l:yarntest = "yarn jest --watch ".expand('%:r')
+  execute 'vs term://'.l:yarntest
+endfunction
+
 " Move panes using C-hjkl
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
