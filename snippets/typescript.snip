@@ -78,14 +78,17 @@ options word
 snippet rcomment
 	{/* ${1:TARGET} */}
 
+snippet import
+	import { ${2} } from '${1}';
+
 snippet importd
-	import ${1} from '${2}';
+	import ${2} from '${1}';
 
 snippet flow
 	// @flow
 
 snippet it
-	it('${1}', () => {
+	it('should ${1}', () => {
 		${2:TARGET}
 	});
 
@@ -206,3 +209,12 @@ snippet for
 snippet p5mouse
 options word
 	p.map(p.mouseX, 0, p.width, ${1:min}, ${2:max})
+
+snippet time
+	console.time('${1}')
+	${2:TARGET}
+	console.timeEnd('$1')
+
+snippet consoleseparator
+alias csep
+	console.log('--------------------------------------------')

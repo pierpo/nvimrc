@@ -1,2 +1,9 @@
 snippet readfile
 	${2:variable} = open("${1:filename}", "r")
+
+snippet model
+	class ${1:ModelName}(models.Model):
+			id = models.AutoField(primary_key=True, editable=False)
+
+snippet pr
+	print(${1})
