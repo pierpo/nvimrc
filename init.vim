@@ -1,19 +1,20 @@
-"""""""""""""""""""""""
-" Initialization
+" Initialization {{{
 "
 scriptencoding utf-8
 augroup vimrc
   autocmd!
 augroup END
 
-"""""""""""""""""""""""
-" GENERAL SETTINGS
+" }}}
+
+" Generic configuration {{{
 "
 set scrolljump=5
 set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
+set foldmethod=marker
 
 if has('nvim-0.4.0')
   set wildoptions=pum
@@ -72,12 +73,6 @@ if (has('termguicolors'))
     set termguicolors
 endif
 
-" Color column 80
-" if (exists('+colorcolumn'))
-"     set colorcolumn=100
-"     highlight ColorColumn ctermbg=9
-" endif
-
 " Theme
 syntax enable
 
@@ -90,27 +85,6 @@ set hidden
 " Keep track of undos of previous sessions
 set undofile
 
-" Sets the current directory to the directory of the current file we are
-" working on
-" Useful to autocomplete relative paths
-" set autochdir
-
-" Fix orphan buffers of netrw
-augroup fixnetrw
-  autocmd FileType netrw setl bufhidden=delete
-augroup END
-
-" Tabulations for Makefile
-augroup noexpandtabmakefile
-  autocmd vimrc FileType make setlocal noexpandtab
-augroup END
-
-" Refresh syntax highlighting
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-
-" Search for currently selected text using //
-vnoremap // y/\V<C-R>"<CR>
-
 " Leader key setting
 let g:mapleader = ','
 
@@ -119,64 +93,97 @@ let g:html_indent_script1 = 'inc'
 let g:html_indent_style1  = 'inc'
 let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section'
 
-" Enable spellcheck for markdown files
-augroup markdownspell
-  autocmd Filetype markdown setlocal spell spelllang=en_us
-augroup END
-
-" Deactivate ex mode
-" Still available with q:
-" nnoremap Q <nop>
-
-" Excludes end of line character
-" for example, y$ no longer copies the end of line
-" nmap $ g_
-
-" Makes Y copy until the end of the line (but not the whole line)
-nmap Y yg_
-
-" Cursor line in insert mode
-augroup cursorlineinsert
-  autocmd InsertEnter,InsertLeave * set cul!
-augroup END
-
-" Auto expand ()
-inoremap (<CR> (<CR>)<C-c>O
-inoremap {<CR> {<CR>}<C-c>O
-inoremap {,<CR> {<CR>},<C-c>O
-inoremap {;<CR> {<CR>};<C-c>O
-inoremap [<CR> [<CR>]<C-c>O
-inoremap ({<CR> ({<CR>})<C-c>O
-inoremap `<CR> `<CR>`<C-c><<O
-
-inoremap (( ()<C-c>i
-inoremap {{ {}<C-c>i
-inoremap [[ []<C-c>i
-inoremap "" ""<C-c>i
-inoremap """ """<C-c>o"""<C-c>O
-inoremap ``` ```<C-c>o```<C-c>O
-inoremap '' ''<C-c>i
-inoremap `` ``<C-c>i
-
-" Escape in terminal mode
-" tnoremap <Esc> <C-\><C-n>
-
-tnoremap <C-h> <C-\><C-N><C-w>h
-tnoremap <C-j> <C-\><C-N><C-w>j
-tnoremap <C-k> <C-\><C-N><C-w>k
-tnoremap <C-l> <C-\><C-N><C-w>l
-
 " Use Rg with :grep
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" No json quote conceal
-let g:vim_json_syntax_conceal = 0
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
-""""""""""""""""""""""""
-" SHORTCUTS
+" Always keep the gutter on the left
+autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Close preview on end of autocomplete
+autocmd CompleteDone * silent! pclose!
+
+" /usr/local/bin/python
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" Cursor line in insert mode
+augroup cursorlineinsert
+  autocmd InsertEnter,InsertLeave * set cul!
+augroup END
+
+" }}}
+
+" Netrw {{{
+" Fix orphan buffers of netrw
+augroup fixnetrw
+  autocmd FileType netrw setl bufhidden=delete
+augroup END
+
+function! NetrwMapping()
+  nnoremap <buffer> <c-l> :wincmd l<cr>
+endfunction
+
+" Fix broken <C-l> in netrw
+augroup netrw_mapping
+  autocmd!
+  autocmd filetype netrw call NetrwMapping()
+augroup END
+" }}}
+
+" Filetype specifics {{{
+
+" Tabulations for Makefile
+augroup noexpandtabmakefile
+  autocmd vimrc FileType make setlocal noexpandtab
+augroup END
+
+" Enable spellcheck for markdown files
+augroup markdownspell
+  autocmd Filetype markdown setlocal spell spelllang=en_us
+augroup END
+
+" Autoformat python
+augroup formatpython
+  autocmd BufWritePre  *.py :Format
+augroup END
+
+" Indentation for C files
+augroup cindentgroup
+  autocmd BufRead,BufNewFile   *.c setlocal sw=8
+  autocmd BufRead,BufNewFile   *.h setlocal sw=8
+  autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
+  autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
+augroup END
+
+augroup envfiletype
+  autocmd BufRead,BufNewFile .env.* setlocal ft=sh
+augroup END
+
+" }}}
+
+" Mappings {{{
+
+nnoremap <leader>grep :grep! -F ""<LEFT>
+
+" Makes Y copy until the end of the line (instead of the whole line)
+nmap Y yg_
 
 function Conflicts()
   :cexpr system('git lconflicts') | copen
@@ -192,6 +199,12 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+
+" Refresh syntax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+
+" Search for currently selected text using //
+vnoremap // y/\V<C-R>"<CR>
 
 " Keep selection after re-indenting
 vnoremap < <gv
@@ -271,40 +284,39 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 nnoremap <Leader>w :Format<CR>:w<CR>
 nnoremap <Leader>W :noautocmd w<CR>
 
-""""""""""""""""""""""""""
-" GUTENTAGS
-let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
+nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
+nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
 
-""""""""""""""""""""""""
-" C SPECIFICS
-"
-" Indentation for C files
-augroup cindentgroup
-  autocmd BufRead,BufNewFile   *.c setlocal sw=8
-  autocmd BufRead,BufNewFile   *.h setlocal sw=8
-  autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
-  autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
-augroup END
+" }}}
 
-"""""""""""""""""""""""""
-" VIMUX
-" https://blog.bugsnag.com/tmux-and-vim/
+" Additional mappings {{{
 
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
+" Auto expand ()
+inoremap (<CR> (<CR>)<C-c>O
+inoremap {<CR> {<CR>}<C-c>O
+inoremap {,<CR> {<CR>},<C-c>O
+inoremap {;<CR> {<CR>};<C-c>O
+inoremap [<CR> [<CR>]<C-c>O
+inoremap ({<CR> ({<CR>})<C-c>O
+inoremap `<CR> `<CR>`<C-c><<O
 
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
+inoremap (( ()<C-c>i
+inoremap {{ {}<C-c>i
+inoremap [[ []<C-c>i
+inoremap "" ""<C-c>i
+inoremap """ """<C-c>o"""<C-c>O
+inoremap ``` ```<C-c>o```<C-c>O
+inoremap '' ''<C-c>i
+inoremap `` ``<C-c>i
 
-" Zoom the tmux runner pane
-map <Leader>vz :VimuxZoomRunner<CR>
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
 
-"""""""""""""""""""""""""
-"let g:used_javascript_libs = 'angularjs'
-let g:jsx_ext_required = 0
+" }}}
 
-""""""""""""""""""""""""""""""""""""""""""""""""
-" " SNIPPETS
+" Snippets config {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
@@ -317,42 +329,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 augroup neosnippettab
   autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
 augroup END
+" }}}
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-let g:gfm_syntax_emoji_conceal = 1
-
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
-
-"""""""""""""""""""
-" DEOPLETE
-let g:deoplete#enable_at_startup = 1
-
-let g:deoplete#auto_complete_delay=150
-let g:deoplete#file#enable_buffer_path = 1
-
-let g:deoplete#_omni_patterns = {'xhtml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'xml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'], 'html': ['<', '</', '<[^>]*\s[[:alnum:]-]*']}
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
-
-" Deactivate preview window
-" set completeopt-=preview
-
-" close preview window automatically
-" augroup closepreviewwindow
-"   autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-" augroup END
-
-""""""""""""""""""""""""
-" VIM NOTES
-let g:notes_directories = ['~/Notes']
-vmap <Leader>ns :NoteFromSelectedText<CR>
-
-" set the runtime path to include Vundle and initialize
+" Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -476,14 +455,50 @@ Plug 'chr4/nginx.vim'
 call plug#end()
 filetype plugin indent on    " required
 
+" }}}
+
+" Plugins config {{{
 
 " Sideways mappings
-" nnoremap [g :SidewaysLeft<cr>
-" nnoremap ]g :SidewaysRight<cr>
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
+
+" Switch mapping
+let g:switch_mapping = 'gs'
+
+" FLOW SYNTAX
+let g:javascript_plugin_flow = 1
+
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
+
+let g:gfm_syntax_emoji_conceal = 1
+
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
+
+let g:jsx_ext_required = 0
+
+" No json quote conceal
+let g:vim_json_syntax_conceal = 0
+
+" Gutentags
+let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
+
+"""""""""""""""""""""""""
+" VIMUX
+" https://blog.bugsnag.com/tmux-and-vim/
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Zoom the tmux runner pane
+map <Leader>vz :VimuxZoomRunner<CR>
 
 " Vim signify text objects
 omap ic <plug>(signify-motion-inner-pending)
@@ -493,11 +508,18 @@ xmap ac <plug>(signify-motion-outer-visual)
 
 let g:signify_vcs_list = ['git']
 
+" Vim Notes
+let g:notes_directories = ['~/Notes']
+vmap <Leader>ns :NoteFromSelectedText<CR>
+
+" }}}
+
+" Colorscheme {{{
 colorscheme OceanicNext
-
 set background=dark
+" }}}
 
-""""""""""""""""""""""""
+" Status line {{{
 set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 let g:lightline = {
 \ 'colorscheme': 'oceanicnext',
@@ -509,95 +531,9 @@ let g:lightline = {
 \   'cocstatus': 'coc#status'
 \ },
 \ }
+" }}}
 
-nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
-nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
-
-" /usr/local/bin/python
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
-" let g:python3_host_prog = '/Users/Pierpo/.pyenv/versions/neovim3/bin/python'
-
-" Switch
-let g:switch_mapping = 'gs'
-
-" FLOW SYNTAX
-let g:javascript_plugin_flow = 1
-
-" Close preview on end of autocomplete
-autocmd CompleteDone * silent! pclose!
-
-" Fix broken <C-l> in netrw
-augroup netrw_mapping
-  autocmd!
-  autocmd filetype netrw call NetrwMapping()
-augroup END
-
-function! NetrwMapping()
-  nnoremap <buffer> <c-l> :wincmd l<cr>
-endfunction
-
-" Always keep the gutter on the left
-autocmd BufRead,BufNewFile * setlocal signcolumn=yes
-
-" Update the gutter more frequently
-set updatetime=100
-
-" Close all non visible buffers
-function! Wipeout()
-  " list of *all* buffer numbers
-  let l:buffers = range(1, bufnr('$'))
-
-  " what tab page are we in?
-  let l:currentTab = tabpagenr()
-  try
-    " go through all tab pages
-    let l:tab = 0
-    while l:tab < tabpagenr('$')
-      let l:tab += 1
-
-      " go through all windows
-      let l:win = 0
-      while l:win < winnr('$')
-        let l:win += 1
-        " whatever buffer is in this window in this tab, remove it from
-        " l:buffers list
-        let l:thisbuf = winbufnr(l:win)
-        call remove(l:buffers, index(l:buffers, l:thisbuf))
-      endwhile
-    endwhile
-
-    " if there are any buffers left, delete them
-    if len(l:buffers)
-      execute 'bwipeout' join(l:buffers)
-    endif
-  finally
-    " go back to our original tab page
-    execute 'tabnext' l:currentTab
-  endtry
-endfunction
-
-
-" TODO
-" write a function that greps the current filename without trailing .js and index.js
-
-
-
-augroup envfiletype
-  autocmd BufRead,BufNewFile .env.* setlocal ft=sh
-augroup END
-
-let g:qf_auto_open_quickfix = 0
-let g:qf_auto_open_loclist = 0
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
+" coc.nvim {{{
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -692,9 +628,5 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" Autoformat python
-augroup formatpython
-  autocmd BufWritePre  *.py :Format
-augroup END
+" }}}
 
-nnoremap <leader>grep :grep! -F ""<LEFT>
