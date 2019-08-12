@@ -401,6 +401,7 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'elzr/vim-json'
 
@@ -461,6 +462,12 @@ Plug 'romainl/vim-qf'
 
 " Instead of gitgutter
 Plug 'mhinz/vim-signify'
+
+" Better `gf` for node
+Plug 'tomarrell/vim-npr'
+
+" nginx
+Plug 'chr4/nginx.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
