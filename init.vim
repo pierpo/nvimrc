@@ -121,7 +121,7 @@ let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,b
 
 " Enable spellcheck for markdown files
 augroup markdownspell
-  autocmd Filetype markdown set spell spelllang=en_us
+  autocmd Filetype markdown setlocal spell spelllang=en_us
 augroup END
 
 " Deactivate ex mode
