@@ -440,6 +440,9 @@ Plug 'kana/vim-textobj-line'
 " Select by indent
 Plug 'michaeljsmith/vim-indent-object'
 
+" Remap [[ and ]] to make it work properly with most filetypes
+Plug 'arp242/jumpy.vim'
+
 " Switch true to false
 Plug 'AndrewRadev/switch.vim'
 
