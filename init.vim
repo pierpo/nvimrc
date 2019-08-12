@@ -153,6 +153,8 @@ inoremap (( ()<C-c>i
 inoremap {{ {}<C-c>i
 inoremap [[ []<C-c>i
 inoremap "" ""<C-c>i
+inoremap """ """<C-c>o"""<C-c>O
+inoremap ``` ```<C-c>o```<C-c>O
 inoremap '' ''<C-c>i
 inoremap `` ``<C-c>i
 
@@ -209,7 +211,7 @@ map <Leader>tkc :execute ClearPaneAndRepeatCommand(0.3)<CR><CR>
 map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
 
-nnoremap <Leader>rg :grep "<C-R><C-W>"<CR>
+nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
@@ -220,7 +222,7 @@ map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfil
 map <Leader>ngf :call fzf#vim#files('', {'options':'--query '.'\'''.strpart(expand('<cfile>'), 4)})<CR>
 
 " search for current file usage in ES6
-map <Leader>fcf :execute ':grep ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
+map <Leader>fcf :execute ':grep! ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
 
 " Create file with ,gF if it does not exist
 map <Leader>gF :e <cfile><cr>
@@ -266,7 +268,8 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
 
-nnoremap <Leader>w :noautocmd w<CR>
+nnoremap <Leader>w :Format<CR>:w<CR>
+nnoremap <Leader>W :noautocmd w<CR>
 
 """"""""""""""""""""""""""
 " GUTENTAGS
@@ -628,7 +631,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -678,3 +681,10 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Autoformat python
+augroup formatpython
+  autocmd BufWritePre  *.py :Format
+augroup END
+
+nnoremap <leader>grep :grep! -F ""<LEFT>
