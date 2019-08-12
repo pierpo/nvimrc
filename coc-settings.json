@@ -1,4 +1,7 @@
 {
+  "python.formatting.blackArgs": [],
+  "python.formatting.blackPath": "black",
+  "python.jediEnabled": true,
   "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
   "list.nextKeymap": "<C-n>",
