@@ -255,6 +255,8 @@ command W call WriteCreatingDirs()
 nnoremap <silent>  :nohl<CR>
 " <Ctrl--> (qwerty)
 nnoremap <silent>  :nohl<CR>
+" <M--> (qwerty linux)
+nnoremap <silent> <M--> :nohl<CR>
 
 " Update all buffers from disk
 nnoremap <Leader>ub :bufdo e!<CR>
@@ -286,10 +288,6 @@ nnoremap <Leader>W :noautocmd w<CR>
 
 nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
 nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
-
-" }}}
-
-" Additional mappings {{{
 
 " Auto expand ()
 inoremap (<CR> (<CR>)<C-c>O
@@ -336,8 +334,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 
-" Plug 'airblade/vim-gitgutter'
-
 " Snippets
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -353,13 +349,6 @@ Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 Plug 'itchyny/lightline.vim'
 
 Plug 'vim-ruby/vim-ruby'
-
-" Plug 'xolox/vim-notes'
-" Plug 'xolox/vim-misc'
-
-" Plug 'jremmen/vim-ripgrep'
-
-" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " CSS3 highlighting
 Plug 'hail2u/vim-css3-syntax'
@@ -394,9 +383,6 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
-
-" More recent netrw
-" Plug 'eiginn/netrw'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
