@@ -119,9 +119,13 @@ set signcolumn=yes
 " Close preview on end of autocomplete
 autocmd CompleteDone * silent! pclose!
 
-" /usr/local/bin/python
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+if has('macunix')
+  let g:python_host_prog = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3'
+else
+  let g:python_host_prog = '/usr/bin/python'
+  let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 " Cursor line in insert mode
 augroup cursorlineinsert
@@ -332,7 +336,12 @@ augroup END
 " Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+if has('macunix')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+endif
 
 " Snippets
 Plug 'Shougo/neosnippet'
