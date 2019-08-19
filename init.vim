@@ -186,17 +186,29 @@ augroup END
 
 nnoremap <leader>grep :grep! -F ""<LEFT>
 
+function PPGrepNodeModules()
+  call feedkeys("\:grep! -uu -g 'node_modules/**' -F \"\"\<LEFT>")
+endfunction
+command PPGrepNodeModules call PPGrepNodeModules()
+
+function PPFzfNodeModules()
+  call feedkeys("\:Files node_modules\<CR>")
+endfunction
+command PPFzfNodeModules call PPFzfNodeModules()
+
 " Makes Y copy until the end of the line (instead of the whole line)
 nmap Y yg_
 
-function Conflicts()
+function PPConflicts()
   :cexpr system('git lconflicts') | copen
 endfunction
+command PPConflicts call PPConflicts()
 
-function WatchTests()
+function PPWatchTests()
   let l:yarntest = "yarn jest --watch ".expand('%:r')
   execute 'vs term://'.l:yarntest
 endfunction
+command PPWatchTests call PPWatchTests()
 
 " Move panes using C-hjkl
 noremap <C-h> <C-w>h
