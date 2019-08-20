@@ -335,3 +335,8 @@ options word
 snippet progress
 options word
   chalk.yellow('…')
+
+snippet mock
+	jest.mock('${1:module}', () => ({
+		${2:method}: jest.fn(),
+	}));
