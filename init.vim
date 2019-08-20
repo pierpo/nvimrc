@@ -205,8 +205,7 @@ endfunction
 command PPConflicts call PPConflicts()
 
 function PPWatchTests()
-  let l:yarntest = "yarn jest --watch ".expand('%:r')
-  execute 'vs term://'.l:yarntest
+  execute 'vs term://yarn jest --watch '.expand('%:r')
 endfunction
 command PPWatchTests call PPWatchTests()
 
