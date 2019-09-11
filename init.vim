@@ -134,47 +134,7 @@ augroup END
 
 " }}}
 
-" Netrw {{{
-" Fix orphan buffers of netrw
-augroup fixnetrw
-  autocmd FileType netrw setl bufhidden=delete
-augroup END
-
-function! NetrwMapping()
-  nnoremap <buffer> <c-l> :wincmd l<cr>
-endfunction
-
-" Fix broken <C-l> in netrw
-augroup netrw_mapping
-  autocmd!
-  autocmd filetype netrw call NetrwMapping()
-augroup END
-" }}}
-
 " Filetype specifics {{{
-
-" Tabulations for Makefile
-augroup noexpandtabmakefile
-  autocmd vimrc FileType make setlocal noexpandtab
-augroup END
-
-" Enable spellcheck for markdown files
-augroup markdownspell
-  autocmd Filetype markdown setlocal spell spelllang=en_us
-augroup END
-
-" Autoformat python
-augroup formatpython
-  autocmd BufWritePre  *.py :Format
-augroup END
-
-" Indentation for C files
-augroup cindentgroup
-  autocmd BufRead,BufNewFile   *.c setlocal sw=8
-  autocmd BufRead,BufNewFile   *.h setlocal sw=8
-  autocmd BufRead,BufNewFile   *.c setlocal tabstop=8
-  autocmd BufRead,BufNewFile   *.h setlocal tabstop=8
-augroup END
 
 augroup envfiletype
   autocmd BufRead,BufNewFile .env.* setlocal ft=sh
@@ -330,6 +290,7 @@ tnoremap <C-l> <C-\><C-N><C-w>l
 " }}}
 
 " Snippets config {{{
+
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
@@ -339,9 +300,6 @@ imap <C-j> <Plug>(neosnippet_jump)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-augroup neosnippettab
-  autocmd FileType neosnippet setlocal tabstop=2 noexpandtab
-augroup END
 " }}}
 
 " Plugins {{{
