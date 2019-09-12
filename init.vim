@@ -451,12 +451,6 @@ xmap ac <plug>(signify-motion-outer-visual)
 
 let g:signify_vcs_list = ['git']
 
-" Vim Notes
-let g:notes_directories = ['~/Notes']
-vmap <Leader>ns :NoteFromSelectedText<CR>
-
-" }}}
-
 " Colorscheme {{{
 colorscheme OceanicNext
 set background=dark
