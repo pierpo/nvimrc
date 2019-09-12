@@ -215,6 +215,13 @@ snippet time
 	${2:TARGET}
 	console.timeEnd('$1')
 
+snippet timesep
+	console.time('${1}')
+	${2:TARGET}
+	console.log('------------------- $1 ---------------------')
+	console.timeEnd('$1')
+	console.log('------------------- $1 ---------------------')
+
 snippet consoleseparator
-alias csep
+alias csep cls
 	console.log('--------------------------------------------')
