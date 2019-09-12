@@ -366,8 +366,6 @@ Plug 'tpope/vim-commentary'
 " :Gbrowse
 Plug 'tpope/vim-rhubarb'
 
-Plug 'benmills/vimux'
-
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-line'
@@ -442,19 +440,6 @@ let g:vim_json_syntax_conceal = 0
 
 " Gutentags
 let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
-
-"""""""""""""""""""""""""
-" VIMUX
-" https://blog.bugsnag.com/tmux-and-vim/
-
-" Prompt for a command to run
-map <Leader>vp :VimuxPromptCommand<CR>
-
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-
-" Zoom the tmux runner pane
-map <Leader>vz :VimuxZoomRunner<CR>
 
 " Vim signify text objects
 omap ic <plug>(signify-motion-inner-pending)
