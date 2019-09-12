@@ -105,7 +105,9 @@ if has('conceal')
 endif
 
 " Always keep the gutter on the left
-autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+augroup gutter
+  autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+augroup END
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
