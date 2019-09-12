@@ -10,6 +10,7 @@
   "list.insertMappings": {
     "<C-c>": "do:exit"
   },
+  "prettier.disableSuccessMessage": true,
   "suggest.snippetIndicator": "►",
   "suggest.minTriggerInputLength": 2,
   "diagnostic.virtualText": true,
