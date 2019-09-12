@@ -134,14 +134,6 @@ augroup END
 
 " }}}
 
-" Filetype specifics {{{
-
-augroup envfiletype
-  autocmd BufRead,BufNewFile .env.* setlocal ft=sh
-augroup END
-
-" }}}
-
 " Mappings {{{
 
 nnoremap <leader>grep :grep! -F ""<LEFT>
