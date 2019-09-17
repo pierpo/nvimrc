@@ -225,3 +225,24 @@ snippet timesep
 snippet consoleseparator
 alias csep cls
 	console.log('--------------------------------------------')
+
+snippet addprofiler
+	const PROFILER__${1} = logger.startProfiler();
+  ${2:TARGET}
+  PROFILER__$1.end('${3}')
+
+snippet mockmodule
+  jest.mock('${1}', () => ({
+    ${2}: jest.fn(),
+  }));
+
+snippet mockresolved
+  (${1} as jest.Mock).mockResolvedValue(${2});
+
+snippet mockreturned
+  (${1} as jest.Mock).mockReturnedValue(${2});
+
+snippet beforeeach
+  beforeEach(() => {
+    ${1}
+  });
