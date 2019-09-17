@@ -25,3 +25,16 @@ function WriteCreatingDirs()
 endfunction
 command W call WriteCreatingDirs()
 
+function PPOpenTest()
+  let l:testname = expand('%:r') . '.test.' . expand('%:e')
+  execute ':e ' . l:testname
+endfunction
+command PPOpenTest call PPOpenTest()
+nnoremap <Leader>test :PPOpenTest<CR>
+
+function PPOpenTestSplit()
+  let l:testname = expand('%:r') . '.test.' . expand('%:e')
+  execute ':vs ' . l:testname
+endfunction
+command PPOpenTestSplit call PPOpenTestSplit()
+nnoremap <Leader>vtest :PPOpenTestSplit<CR>
