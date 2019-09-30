@@ -30,4 +30,17 @@ snippet promptyesno
 		exit 1
 	fi
 
+snippet green
+  GREEN=$'\e[0;32m'
 
+snippet red
+  RED=$'\e[0;31m'
+
+snippet defaultcolor
+  NC=$'\e[0m'
+
+snippet echogreen
+  echo "${GREEN}${1}${NC}"
+
+snippet echored
+  echo "${RED}${1}${NC}"

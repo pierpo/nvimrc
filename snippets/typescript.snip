@@ -246,3 +246,13 @@ snippet beforeeach
   beforeEach(() => {
     ${1}
   });
+
+snippet testerror
+  let error;
+  try {
+    await ${1};
+  } catch (e) {
+    error = e;
+  }
+  expect(error).toEqual(new Error('${2}'));
+

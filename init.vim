@@ -301,8 +301,11 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'othree/javascript-libraries-syntax.vim'
 
+" Better `gf` for node
+Plug 'tomarrell/vim-npr'
+
 " Allows proper jsx commenting
-Plug 'suy/vim-context-commentstring'
+" Plug 'suy/vim-context-commentstring'
 
 " React
 Plug 'mxw/vim-jsx'
@@ -318,9 +321,6 @@ Plug 'elzr/vim-json'
 
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
-
-" Gruvbox colorscheme
-Plug 'morhetz/gruvbox'
 
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -356,13 +356,14 @@ Plug 'AndrewRadev/switch.vim'
 " Plug 'arcticicestudio/nord-vim'
 " Plug 'AlessandroYorba/Sierra'
 " Plug 'dracula/vim'
+" Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
 
 " Go
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
@@ -371,9 +372,6 @@ Plug 'romainl/vim-qf'
 
 " Instead of gitgutter
 Plug 'mhinz/vim-signify'
-
-" Better `gf` for node
-Plug 'tomarrell/vim-npr'
 
 " nginx
 Plug 'chr4/nginx.vim'
