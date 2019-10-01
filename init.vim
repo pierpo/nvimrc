@@ -230,22 +230,26 @@ nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
 nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
 
 " Auto expand ()
-inoremap (<CR> (<CR>)<C-c>O
-inoremap {<CR> {<CR>}<C-c>O
-inoremap {,<CR> {<CR>},<C-c>O
-inoremap {;<CR> {<CR>};<C-c>O
-inoremap [<CR> [<CR>]<C-c>O
-inoremap ({<CR> ({<CR>})<C-c>O
-inoremap `<CR> `<CR>`<C-c><<O
+inoremap (<CR> (<CR>)<Up><End><CR>
+inoremap {<CR> {<CR>}<Up><End><CR>
+inoremap {,<CR> {<CR>},<Up><End><CR>
+inoremap {;<CR> {<CR>};<Up><End><CR>
+inoremap [<CR> [<CR>]<Up><End><CR>
+inoremap ({<CR> ({<CR>})<Up><End><CR>
+inoremap `<CR> `<CR>`<Up><End><CR>
 
-inoremap (( ()<C-c>i
-inoremap {{ {}<C-c>i
-inoremap [[ []<C-c>i
-inoremap "" ""<C-c>i
-inoremap """ """<C-c>o"""<C-c>O
-inoremap ``` ```<C-c>o```<C-c>O
-inoremap '' ''<C-c>i
-inoremap `` ``<C-c>i
+inoremap (( ()<left>
+inoremap {{ {}<left>
+inoremap [[ []<left>
+inoremap "" ""<left>
+inoremap """ """<CR>"""<Up><End><CR>
+inoremap ``` ```<CR>```<Up><End><CR>
+inoremap '' ''<left>
+inoremap `` ``<left>
+
+" }}}
+
+" Allow terminal split switch using C-HJKL {{{
 
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
@@ -253,6 +257,7 @@ tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-l> <C-\><C-N><C-w>l
 
 " }}}
+
 
 " Snippets config {{{
 
