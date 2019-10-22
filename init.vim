@@ -304,6 +304,7 @@ Plug 'hail2u/vim-css3-syntax'
 " JavaScript
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/javascript-libraries-syntax.vim'
 
 " Better `gf` for node
@@ -320,7 +321,7 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+" Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'elzr/vim-json'
 
