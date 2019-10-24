@@ -38,3 +38,20 @@ function PPOpenTestSplit()
 endfunction
 command PPOpenTestSplit call PPOpenTestSplit()
 nnoremap <Leader>vtest :PPOpenTestSplit<CR>
+
+function PPCheckImportAndRequire()
+  let l:current_filename = expand('%:t:r')
+  execute ':grep! "import.*' . l:current_filename . '\|require.*' . l:current_filename . '"'
+endfunction
+command PPCheckImportAndRequire call PPCheckImportAndRequire()
+
+function PPCheckRequire()
+  let l:current_filename = expand('%:t:r')
+  execute ':grep! "require.*' . l:current_filename . '"'
+endfunction
+command PPCheckRequire call PPCheckRequire()
+
+function PPImport()
+  let @a = 'import ' . expand('%:t:r') . ' from ' . '"' . expand('%:r') . '"'
+endfunction
+command PPImport call PPImport()
