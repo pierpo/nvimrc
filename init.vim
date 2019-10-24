@@ -304,6 +304,7 @@ Plug 'hail2u/vim-css3-syntax'
 " JavaScript
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/javascript-libraries-syntax.vim'
 
 " Better `gf` for node
@@ -320,7 +321,7 @@ Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+" Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'elzr/vim-json'
 
@@ -380,6 +381,20 @@ Plug 'mhinz/vim-signify'
 
 " nginx
 Plug 'chr4/nginx.vim'
+
+" Somehow this does not work on macOS for me...
+if !has('macunix')
+  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+endif
 
 " All of your Plugins must be added before the following line
 call plug#end()
