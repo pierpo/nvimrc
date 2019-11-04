@@ -382,6 +382,9 @@ Plug 'mhinz/vim-signify'
 " nginx
 Plug 'chr4/nginx.vim'
 
+" Firenvim to have vim in the browser
+Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
+
 " Somehow this does not work on macOS for me...
 if !has('macunix')
   Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
@@ -481,3 +484,13 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 " }}}
+
+" Make firenvim never trigger so it has to be manually activated
+let g:firenvim_config = {
+  \ 'localSettings': {
+    \ '.*': {
+      \ 'selector': '',
+      \ 'priority': 0,
+    \ },
+  \ }
+\ }
