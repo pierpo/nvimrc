@@ -13,9 +13,9 @@
   "prettier.disableSuccessMessage": true,
   "suggest.snippetIndicator": "►",
   "suggest.minTriggerInputLength": 2,
-  "diagnostic.virtualText": true,
+  "diagnostic.virtualText": false,
   "diagnostic.locationlist": true,
-  "diagnostic.enableMessage": "jump",
+  "diagnostic.enableMessage": "always",
   "diagnostic.virtualTextPrefix": " ‣ ",
   "eslint.filetypes": [
     "typescript",

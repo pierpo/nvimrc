@@ -95,7 +95,7 @@ let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,b
 
 " Use Rg with :grep
 if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepprg=rg\ --vimgrep\ --no-heading\ --hidden
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
@@ -174,6 +174,7 @@ map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
 map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
 
 nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
+nnoremap <Leader>rge :grep! "\b<C-R><C-W>\b"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
@@ -317,7 +318,7 @@ Plug 'tomarrell/vim-npr'
 Plug 'mxw/vim-jsx'
 
 " Styled components
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
@@ -328,7 +329,7 @@ Plug 'elzr/vim-json'
 " Github markdown
 Plug 'rhysd/vim-gfm-syntax'
 
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
@@ -398,6 +399,9 @@ if !has('macunix')
   Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 endif
+
+" Nvim in browser
+Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
 
 " All of your Plugins must be added before the following line
 call plug#end()
