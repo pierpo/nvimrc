@@ -14,7 +14,7 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
-set foldmethod=marker
+" set foldmethod=marker
 
 if has('nvim-0.4.0')
   set wildoptions=pum
