@@ -92,6 +92,12 @@ snippet it
 		${2:TARGET}
 	});
 
+snippet itasync
+alias ita
+	it('should ${1}', async () => {
+		${2:TARGET}
+	});
+
 snippet describe
 	describe('${1}', () => {
 		${2:TARGET}
@@ -256,3 +262,20 @@ snippet testerror
   }
   expect(error).toEqual(new Error('${2}'));
 
+snippet clblack
+  console.log('%c${1:var}', 'background: black; color: white');
+
+snippet clblue
+  console.log('%c${1:var}', 'background: blue; color: white');
+
+snippet clvblue
+  console.log('%c${1:var}', 'background: blue; color: white', $1);
+
+snippet clred
+  console.log('%c${1:var}', 'background: red; color: white');
+
+snippet clvred
+  console.log('%c${1:var}', 'background: red; color: white', $1);
+
+snippet eslf
+  /* eslint-disable ${1} */

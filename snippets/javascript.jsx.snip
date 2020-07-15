@@ -343,3 +343,45 @@ snippet mock
 
 snippet flowignore
   // $FlowIgnore
+
+snippet pageada
+  // @flow
+
+  import React, { Component } from 'react';
+  import { SafeAreaView } from 'react-native';
+  import type { NavigationScreenProp } from 'react-navigation';
+  import styled from 'styled-components/native';
+  import { Page } from 'AdaExpress/src/components/Page';
+  import I18n from 'AdaExpress/i18n/i18n';
+  import { Header } from 'AdaExpress/src/components/Header';
+
+  export class ${1:Page} extends Component<PropsType> {
+    goBack = () => {
+      this.props.navigation.navigate('${2:previousPage}');
+    };
+
+    render() {
+      return (
+        <Page>
+          <StyledScrollView bounces={false}>
+            <Header hasBackIcon hasCrossIcon={false} backAction={this.goBack} title={I18n.t('${3:page}.title')} />
+            <SafeAreaView />
+          </StyledScrollView>
+        </Page>
+      );
+    }
+  }
+
+  const StyledScrollView = styled.ScrollView\`
+    width: 100%;
+    background-color: \${({ theme }) => theme.colors.white};
+  \`;
+
+  type OwnProps = {
+    navigation: NavigationScreenProp<*>,
+  };
+
+  type PropsType = OwnProps;
+
+snippet eslf
+  /* eslint-disable ${1} */

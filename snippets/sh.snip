@@ -44,3 +44,9 @@ snippet echogreen
 
 snippet echored
   echo "${RED}${1}${NC}"
+
+snippet findwhile
+  find . -name "*.txt" -print0 | while read -d $'\0' file
+  do
+      …code using "$file"
+  done
