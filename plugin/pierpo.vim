@@ -18,6 +18,16 @@ function PPWatchTests()
 endfunction
 command PPWatchTests call PPWatchTests()
 
+function PPWatchTestsAda()
+  execute 'vs term://yarn test:unit:ada --watch '.expand('%:t:r')
+endfunction
+command PPWatchTestsAda call PPWatchTestsAda()
+
+function PPWatchTestsAdaServer()
+  execute 'vs term://yarn test:unit --watch '.expand('%:t:r')
+endfunction
+command PPWatchTestsAdaServer call PPWatchTestsAdaServer()
+
 " Creates missing directories (useful when used with ,gF)
 function WriteCreatingDirs()
     execute ':silent !mkdir -p %:h'
