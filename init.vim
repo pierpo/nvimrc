@@ -93,6 +93,14 @@ let g:html_indent_script1 = 'inc'
 let g:html_indent_style1  = 'inc'
 let g:html_indent_inctags = 'html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section'
 
+" Error format for eslint
+set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %trror\ -\ %m
+set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
+
+" Error format for tsc
+" set errorformat+=%f(%l,%c):\ %trror\ TS%n:\ %m
+set errorformat+=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
+
 " Use Rg with :grep
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading\ --hidden

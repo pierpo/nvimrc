@@ -1,4 +1,5 @@
 {
+  "eslint.enable": true,
   "python.formatting.blackArgs": [],
   "python.formatting.blackPath": "black",
   "python.jediEnabled": true,
@@ -11,6 +12,7 @@
     "<C-c>": "do:exit"
   },
   "prettier.disableSuccessMessage": true,
+  "prettier.onlyUseLocalVersion": true,
   "suggest.snippetIndicator": "►",
   "suggest.minTriggerInputLength": 2,
   "diagnostic.virtualText": false,
@@ -22,16 +24,5 @@
     "typescriptreact",
     "javascript",
     "javascriptreact"
-  ],
-  "languageserver": {
-    "flow": {
-      "command": "./node_modules/.bin/flow",
-      "args": ["lsp"],
-      "filetypes": ["javascript", "javascriptreact"],
-      "initializationOptions": {},
-      "requireRootPattern": true,
-      "settings": {},
-      "rootPatterns": [".flowconfig"]
-    }
-  }
+  ]
 }
