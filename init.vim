@@ -313,8 +313,9 @@ Plug 'hail2u/vim-css3-syntax'
 " JavaScript
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'neoclide/jsonc.vim'
 
 " Better `gf` for node
 Plug 'tomarrell/vim-npr'
@@ -330,7 +331,7 @@ Plug 'mxw/vim-jsx'
 
 " Typescript
 Plug 'leafgarland/typescript-vim'
-" Plug 'peitalin/vim-jsx-typescript'
+Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'elzr/vim-json'
 
@@ -461,21 +462,22 @@ set background=dark
 " }}}
 
 " Status line {{{
-set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
-let g:lightline = {
-\ 'colorscheme': 'oceanicnext',
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-\ },
-\ 'component_function': {
-\   'cocstatus': 'coc#status'
-\ },
-\ }
+" set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
+" let g:lightline = {
+" \ 'colorscheme': 'oceanicnext',
+" \ 'active': {
+" \   'left': [ [ 'mode', 'paste' ],
+" \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+" \ },
+" \ 'component_function': {
+" \   'cocstatus': 'coc#status'
+" \ },
+" \ }
 " }}}
 
 
 " Fzf as popup window {{{
+let g:fzf_preview_window = ''
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
