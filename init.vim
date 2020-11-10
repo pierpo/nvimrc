@@ -118,7 +118,7 @@ augroup gutter
 augroup END
 
 " Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
+set updatetime=4000
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
