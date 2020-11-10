@@ -135,6 +135,9 @@ if !has('macunix')
   Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 endif
 
+" godot
+Plug 'calviken/vim-gdscript3'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
