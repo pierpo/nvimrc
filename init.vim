@@ -7,6 +7,137 @@ augroup END
 
 " }}}
 
+" Plugins {{{
+call plug#begin('~/.config/nvim/plugged')
+
+if has('macunix')
+  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+else
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+endif
+
+" Snippets
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+
+" HTML
+Plug 'mattn/emmet-vim' " HTML plugin
+Plug 'othree/html5.vim' "pour html5
+Plug 'othree/html5-syntax.vim'
+
+Plug 'godlygeek/tabular' "align stuff plugin
+Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'vim-ruby/vim-ruby'
+
+" CSS3 highlighting
+Plug 'hail2u/vim-css3-syntax'
+
+" JavaScript
+Plug 'moll/vim-node'
+Plug 'pangloss/vim-javascript'
+" Plug 'maxmellon/vim-jsx-pretty'
+Plug 'othree/javascript-libraries-syntax.vim'
+" Plug 'neoclide/jsonc.vim'
+
+" Better `gf` for node
+Plug 'tomarrell/vim-npr'
+
+" Allows proper jsx commenting
+" Plug 'suy/vim-context-commentstring'
+
+" React
+Plug 'mxw/vim-jsx'
+
+" Styled components
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
+" Typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
+Plug 'elzr/vim-json'
+
+" Github markdown
+Plug 'rhysd/vim-gfm-syntax'
+
+" Plug 'ludovicchabant/vim-gutentags'
+
+" Split lines (like js objects)
+Plug 'AndrewRadev/splitjoin.vim'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+
+" :Gbrowse
+Plug 'tpope/vim-rhubarb'
+
+Plug 'kana/vim-textobj-user'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'kana/vim-textobj-line'
+
+" Select by indent
+Plug 'michaeljsmith/vim-indent-object'
+
+" Remap [[ and ]] to make it work properly with most filetypes
+Plug 'arp242/jumpy.vim'
+
+" Switch true to false
+Plug 'AndrewRadev/switch.vim'
+
+" Colorschemes
+" Plug 'arcticicestudio/nord-vim'
+" Plug 'AlessandroYorba/Sierra'
+" Plug 'dracula/vim'
+" Plug 'morhetz/gruvbox'
+Plug 'mhartington/oceanic-next'
+
+" Cycle arguments/properties
+Plug 'AndrewRadev/sideways.vim'
+
+" Go
+" Plug 'fatih/vim-go'
+
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+" Filter the quickfix list
+Plug 'romainl/vim-qf'
+
+" Instead of gitgutter
+Plug 'mhinz/vim-signify'
+
+" nginx
+Plug 'chr4/nginx.vim'
+
+" Somehow this does not work on macOS for me...
+if !has('macunix')
+  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+endif
+
+" All of your Plugins must be added before the following line
+call plug#end()
+filetype plugin indent on    " required
+
+" }}}
+
 " Generic configuration {{{
 "
 set scrolljump=5
@@ -14,7 +145,7 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
-" set foldmethod=marker
+set foldmethod=marker
 
 if has('nvim-0.4.0')
   set wildoptions=pum
@@ -278,137 +409,6 @@ imap <C-j> <Plug>(neosnippet_jump)
 
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" }}}
-
-" Plugins {{{
-call plug#begin('~/.config/nvim/plugged')
-
-if has('macunix')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-endif
-
-" Snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-
-" HTML
-Plug 'mattn/emmet-vim' " HTML plugin
-Plug 'othree/html5.vim' "pour html5
-Plug 'othree/html5-syntax.vim'
-
-Plug 'godlygeek/tabular' "align stuff plugin
-Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
-
-Plug 'itchyny/lightline.vim'
-
-Plug 'vim-ruby/vim-ruby'
-
-" CSS3 highlighting
-Plug 'hail2u/vim-css3-syntax'
-
-" JavaScript
-Plug 'moll/vim-node'
-Plug 'pangloss/vim-javascript'
-" Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/javascript-libraries-syntax.vim'
-" Plug 'neoclide/jsonc.vim'
-
-" Better `gf` for node
-Plug 'tomarrell/vim-npr'
-
-" Allows proper jsx commenting
-" Plug 'suy/vim-context-commentstring'
-
-" React
-Plug 'mxw/vim-jsx'
-
-" Styled components
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
-" Typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-
-Plug 'elzr/vim-json'
-
-" Github markdown
-Plug 'rhysd/vim-gfm-syntax'
-
-" Plug 'ludovicchabant/vim-gutentags'
-
-" Split lines (like js objects)
-Plug 'AndrewRadev/splitjoin.vim'
-
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-commentary'
-
-" :Gbrowse
-Plug 'tpope/vim-rhubarb'
-
-Plug 'kana/vim-textobj-user'
-Plug 'Julian/vim-textobj-variable-segment'
-Plug 'kana/vim-textobj-line'
-
-" Select by indent
-Plug 'michaeljsmith/vim-indent-object'
-
-" Remap [[ and ]] to make it work properly with most filetypes
-Plug 'arp242/jumpy.vim'
-
-" Switch true to false
-Plug 'AndrewRadev/switch.vim'
-
-" Colorschemes
-" Plug 'arcticicestudio/nord-vim'
-" Plug 'AlessandroYorba/Sierra'
-" Plug 'dracula/vim'
-" Plug 'morhetz/gruvbox'
-Plug 'mhartington/oceanic-next'
-
-" Cycle arguments/properties
-Plug 'AndrewRadev/sideways.vim'
-
-" Go
-" Plug 'fatih/vim-go'
-
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-" Filter the quickfix list
-Plug 'romainl/vim-qf'
-
-" Instead of gitgutter
-Plug 'mhinz/vim-signify'
-
-" nginx
-Plug 'chr4/nginx.vim'
-
-" Somehow this does not work on macOS for me...
-if !has('macunix')
-  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-endif
-
-" All of your Plugins must be added before the following line
-call plug#end()
-filetype plugin indent on    " required
 
 " }}}
 
