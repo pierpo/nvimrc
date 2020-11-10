@@ -392,9 +392,6 @@ Plug 'mhinz/vim-signify'
 " nginx
 Plug 'chr4/nginx.vim'
 
-" Firenvim to have vim in the browser
-Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
-
 " Somehow this does not work on macOS for me...
 if !has('macunix')
   Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
@@ -408,9 +405,6 @@ if !has('macunix')
   Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 endif
-
-" Nvim in browser
-Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
 
 " All of your Plugins must be added before the following line
 call plug#end()
