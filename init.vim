@@ -273,6 +273,10 @@ augroup cursorlineinsert
   autocmd InsertEnter,InsertLeave * set cul!
 augroup END
 
+" Fixes issue with typescript syntax
+" https://github.com/leafgarland/typescript-vim/issues/184
+hi link typescriptReserved Keyword
+
 " }}}
 
 " Mappings {{{
