@@ -56,8 +56,8 @@ Plug 'mxw/vim-jsx'
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'peitalin/vim-jsx-typescript'
 
 Plug 'elzr/vim-json'
 
@@ -117,6 +117,9 @@ Plug 'mhinz/vim-signify'
 
 " nginx
 Plug 'chr4/nginx.vim'
+
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter'
 
 " Somehow this does not work on macOS for me...
 if !has('macunix')
@@ -506,3 +509,13 @@ let g:firenvim_config = {
     \ },
   \ }
 \ }
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+}
+EOF
