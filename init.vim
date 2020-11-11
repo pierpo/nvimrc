@@ -138,6 +138,9 @@ endif
 " godot
 Plug 'calviken/vim-gdscript3'
 
+" colorscheme for treesitter
+Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -461,7 +464,8 @@ xmap ac <plug>(signify-motion-outer-visual)
 let g:signify_vcs_list = ['git']
 
 " Colorscheme {{{
-colorscheme OceanicNext
+" colorscheme OceanicNext
+colorscheme nvcode
 set background=dark
 " }}}
 
