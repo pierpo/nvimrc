@@ -279,3 +279,13 @@ snippet clvred
 
 snippet eslf
   /* eslint-disable ${1} */
+
+snippet ekwopt
+  export const ${1}Fields = {
+    A: 'A',
+  } as const;
+  export type $1Type = ValueOf<typeof $1Fields>;
+
+  export const ${2}_OPTIONS = [
+    { value: $1Fields., label: '' },
+  ] as const;
