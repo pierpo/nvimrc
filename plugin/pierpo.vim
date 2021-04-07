@@ -18,6 +18,11 @@ function PPWatchTests()
 endfunction
 command PPWatchTests call PPWatchTests()
 
+function PPWatchTestsCRA()
+  execute 'vs term://yarn react-scripts test '.expand('%:r')
+endfunction
+command PPWatchTestsCRA call PPWatchTestsCRA()
+
 function PPWatchTestsAda()
   execute 'vs term://yarn test:unit:ada --watch '.expand('%:t:r')
 endfunction
