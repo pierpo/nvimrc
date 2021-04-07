@@ -141,6 +141,9 @@ Plug 'calviken/vim-gdscript3'
 " colorscheme for treesitter
 Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 
+" Ranger
+Plug 'kevinhwang91/rnvimr'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -538,3 +541,5 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 EOF
+
+nnoremap <silent> + :RnvimrToggle<CR>
