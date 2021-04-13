@@ -107,8 +107,6 @@ Plug 'AndrewRadev/sideways.vim'
 " Go
 " Plug 'fatih/vim-go'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
 " Filter the quickfix list
 Plug 'romainl/vim-qf'
 
@@ -121,20 +119,6 @@ Plug 'chr4/nginx.vim'
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter'
 
-" Somehow this does not work on macOS for me...
-if !has('macunix')
-  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-endif
-
 " godot
 Plug 'calviken/vim-gdscript3'
 
@@ -143,6 +127,17 @@ Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 
 " Ranger
 Plug 'kevinhwang91/rnvimr'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'mhartington/formatter.nvim'
+Plug 'kosayoda/nvim-lightbulb'
+Plug 'hrsh7th/nvim-compe'
+
+" Telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+"""""""
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -472,21 +467,6 @@ colorscheme nvcode
 set background=dark
 " }}}
 
-" Status line {{{
-" set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
-" let g:lightline = {
-" \ 'colorscheme': 'oceanicnext',
-" \ 'active': {
-" \   'left': [ [ 'mode', 'paste' ],
-" \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-" \ },
-" \ 'component_function': {
-" \   'cocstatus': 'coc#status'
-" \ },
-" \ }
-" }}}
-
-
 " Fzf as popup window {{{
 let g:fzf_preview_window = ''
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
@@ -543,3 +523,13 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 nnoremap <silent> + :RnvimrToggle<CR>
+
+
+
+lua require('lsp')
+
+nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
+vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>
+nnoremap <space>a <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
+
