@@ -26,9 +26,6 @@ Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
 Plug 'itchyny/lightline.vim'
 
-" CSS3 highlighting
-Plug 'hail2u/vim-css3-syntax'
-
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
 
@@ -62,13 +59,13 @@ Plug 'AndrewRadev/switch.vim'
 " Plug 'AlessandroYorba/Sierra'
 " Plug 'dracula/vim'
 " Plug 'morhetz/gruvbox'
-Plug 'mhartington/oceanic-next'
+" Plug 'mhartington/oceanic-next'
+
+" colorscheme for treesitter
+Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
-
-" Go
-" Plug 'fatih/vim-go'
 
 " Filter the quickfix list
 Plug 'romainl/vim-qf'
@@ -84,9 +81,6 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 " godot
 Plug 'calviken/vim-gdscript3'
-
-" colorscheme for treesitter
-Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 
 " Ranger
 Plug 'kevinhwang91/rnvimr'
@@ -242,10 +236,6 @@ endif
 augroup cursorlineinsert
   autocmd InsertEnter,InsertLeave * set cul!
 augroup END
-
-" Fixes issue with typescript syntax
-" https://github.com/leafgarland/typescript-vim/issues/184
-hi link typescriptReserved Keyword
 
 " }}}
 
@@ -410,9 +400,6 @@ let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
 
 let g:jsx_ext_required = 0
 
-" No json quote conceal
-let g:vim_json_syntax_conceal = 0
-
 " Gutentags
 let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
 
@@ -452,16 +439,6 @@ function! FloatingFZF()
   call nvim_open_win(buf, v:true, opts)
 endfunction
 " }}}
-
-" Make firenvim never trigger so it has to be manually activated
-let g:firenvim_config = {
-  \ 'localSettings': {
-    \ '.*': {
-      \ 'selector': '',
-      \ 'priority': 0,
-    \ },
-  \ }
-\ }
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
