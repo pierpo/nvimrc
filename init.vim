@@ -467,6 +467,7 @@ nnoremap <silent> + :RnvimrToggle<CR>
 
 
 lua require('lsp')
+lua require('treesitter-conf')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>
