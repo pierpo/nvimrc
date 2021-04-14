@@ -35,8 +35,8 @@ local on_attach = function(client, bufnr)
     buf_map(bufnr, "n", "1gD",   "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
     buf_map(bufnr, "n", "gr",    "<cmd>lua vim.lsp.buf.references()<CR>", {})
     buf_map(bufnr, "n", "gR",    "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-    buf_map(bufnr, "n", "]g",    "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = \"single\" }})<CR>", {})
-    buf_map(bufnr, "n", "[g",    "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = \"single\" }})<CR>", {})
+    buf_map(bufnr, "n", "]g",    "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = \"double\" }})<CR>", {})
+    buf_map(bufnr, "n", "[g",    "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = \"double\" }})<CR>", {})
 
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_exec([[
@@ -125,7 +125,7 @@ vim.lsp.handlers["textDocument/hover"] =
   vim.lsp.with(
   vim.lsp.handlers.hover,
   {
-    border = "single"
+    border = "double"
   }
 )
 
@@ -134,9 +134,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
   vim.lsp.with(
   vim.lsp.handlers.signature_help,
   {
-    border = "single"
+    border = "double"
   }
 )
-
--- vim.cmd [[nnoremap <buffer><silent> ]g :lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>]]
--- vim.cmd [[nnoremap <buffer><silent> [g :lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>]]
