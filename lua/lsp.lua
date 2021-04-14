@@ -31,12 +31,12 @@ local on_attach = function(client, bufnr)
     buf_map(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
     buf_map(bufnr, "n", "K",     "<cmd>lua vim.lsp.buf.hover()<CR>", {})
     buf_map(bufnr, "n", "gD",    "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
-    buf_map(bufnr, "n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
+    buf_map(bufnr, "n", "<c-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
     buf_map(bufnr, "n", "1gD",   "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
     buf_map(bufnr, "n", "gr",    "<cmd>lua vim.lsp.buf.references()<CR>", {})
     buf_map(bufnr, "n", "gR",    "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-    buf_map(bufnr, "n", "]g",    "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", {})
-    buf_map(bufnr, "n", "[g",    "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", {})
+    buf_map(bufnr, "n", "]g",    "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = \"single\" }})<CR>", {})
+    buf_map(bufnr, "n", "[g",    "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = \"single\" }})<CR>", {})
 
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_exec([[
@@ -120,3 +120,23 @@ vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {expr = true, sile
 vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm("<CR>")]], {expr = true, silent = true})
 vim.api.nvim_set_keymap("i", "<C-e>", [[compe#close("<C-e>")]], {expr = true, silent = true})
 
+-- Add borders to hover
+vim.lsp.handlers["textDocument/hover"] =
+  vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {
+    border = "single"
+  }
+)
+
+-- Add borders to signature help
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {
+    border = "single"
+  }
+)
+
+-- vim.cmd [[nnoremap <buffer><silent> ]g :lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "single" }})<CR>]]
+-- vim.cmd [[nnoremap <buffer><silent> [g :lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "single" }})<CR>]]
