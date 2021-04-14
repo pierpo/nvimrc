@@ -21,50 +21,13 @@ endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
-" HTML
-Plug 'mattn/emmet-vim' " HTML plugin
-Plug 'othree/html5.vim' "pour html5
-Plug 'othree/html5-syntax.vim'
-
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
 Plug 'itchyny/lightline.vim'
 
-Plug 'vim-ruby/vim-ruby'
-
 " CSS3 highlighting
 Plug 'hail2u/vim-css3-syntax'
-
-" JavaScript
-Plug 'moll/vim-node'
-Plug 'pangloss/vim-javascript'
-" Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/javascript-libraries-syntax.vim'
-" Plug 'neoclide/jsonc.vim'
-
-" Better `gf` for node
-Plug 'tomarrell/vim-npr'
-
-" Allows proper jsx commenting
-" Plug 'suy/vim-context-commentstring'
-
-" React
-Plug 'mxw/vim-jsx'
-
-" Styled components
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-
-" Typescript
-" Plug 'leafgarland/typescript-vim'
-" Plug 'peitalin/vim-jsx-typescript'
-
-Plug 'elzr/vim-json'
-
-" Github markdown
-Plug 'rhysd/vim-gfm-syntax'
-
-" Plug 'ludovicchabant/vim-gutentags'
 
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
