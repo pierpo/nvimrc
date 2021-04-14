@@ -470,7 +470,7 @@ lua require('lsp')
 lua require('treesitter-conf')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
-vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>
+vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
 nnoremap <space>a <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
 nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
 
