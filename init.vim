@@ -387,29 +387,11 @@ xmap ia <Plug>SidewaysArgumentTextobjI
 " Switch mapping
 let g:switch_mapping = 'gs'
 
-" FLOW SYNTAX
-let g:javascript_plugin_flow = 1
-
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 
-let g:gfm_syntax_emoji_conceal = 1
-
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
-
-let g:jsx_ext_required = 0
-
-" Gutentags
-let g:gutentags_ctags_exclude = ['coverage', 'node_modules', 'assets', 'flow-coverage']
-
-" Vim signify text objects
-omap ic <plug>(signify-motion-inner-pending)
-xmap ic <plug>(signify-motion-inner-visual)
-omap ac <plug>(signify-motion-outer-pending)
-xmap ac <plug>(signify-motion-outer-visual)
-
-let g:signify_vcs_list = ['git']
 
 " Colorscheme {{{
 " colorscheme OceanicNext
