@@ -450,22 +450,7 @@ nnoremap <silent> + :RnvimrToggle<CR>
 
 lua require('lsp')
 lua require('treesitter-conf')
-lua << EOF
-require('gitsigns').setup {
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-    buffer = true,
-
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
-
-    -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
-  }
-}
-EOF
+lua require('gitsigns-conf')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
