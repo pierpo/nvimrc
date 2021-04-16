@@ -262,20 +262,6 @@ vnoremap // y/\V<C-R>"<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-function ClearPaneAndRepeatCommand(pane)
-  execute '!tmux send-keys -t ' . '0.2' . ' -R \; clear-history'
-  execute '!tmux send-keys -t ' . '0.2' . ' C-c C-m C-l C-p C-m'
-endfunction
-
-map <Leader>ta :!tmux send-keys -t 0.1 C-c C-m C-p C-m<CR><CR>
-map <Leader>tka :execute ClearPaneAndRepeatCommand(0.1)<CR><CR>
-map <Leader>tb :!tmux send-keys -t 0.2 C-c C-m C-p C-m<CR><CR>
-map <Leader>tkb :execute ClearPaneAndRepeatCommand(0.2)<CR><CR>
-map <Leader>tc :!tmux send-keys -t 0.3 C-c C-m C-p C-m<CR><CR>
-map <Leader>tkc :execute ClearPaneAndRepeatCommand(0.3)<CR><CR>
-map <Leader>td :!tmux send-keys -t 0.4 C-c C-m C-p C-m<CR><CR>
-map <Leader>tkd :execute ClearPaneAndRepeatCommand(0.4)<CR><CR>
-
 nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
 nnoremap <Leader>rge :grep! "\b<C-R><C-W>\b"<CR>
 nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
