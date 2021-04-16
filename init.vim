@@ -86,7 +86,6 @@ Plug 'calviken/vim-gdscript3'
 Plug 'kevinhwang91/rnvimr'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'mhartington/formatter.nvim'
 Plug 'kosayoda/nvim-lightbulb'
 Plug 'hrsh7th/nvim-compe'
 
