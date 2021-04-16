@@ -71,7 +71,8 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'romainl/vim-qf'
 
 " Instead of gitgutter
-Plug 'mhinz/vim-signify'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " nginx
 Plug 'chr4/nginx.vim'
@@ -467,6 +468,22 @@ nnoremap <silent> + :RnvimrToggle<CR>
 
 lua require('lsp')
 lua require('treesitter-conf')
+lua << EOF
+require('gitsigns').setup {
+  keymaps = {
+    -- Default keymap options
+    noremap = true,
+    buffer = true,
+
+    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+
+    -- Text objects
+    ['o ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
+    ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>'
+  }
+}
+EOF
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
