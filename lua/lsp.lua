@@ -49,6 +49,7 @@ local on_attach = function(client, bufnr)
 end
 
 nvim_lsp.tsserver.setup {
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     on_attach = function(client)
         client.resolved_capabilities.document_formatting = false
         on_attach(client)
@@ -103,6 +104,10 @@ nvim_lsp.diagnosticls.setup {
 }
 
 nvim_lsp.gdscript.setup{
+  on_attach = on_attach
+}
+
+nvim_lsp.flow.setup{
   on_attach = on_attach
 }
 
