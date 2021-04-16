@@ -81,7 +81,7 @@ local linters = {
 }
 
 local formatters = {
-    prettier = {command = "./node_modules/.bin/prettier",
+    prettier = {command = "prettierd",
     rootPatterns = {".prettierrc", "package.json"},
     args = {"--stdin-filepath", "%filepath"}}
 }
