@@ -424,3 +424,9 @@ vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
 nnoremap <space>a <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
 nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
 
+
+augroup dirvish_config
+  autocmd!
+  autocmd FileType dirvish
+              \ nnoremap <silent><buffer> t ddO<Esc>:let @"=substitute(@", '\n', '', 'g')<CR>:r ! find "<C-R>"" -maxdepth 1 -print0 \| xargs -0 ls -Fd<CR>:silent! keeppatterns %s/\/\//\//g<CR>:silent! keeppatterns %s/[^a-zA-Z0-9\/]$//g<CR>:silent! keeppatterns g/^$/d<CR>:noh<CR>
+augroup END
