@@ -96,6 +96,10 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 """""""
 
+Plug 'justinmk/vim-dirvish'
+
+Plug 'mhartington/formatter.nvim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on    " required
@@ -413,6 +417,7 @@ nnoremap <silent> + :RnvimrToggle<CR>
 lua require('lsp')
 lua require('treesitter-conf')
 lua require('gitsigns-conf')
+lua require('formatter-config')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
