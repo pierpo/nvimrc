@@ -24,7 +24,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
 
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
 
 " Split lines (like js objects)
 Plug 'AndrewRadev/splitjoin.vim'
@@ -63,6 +64,7 @@ Plug 'AndrewRadev/switch.vim'
 
 " colorscheme for treesitter
 Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
+Plug 'folke/tokyonight.nvim'
 
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
@@ -99,6 +101,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'justinmk/vim-dirvish'
 
 Plug 'mhartington/formatter.nvim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -385,7 +390,8 @@ let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
 
 " Colorscheme {{{
 " colorscheme OceanicNext
-colorscheme nvcode
+" colorscheme nvcode
+colorscheme tokyonight
 set background=dark
 " }}}
 
@@ -401,6 +407,7 @@ function! FloatingFZF()
   let col = float2nr((&columns - width) / 2)
 
   let opts = {
+        \ 'border': 'single',
         \ 'relative': 'editor',
         \ 'row': 4,
         \ 'col': col,
@@ -418,6 +425,7 @@ lua require('lsp')
 lua require('treesitter-conf')
 lua require('gitsigns-conf')
 lua require('formatter-config')
+lua require('lualine-conf')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
