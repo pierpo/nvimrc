@@ -104,6 +104,8 @@ Plug 'mhartington/formatter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 
 " All of your Plugins must be added before the following line
 call plug#end()
