@@ -16,6 +16,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
-    enable = true
+    -- buggy for now, in typescript it makes the cursor go to col 0
+    enable = false
   }
 }
