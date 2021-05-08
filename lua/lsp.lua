@@ -84,7 +84,7 @@ local linters = {
 local formatters = {
     prettier = {command = "prettierd",
     rootPatterns = {".prettierrc", "package.json"},
-    args = {"--stdin-filepath", "%filepath"}}
+    args = {"%filepath"}}
 }
 
 local formatFiletypes = {
