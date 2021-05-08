@@ -111,6 +111,10 @@ nvim_lsp.flow.setup{
   on_attach = on_attach
 }
 
+nvim_lsp.clangd.setup{
+  on_attach = on_attach
+}
+
 require"compe".setup {
     preselect = "always",
     source = {
