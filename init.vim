@@ -105,6 +105,9 @@ Plug 'mhartington/formatter.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'windwp/nvim-ts-autotag'
+
+Plug 'TimUntersberger/neogit'
 
 
 " All of your Plugins must be added before the following line
