@@ -107,7 +107,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 Plug 'windwp/nvim-ts-autotag'
 
-Plug 'TimUntersberger/neogit'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
+Plug 'norcalli/nvim-colorizer.lua'
 
 
 " All of your Plugins must be added before the following line
@@ -118,6 +120,7 @@ filetype plugin indent on    " required
 
 " Generic configuration {{{
 "
+
 set scrolljump=5
 set nocursorcolumn
 set nocursorline
@@ -443,3 +446,6 @@ augroup dirvish_config
   autocmd FileType dirvish
               \ nnoremap <silent><buffer> t ddO<Esc>:let @"=substitute(@", '\n', '', 'g')<CR>:r ! find "<C-R>"" -maxdepth 1 -print0 \| xargs -0 ls -Fd<CR>:silent! keeppatterns %s/\/\//\//g<CR>:silent! keeppatterns %s/[^a-zA-Z0-9\/]$//g<CR>:silent! keeppatterns g/^$/d<CR>:noh<CR>
 augroup END
+
+" Lua colorizer
+lua require'colorizer'.setup()
