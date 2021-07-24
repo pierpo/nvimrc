@@ -128,6 +128,8 @@ set norelativenumber
 syntax sync minlines=256
 set foldmethod=marker
 
+set wildignore+=*DS_Store*
+
 if has('nvim-0.4.0')
   set wildoptions=pum
 endif
