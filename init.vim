@@ -338,9 +338,6 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 nnoremap <Leader>w :Format<CR>:w<CR>
 nnoremap <Leader>W :noautocmd w<CR>
 
-nnoremap <Leader>db yiWoconsole.log('<C-r>"', <C-r>")<esc>==
-nnoremap <Leader>dB yiWOconsole.log('<C-r>"', <C-r>")<esc>==
-
 " Auto expand ()
 inoremap (<CR> (<CR>)<Up><End><CR>
 inoremap {<CR> {<CR>}<Up><End><CR>
