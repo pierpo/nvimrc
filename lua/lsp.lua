@@ -53,6 +53,11 @@ nvim_lsp.tsserver.setup {
     on_attach = function(client)
         client.resolved_capabilities.document_formatting = false
         on_attach(client)
+
+        local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup {}
+
+        ts_utils.setup_client(client)
     end
 }
 
