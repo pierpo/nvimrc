@@ -59,6 +59,8 @@ nvim_lsp.tsserver.setup {
 local filetypes = {
     typescript = "eslint",
     typescriptreact = "eslint",
+    javascript = "eslint",
+    javascriptreact = "eslint",
 }
 
 local linters = {
