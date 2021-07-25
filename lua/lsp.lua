@@ -4,7 +4,9 @@
 local nvim_lsp = require("lspconfig")
 
 local format_async = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then return end
+    if err ~= nil or result == nil then
+        return
+    end
     if not vim.api.nvim_buf_get_option(bufnr, "modified") then
         local view = vim.fn.winsaveview()
         vim.lsp.util.apply_text_edits(result, bufnr)
@@ -27,29 +29,32 @@ end
 
 local on_attach = function(client, bufnr)
     local buf_map = vim.api.nvim_buf_set_keymap
-    buf_map(bufnr, "n", "gd",    "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
+    buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
     buf_map(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
-    buf_map(bufnr, "n", "K",     "<cmd>lua vim.lsp.buf.hover()<CR>", {})
-    buf_map(bufnr, "n", "gD",    "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
+    buf_map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {})
+    buf_map(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
     buf_map(bufnr, "n", "<c-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-    buf_map(bufnr, "n", "1gD",   "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
-    buf_map(bufnr, "n", "gr",    "<cmd>lua vim.lsp.buf.references()<CR>", {})
-    buf_map(bufnr, "n", "gR",    "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-    buf_map(bufnr, "n", "]g",    "<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = \"double\" }})<CR>", {})
-    buf_map(bufnr, "n", "[g",    "<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = \"double\" }})<CR>", {})
+    buf_map(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
+    buf_map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
+    buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
+    buf_map(bufnr, "n", "]g", '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
+    buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
 
     if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_exec([[
+        vim.api.nvim_exec(
+            [[
         augroup LspAutocommands
             autocmd! * <buffer>
             autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()
         augroup END
-        ]], true)
+        ]],
+            true
+        )
     end
 end
 
 nvim_lsp.tsserver.setup {
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+    filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
     on_attach = function(client)
         client.resolved_capabilities.document_formatting = false
         on_attach(client)
@@ -65,7 +70,7 @@ local filetypes = {
     typescript = "eslint",
     typescriptreact = "eslint",
     javascript = "eslint",
-    javascriptreact = "eslint",
+    javascriptreact = "eslint"
 }
 
 local linters = {
@@ -90,15 +95,15 @@ local linters = {
 
 local formatters = {
     prettier = {
-      command = "prettierd",
-      rootPatterns = {".prettierrc", "package.json"},
-      args = {"%filepath"}
+        command = "prettierd",
+        rootPatterns = {".prettierrc", "package.json"},
+        args = {"%filepath"}
     },
     eslint = {
-      command = "eslint_d",
-      rootPatterns = {".eslintrc", "package.json"},
-      args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
-    },
+        command = "eslint_d",
+        rootPatterns = {".eslintrc", "package.json"},
+        args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
+    }
 }
 
 -- eslint formatter
@@ -118,19 +123,19 @@ nvim_lsp.diagnosticls.setup {
     }
 }
 
-nvim_lsp.gdscript.setup{
-  on_attach = on_attach
+nvim_lsp.gdscript.setup {
+    on_attach = on_attach
 }
 
-nvim_lsp.flow.setup{
-  on_attach = on_attach
+nvim_lsp.flow.setup {
+    on_attach = on_attach
 }
 
-nvim_lsp.clangd.setup{
-  on_attach = on_attach
+nvim_lsp.clangd.setup {
+    on_attach = on_attach
 }
 
-require"compe".setup {
+require "compe".setup {
     preselect = "always",
     source = {
         path = true,
@@ -146,18 +151,18 @@ vim.api.nvim_set_keymap("i", "<C-e>", [[compe#close("<C-e>")]], {expr = true, si
 
 -- Add borders to hover
 vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "double"
-  }
+    vim.lsp.with(
+    vim.lsp.handlers.hover,
+    {
+        border = "double"
+    }
 )
 
 -- Add borders to signature help
 vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "double"
-  }
+    vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    {
+        border = "double"
+    }
 )
