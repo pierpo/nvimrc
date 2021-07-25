@@ -84,14 +84,22 @@ local linters = {
 }
 
 local formatters = {
-    prettier = {command = "prettierd",
-    rootPatterns = {".prettierrc", "package.json"},
-    args = {"%filepath"}}
+    prettier = {
+      command = "prettierd",
+      rootPatterns = {".prettierrc", "package.json"},
+      args = {"%filepath"}
+    },
+    eslint = {
+      command = "eslint_d",
+      rootPatterns = {".eslintrc", "package.json"},
+      args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
+    },
 }
 
+-- eslint formatter
 local formatFiletypes = {
-    typescript = "prettier",
-    typescriptreact = "prettier"
+    typescript = "eslint",
+    typescriptreact = "eslint"
 }
 
 nvim_lsp.diagnosticls.setup {
