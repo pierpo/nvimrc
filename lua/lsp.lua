@@ -19,14 +19,6 @@ local format_async = function(err, _, result, _, bufnr)
 end
 
 vim.lsp.handlers["textDocument/formatting"] = format_async
-_G.lsp_organize_imports = function()
-    local params = {
-        command = "_typescript.organizeImports",
-        arguments = {vim.api.nvim_buf_get_name(0)},
-        title = ""
-    }
-    vim.lsp.buf.execute_command(params)
-end
 
 local on_attach = function(client, bufnr)
     local buf_map = vim.api.nvim_buf_set_keymap
