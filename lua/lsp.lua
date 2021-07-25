@@ -87,11 +87,18 @@ nvim_lsp.tsserver.setup {
         on_attach(client)
 
         local ts_utils = require("nvim-lsp-ts-utils")
-        ts_utils.setup {}
+        ts_utils.setup {
+          eslint_bin = "eslint_d",
+        }
 
         ts_utils.setup_client(client)
     end
 }
+
+-- Enable eslint code actions
+require("null-ls").config {}
+require("lspconfig")["null-ls"].setup {}
+
 -- }}}
 
 -- {{{ Diagnosticls configuration
