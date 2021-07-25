@@ -3,6 +3,7 @@
 
 local nvim_lsp = require("lspconfig")
 
+-- {{{ Global configuration
 local format_async = function(err, _, result, _, bufnr)
     if err ~= nil or result == nil then
         return
@@ -53,88 +54,6 @@ local on_attach = function(client, bufnr)
     end
 end
 
-nvim_lsp.tsserver.setup {
-    filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
-    on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
-
-        local ts_utils = require("nvim-lsp-ts-utils")
-        ts_utils.setup {}
-
-        ts_utils.setup_client(client)
-    end
-}
-
-local filetypes = {
-    typescript = "eslint",
-    typescriptreact = "eslint",
-    javascript = "eslint",
-    javascriptreact = "eslint"
-}
-
-local linters = {
-    eslint = {
-        sourceName = "eslint",
-        command = "eslint_d",
-        rootPatterns = {".eslintrc.js", "package.json"},
-        debounce = 100,
-        args = {"--stdin", "--stdin-filename", "%filepath", "--format", "json"},
-        parseJson = {
-            errorsRoot = "[0].messages",
-            line = "line",
-            column = "column",
-            endLine = "endLine",
-            endColumn = "endColumn",
-            message = "${message} [${ruleId}]",
-            security = "severity"
-        },
-        securities = {[2] = "error", [1] = "warning"}
-    }
-}
-
-local formatters = {
-    prettier = {
-        command = "prettierd",
-        rootPatterns = {".prettierrc", "package.json"},
-        args = {"%filepath"}
-    },
-    eslint = {
-        command = "eslint_d",
-        rootPatterns = {".eslintrc", "package.json"},
-        args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
-    }
-}
-
--- eslint formatter
-local formatFiletypes = {
-    typescript = "eslint",
-    typescriptreact = "eslint"
-}
-
-nvim_lsp.diagnosticls.setup {
-    on_attach = on_attach,
-    filetypes = vim.tbl_keys(filetypes),
-    init_options = {
-        filetypes = filetypes,
-        linters = linters,
-        formatters = formatters,
-        formatFiletypes = formatFiletypes
-    }
-}
-
-nvim_lsp.gdscript.setup {
-    on_attach = on_attach
-}
-
-nvim_lsp.flow.setup {
-    on_attach = on_attach
-}
-
-nvim_lsp.clangd.setup {
-    on_attach = on_attach
-}
-
 require "compe".setup {
     preselect = "always",
     source = {
@@ -166,3 +85,96 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
         border = "double"
     }
 )
+-- }}}
+
+-- {{{ typescript
+nvim_lsp.tsserver.setup {
+    filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
+    on_attach = function(client)
+        client.resolved_capabilities.document_formatting = false
+        on_attach(client)
+
+        local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup {}
+
+        ts_utils.setup_client(client)
+    end
+}
+-- }}}
+
+-- {{{ Diagnosticls configuration
+local diagnosticLinters = {
+    eslint = {
+        sourceName = "eslint",
+        command = "eslint_d",
+        rootPatterns = {".eslintrc.js", "package.json"},
+        debounce = 100,
+        args = {"--stdin", "--stdin-filename", "%filepath", "--format", "json"},
+        parseJson = {
+            errorsRoot = "[0].messages",
+            line = "line",
+            column = "column",
+            endLine = "endLine",
+            endColumn = "endColumn",
+            message = "${message} [${ruleId}]",
+            security = "severity"
+        },
+        securities = {[2] = "error", [1] = "warning"}
+    }
+}
+
+local diagnosticFormatters = {
+    prettier = {
+        command = "prettierd",
+        rootPatterns = {".prettierrc", "package.json"},
+        args = {"%filepath"}
+    },
+    eslint = {
+        command = "eslint_d",
+        rootPatterns = {".eslintrc", "package.json"},
+        args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
+    }
+}
+
+-- eslint formatter
+local diagnosticFormatFiletypes = {
+    typescript = "eslint",
+    typescriptreact = "eslint"
+}
+
+local diagnosticFiletypes = {
+    typescript = "eslint",
+    typescriptreact = "eslint",
+    javascript = "eslint",
+    javascriptreact = "eslint"
+}
+
+nvim_lsp.diagnosticls.setup {
+    on_attach = on_attach,
+    filetypes = vim.tbl_keys(diagnosticFiletypes),
+    init_options = {
+        filetypes = diagnosticFiletypes,
+        linters = diagnosticLinters,
+        formatters = diagnosticFormatters,
+        formatFiletypes = diagnosticFormatFiletypes
+    }
+}
+-- }}}
+
+-- {{{ gdscript
+nvim_lsp.gdscript.setup {
+    on_attach = on_attach
+}
+-- }}}
+
+-- {{{ flow
+nvim_lsp.flow.setup {
+    on_attach = on_attach
+}
+-- }}}
+
+-- {{{ clangd
+nvim_lsp.clangd.setup {
+    on_attach = on_attach
+}
+-- }}}
