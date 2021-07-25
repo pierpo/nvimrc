@@ -436,6 +436,8 @@ lua require('treesitter-conf')
 lua require('gitsigns-conf')
 lua require('formatter-config')
 lua require('lualine-conf')
+lua require('telescope-config')
+lua require('dap-config')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
