@@ -81,6 +81,7 @@ Plug 'chr4/nginx.vim'
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 
 " godot
 Plug 'calviken/vim-gdscript3'
