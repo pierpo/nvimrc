@@ -2,7 +2,7 @@
 
 (attribute (identifier) @property)
 (property (path) @property)
-(constructor) @constructor
+(constructor (identifier) @constructor)
 
 (string) @string
 (integer) @number
@@ -15,6 +15,9 @@
   "["
   "]"
 ] @tag.delimiter
+
+"(" @punctuation.bracket
+")" @punctuation.bracket
 
 "=" @operator
 
