@@ -16,8 +16,12 @@
   "]"
 ] @tag.delimiter
 
-"(" @punctuation.bracket
-")" @punctuation.bracket
+[
+  "("
+  ")"
+  "{"
+  "}"
+] @punctuation.bracket
 
 "=" @operator
 
