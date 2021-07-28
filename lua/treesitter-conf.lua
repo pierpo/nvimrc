@@ -41,13 +41,3 @@ require "nvim-treesitter.configs".setup {
     }
   }
 }
-
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.godotResource = {
-  install_info = {
-    url = "~/projects/tree-sitter-godot-resource/", -- local path or git repo
-    files = {"src/parser.c", "src/scanner.c"}
-  },
-  filetype = "gdresource", -- if filetype does not agrees with parser name
-  -- used_by = {"bar", "baz"} -- additional filetypes that use this parser
-}
