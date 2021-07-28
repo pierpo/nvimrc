@@ -114,6 +114,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'rcarriga/nvim-dap-ui'
 
 " All of your Plugins must be added before the following line
 call plug#end()

@@ -1,11 +1,11 @@
+require("dapui").setup()
 require("telescope").load_extension("dap")
 
-vim.api.nvim_set_keymap("n", "<leader>dc", ":Telescope dap commands<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>dv", ":lua require('dap.ui.widgets').sidebar(require('dap.ui.widgets').scopes).open()<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>dr", ":lua require('dap').repl.open()<CR>", {})
+vim.api.nvim_set_keymap("v", "<leader>dk", ":lua require('dapui').eval()<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>dk", ":lua require('dapui').eval()<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<CR>", {})
 
-vim.api.nvim_set_keymap("n", "<F8>", ":lua require('dap').continue()<CR>", {})
+vim.api.nvim_set_keymap("n", "<F8>", ":lua require('dap').continue(); require('dapui')<CR>", {})
 vim.api.nvim_set_keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", {})
 vim.api.nvim_set_keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", {})
 vim.api.nvim_set_keymap("n", "<F12>", ":lua require('dap').step_out()<CR>", {})
