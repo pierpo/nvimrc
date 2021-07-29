@@ -217,12 +217,6 @@ set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 " set errorformat+=%f(%l,%c):\ %trror\ TS%n:\ %m
 set errorformat+=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
 
-" Use Rg with :grep
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading\ --hidden
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -262,63 +256,47 @@ augroup END
 
 " Mappings {{{
 
-nnoremap <leader>grep :grep! -F ""<LEFT>
-
+" {{{ Defaults override
 " Makes Y copy until the end of the line (instead of the whole line)
 nmap Y yg_
-
-" Move panes using C-hjkl
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-" Search for currently selected text using //
-vnoremap // y/\V<C-R>"<CR>
 
 " Keep selection after re-indenting
 vnoremap < <gv
 vnoremap > >gv
+" }}}
 
-nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
-
-" Fuzzy find path with ,gf (useful when a project uses absolute imports
-" instead of relative)
-map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
-
+" {{{ Local search highlighting
 " <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
 nnoremap <silent>  :nohl<CR>
 " <Ctrl--> (qwerty)
 nnoremap <silent>  :nohl<CR>
 " <M--> (qwerty linux)
 nnoremap <silent> <M--> :nohl<CR>
+" }}}
 
+" {{{ Copy stuff to clipboard
 " Copy filename to system clipboard
 nnoremap <Leader>cfn :let @+=@%<CR>
 " Copy filepath to system clipboard with `` (for Trello)
 nnoremap <Leader>cfp :let @+="`" . @% . "`"<CR>
+" }}}
 
-let $FZF_DEFAULT_COMMAND= 'rg --hidden --files'
-
-nnoremap <silent> <leader>; :Buffers<CR>
-
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-" Bind C-p to fzf
-" Besides, execute it in the root directory of the project
-" Actually, it's no use if noautochdir is set (but let's keep it anyway)
-command! ProjectFiles execute 'Files' s:find_git_root()
-nnoremap <silent> <C-p> :ProjectFiles<CR>
-
+" {{{ Save and format
 nnoremap <Leader>w :Format<CR>:w<CR>
 nnoremap <Leader>W :noautocmd w<CR>
+" }}}
 
 " }}}
 
-" Allow terminal split switch using C-HJKL {{{
+" Move across panes using <C-HJKL> {{{
 
+" Normal
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Terminal
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
@@ -326,6 +304,21 @@ tnoremap <C-l> <C-\><C-N><C-w>l
 
 " }}}
 
+" {{{ Project search
+
+" Use Rg with :grep
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading\ --hidden
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
+
+" Search for currently selected text using //
+vnoremap // y/\V<C-R>"<CR>
+
+nnoremap <leader>grep :grep! -F ""<LEFT>
+" }}}
 
 " Snippets config {{{
 
@@ -342,30 +335,57 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " Plugins config {{{
 
-" Sideways mappings
+" {{{ Sideways mappings
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
+" }}}
 
-" Switch mapping
+" {{{ Switch mapping
 let g:switch_mapping = 'gs'
+" }}}
 
+" {{{ vim-qf
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
+" }}}
 
+" {{{ neosnippet
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
+" }}}
 
 " Colorscheme {{{
-" colorscheme OceanicNext
-" colorscheme nvcode
 colorscheme tokyonight
 set background=dark
 " }}}
 
+" {{{ RnVimr
 nnoremap <silent> + :RnvimrToggle<CR>
+" }}}
 
+" {{{ Fzf
+let $FZF_DEFAULT_COMMAND= 'rg --hidden --files'
+
+" Fuzzy find path with ,gf (useful when a project uses absolute imports
+" instead of relative)
+map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
+
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+" Bind C-p to fzf
+" Besides, execute it in the root directory of the project
+" Actually, it's no use if noautochdir is set (but let's keep it anyway)
+command! ProjectFiles execute 'Files' s:find_git_root()
+nnoremap <silent> <C-p> :ProjectFiles<CR>
+
+nnoremap <silent> <leader>; :Buffers<CR>
+" }}}
+
+" {{{ Lua plugins
 lua require('lsp')
 lua require('treesitter-conf')
 lua require('gitsigns-conf')
@@ -374,6 +394,8 @@ lua require('lualine-conf')
 lua require('telescope-config')
 lua require('dap-config')
 lua require('autopairs-config')
+lua require'colorizer'.setup()
+" }}}
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
@@ -381,11 +403,12 @@ nnoremap <space>a <cmd>lua require('telescope.builtin').lsp_document_diagnostics
 nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
 
 
+" {{{ Dirvish
 augroup dirvish_config
   autocmd!
   autocmd FileType dirvish
               \ nnoremap <silent><buffer> t ddO<Esc>:let @"=substitute(@", '\n', '', 'g')<CR>:r ! find "<C-R>"" -maxdepth 1 -print0 \| xargs -0 ls -Fd<CR>:silent! keeppatterns %s/\/\//\//g<CR>:silent! keeppatterns %s/[^a-zA-Z0-9\/]$//g<CR>:silent! keeppatterns g/^$/d<CR>:noh<CR>
 augroup END
+" }}}
 
-" Lua colorizer
-lua require'colorizer'.setup()
+" }}}
