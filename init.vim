@@ -173,6 +173,9 @@ set inccommand=nosplit
 " Don't split words when breaking lines
 set linebreak
 
+" Show character when line is wrapped
+set showbreak=↳\ 
+
 " Necessary for colors
 if (has('termguicolors'))
     set termguicolors
