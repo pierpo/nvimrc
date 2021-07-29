@@ -67,3 +67,14 @@ require("formatter").setup {
     lua = stylua,
   },
 }
+
+-- Format on save for .lua files
+vim.api.nvim_exec(
+  [[
+  augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost *.lua FormatWrite
+  augroup END
+]],
+  true
+)
