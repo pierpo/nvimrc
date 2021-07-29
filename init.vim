@@ -131,9 +131,7 @@ set foldmethod=marker
 
 set wildignore+=*DS_Store*
 
-if has('nvim-0.4.0')
-  set wildoptions=pum
-endif
+set wildoptions=pum
 
 " Activates mouse
 set mouse=a
