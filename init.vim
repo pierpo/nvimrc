@@ -101,9 +101,6 @@ Plug 'mhartington/formatter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'JoosepAlviste/nvim-ts-context-commentstring'
-Plug 'windwp/nvim-ts-autotag'
-
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
@@ -112,6 +109,10 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'rcarriga/nvim-dap-ui'
+
+Plug 'windwp/nvim-autopairs'
+Plug 'windwp/nvim-ts-autotag'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -336,24 +337,6 @@ nnoremap <silent> <C-p> :ProjectFiles<CR>
 nnoremap <Leader>w :Format<CR>:w<CR>
 nnoremap <Leader>W :noautocmd w<CR>
 
-" Auto expand ()
-inoremap (<CR> (<CR>)<Up><End><CR>
-inoremap {<CR> {<CR>}<Up><End><CR>
-inoremap {,<CR> {<CR>},<Up><End><CR>
-inoremap {;<CR> {<CR>};<Up><End><CR>
-inoremap [<CR> [<CR>]<Up><End><CR>
-inoremap ({<CR> ({<CR>})<Up><End><CR>
-inoremap `<CR> `<CR>`<Up><End><CR>
-
-inoremap (( ()<left>
-inoremap {{ {}<left>
-inoremap [[ []<left>
-inoremap "" ""<left>
-inoremap """ """<CR>"""<Up><End><CR>
-inoremap ``` ```<CR>```<Up><End><CR>
-inoremap '' ''<left>
-inoremap `` ``<left>
-
 " }}}
 
 " Allow terminal split switch using C-HJKL {{{
@@ -436,6 +419,7 @@ lua require('formatter-config')
 lua require('lualine-conf')
 lua require('telescope-config')
 lua require('dap-config')
+lua require('autopairs-config')
 
 nnoremap gA <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
 vnoremap ga <cmd>lua require('telescope.builtin').lsp_range_code_actions()<cr>V
