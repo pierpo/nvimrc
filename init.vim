@@ -138,9 +138,6 @@ filetype plugin on
 filetype indent on
 syntax on         " syntax highlighting
 
-" Sets shell
-set shell=/bin/bash
-
 " Activates mouse
 set mouse=a
 
@@ -149,8 +146,6 @@ set number
 
 set smartindent   " smart code indentation
 set smarttab      " smart tabs
-
-set backspace=2
 
 " Disable spell checkinm
 set nospell
