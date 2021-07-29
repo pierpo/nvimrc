@@ -273,9 +273,6 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-" Refresh syntax highlighting
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-
 " Search for currently selected text using //
 vnoremap // y/\V<C-R>"<CR>
 
@@ -284,23 +281,10 @@ vnoremap < <gv
 vnoremap > >gv
 
 nnoremap <Leader>rg :grep! "<C-R><C-W>"<CR>
-nnoremap <Leader>rge :grep! "\b<C-R><C-W>\b"<CR>
-nnoremap <Leader>fbt :Tags '<C-R><C-W><CR>
 
 " Fuzzy find path with ,gf (useful when a project uses absolute imports
 " instead of relative)
 map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
-
-" Same but remove the first 4 characters (very specific: it's for a project that has weird js aliases)
-map <Leader>ngf :call fzf#vim#files('', {'options':'--query '.'\'''.strpart(expand('<cfile>'), 4)})<CR>
-
-" search for current file usage in ES6
-map <Leader>fcf :execute ':grep! ".*from.*'. expand('%:t:r') .'[''\"].*"'<CR>
-
-" Create file with ,gF if it does not exist
-map <Leader>gF :e <cfile><cr>
-
-nmap <Leader>gmove :Gmove <C-R>=expand('%:p')<CR>
 
 " <Ctrl-ç> (azerty) redraws the screen and removes any search highlighting.
 nnoremap <silent>  :nohl<CR>
@@ -309,9 +293,6 @@ nnoremap <silent>  :nohl<CR>
 " <M--> (qwerty linux)
 nnoremap <silent> <M--> :nohl<CR>
 
-" Update all buffers from disk
-nnoremap <Leader>ub :bufdo e!<CR>
-
 " Copy filename to system clipboard
 nnoremap <Leader>cfn :let @+=@%<CR>
 " Copy filepath to system clipboard with `` (for Trello)
@@ -319,10 +300,7 @@ nnoremap <Leader>cfp :let @+="`" . @% . "`"<CR>
 
 let $FZF_DEFAULT_COMMAND= 'rg --hidden --files'
 
-nnoremap <silent> <leader>pp :GFiles<CR>
 nnoremap <silent> <leader>; :Buffers<CR>
-nnoremap <silent> <leader>fc :Commits<CR>
-nnoremap <silent> <leader>ft :Tags<CR>
 
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
