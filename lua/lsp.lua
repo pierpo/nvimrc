@@ -32,6 +32,10 @@ local on_attach = function(client, bufnr)
     buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
     buf_map(bufnr, "n", "]g", '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
     buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
+    buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
+    buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
+    buf_map(bufnr, "n", "<space>a", '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>', { noremap = true })
+    buf_map(bufnr, "n", "<space>s", '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>', { noremap = true })
 
     if client.resolved_capabilities.document_formatting then
         vim.api.nvim_exec(
