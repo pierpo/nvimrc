@@ -1,102 +1,106 @@
 -- Inspired from
 -- https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
 
-local nvim_lsp = require("lspconfig")
+local nvim_lsp = require "lspconfig"
 
 -- {{{ Global configuration
 local format_async = function(err, _, result, _, bufnr)
-    if err ~= nil or result == nil then
-        return
+  if err ~= nil or result == nil then
+    return
+  end
+  if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+    local view = vim.fn.winsaveview()
+    vim.lsp.util.apply_text_edits(result, bufnr)
+    vim.fn.winrestview(view)
+    if bufnr == vim.api.nvim_get_current_buf() then
+      vim.api.nvim_command "noautocmd :update"
     end
-    if not vim.api.nvim_buf_get_option(bufnr, "modified") then
-        local view = vim.fn.winsaveview()
-        vim.lsp.util.apply_text_edits(result, bufnr)
-        vim.fn.winrestview(view)
-        if bufnr == vim.api.nvim_get_current_buf() then
-            vim.api.nvim_command("noautocmd :update")
-        end
-    end
+  end
 end
 
 vim.lsp.handlers["textDocument/formatting"] = format_async
 
 local on_attach = function(client, bufnr)
-    local buf_map = vim.api.nvim_buf_set_keymap
-    buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
-    buf_map(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
-    buf_map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {})
-    buf_map(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
-    buf_map(bufnr, "n", "<c-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-    buf_map(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
-    buf_map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
-    buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-    buf_map(bufnr, "n", "]g", '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
-    buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
-    buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
-    buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
-    buf_map(bufnr, "n", "<space>a", '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>', { noremap = true })
-    buf_map(bufnr, "n", "<space>s", '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>', { noremap = true })
+  local buf_map = vim.api.nvim_buf_set_keymap
+  buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
+  buf_map(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
+  buf_map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {})
+  buf_map(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
+  buf_map(bufnr, "n", "<c-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
+  buf_map(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
+  buf_map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
+  buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
+  buf_map(bufnr, "n", "]g", '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
+  buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
+  buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
+  buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
+  buf_map(
+    bufnr,
+    "n",
+    "<space>a",
+    '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>',
+    { noremap = true }
+  )
+  buf_map(
+    bufnr,
+    "n",
+    "<space>s",
+    '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>',
+    { noremap = true }
+  )
 
-    if client.resolved_capabilities.document_formatting then
-        vim.api.nvim_exec(
-            [[
+  if client.resolved_capabilities.document_formatting then
+    vim.api.nvim_exec(
+      [[
         augroup LspAutocommands
             autocmd! * <buffer>
             autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()
         augroup END
         ]],
-            true
-        )
-    end
+      true
+    )
+  end
 end
 
-require "compe".setup {
-    preselect = "always",
-    source = {
-        path = true,
-        buffer = true,
-        nvim_lsp = true,
-        nvim_lua = true
-    }
+require("compe").setup {
+  preselect = "always",
+  source = {
+    path = true,
+    buffer = true,
+    nvim_lsp = true,
+    nvim_lua = true,
+  },
 }
 
-vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", {expr = true, silent = true})
-vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm("<CR>")]], {expr = true, silent = true})
-vim.api.nvim_set_keymap("i", "<C-e>", [[compe#close("<C-e>")]], {expr = true, silent = true})
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm("<CR>")]], { expr = true, silent = true })
+vim.api.nvim_set_keymap("i", "<C-e>", [[compe#close("<C-e>")]], { expr = true, silent = true })
 
 -- Add borders to hover
-vim.lsp.handlers["textDocument/hover"] =
-    vim.lsp.with(
-    vim.lsp.handlers.hover,
-    {
-        border = "double"
-    }
-)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "double",
+})
 
 -- Add borders to signature help
-vim.lsp.handlers["textDocument/signatureHelp"] =
-    vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    {
-        border = "double"
-    }
-)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = "double",
+})
 -- }}}
 
 -- {{{ typescript
 nvim_lsp.tsserver.setup {
-    filetypes = {"typescript", "typescriptreact", "typescript.tsx"},
-    on_attach = function(client)
-        client.resolved_capabilities.document_formatting = false
-        on_attach(client)
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  on_attach = function(client)
+    client.resolved_capabilities.document_formatting = false
+    on_attach(client)
 
-        local ts_utils = require("nvim-lsp-ts-utils")
-        ts_utils.setup {
-          eslint_bin = "eslint_d",
-        }
+    local ts_utils = require "nvim-lsp-ts-utils"
+    ts_utils.setup {
+      eslint_bin = "eslint_d",
+    }
 
-        ts_utils.setup_client(client)
-    end
+    ts_utils.setup_client(client)
+  end,
 }
 
 -- Enable eslint code actions
@@ -107,77 +111,77 @@ require("lspconfig")["null-ls"].setup {}
 
 -- {{{ Diagnosticls configuration
 local diagnosticLinters = {
-    eslint = {
-        sourceName = "eslint",
-        command = "eslint_d",
-        rootPatterns = {".eslintrc.js", "package.json"},
-        debounce = 100,
-        args = {"--stdin", "--stdin-filename", "%filepath", "--format", "json"},
-        parseJson = {
-            errorsRoot = "[0].messages",
-            line = "line",
-            column = "column",
-            endLine = "endLine",
-            endColumn = "endColumn",
-            message = "${message} [${ruleId}]",
-            security = "severity"
-        },
-        securities = {[2] = "error", [1] = "warning"}
-    }
+  eslint = {
+    sourceName = "eslint",
+    command = "eslint_d",
+    rootPatterns = { ".eslintrc.js", "package.json" },
+    debounce = 100,
+    args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
+    parseJson = {
+      errorsRoot = "[0].messages",
+      line = "line",
+      column = "column",
+      endLine = "endLine",
+      endColumn = "endColumn",
+      message = "${message} [${ruleId}]",
+      security = "severity",
+    },
+    securities = { [2] = "error", [1] = "warning" },
+  },
 }
 
 local diagnosticFormatters = {
-    prettier = {
-        command = "prettierd",
-        rootPatterns = {".prettierrc", "package.json"},
-        args = {"%filepath"}
-    },
-    eslint = {
-        command = "eslint_d",
-        rootPatterns = {".eslintrc", "package.json"},
-        args = {"--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath"}
-    }
+  prettier = {
+    command = "prettierd",
+    rootPatterns = { ".prettierrc", "package.json" },
+    args = { "%filepath" },
+  },
+  eslint = {
+    command = "eslint_d",
+    rootPatterns = { ".eslintrc", "package.json" },
+    args = { "--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath" },
+  },
 }
 
 -- eslint formatter
 local diagnosticFormatFiletypes = {
-    typescript = "eslint",
-    typescriptreact = "eslint"
+  typescript = "eslint",
+  typescriptreact = "eslint",
 }
 
 local diagnosticFiletypes = {
-    typescript = "eslint",
-    typescriptreact = "eslint",
-    javascript = "eslint",
-    javascriptreact = "eslint"
+  typescript = "eslint",
+  typescriptreact = "eslint",
+  javascript = "eslint",
+  javascriptreact = "eslint",
 }
 
 nvim_lsp.diagnosticls.setup {
-    on_attach = on_attach,
-    filetypes = vim.tbl_keys(diagnosticFiletypes),
-    init_options = {
-        filetypes = diagnosticFiletypes,
-        linters = diagnosticLinters,
-        formatters = diagnosticFormatters,
-        formatFiletypes = diagnosticFormatFiletypes
-    }
+  on_attach = on_attach,
+  filetypes = vim.tbl_keys(diagnosticFiletypes),
+  init_options = {
+    filetypes = diagnosticFiletypes,
+    linters = diagnosticLinters,
+    formatters = diagnosticFormatters,
+    formatFiletypes = diagnosticFormatFiletypes,
+  },
 }
 -- }}}
 
 -- {{{ gdscript
 nvim_lsp.gdscript.setup {
-    on_attach = on_attach
+  on_attach = on_attach,
 }
 -- }}}
 
 -- {{{ flow
 nvim_lsp.flow.setup {
-    on_attach = on_attach
+  on_attach = on_attach,
 }
 -- }}}
 
 -- {{{ clangd
 nvim_lsp.clangd.setup {
-    on_attach = on_attach
+  on_attach = on_attach,
 }
 -- }}}
