@@ -1,3 +1,6 @@
+" This .vimrc is meant for neovim
+" most plugins won't work, and neovim default settings have been removed
+
 " Initialization {{{
 "
 scriptencoding utf-8
@@ -116,7 +119,6 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 " All of your Plugins must be added before the following line
 call plug#end()
-filetype plugin indent on    " required
 
 " }}}
 
@@ -133,11 +135,6 @@ if has('nvim-0.4.0')
   set wildoptions=pum
 endif
 
-filetype on       " enable file type detection
-filetype plugin on
-filetype indent on
-syntax on         " syntax highlighting
-
 " Activates mouse
 set mouse=a
 
@@ -150,11 +147,6 @@ set smarttab      " smart tabs
 " Disable spell checkinm
 set nospell
 
-" Search parameters
-set ignorecase
-set hlsearch
-set incsearch
-
 " Shows matching parenthesis
 set showmatch
 
@@ -164,8 +156,6 @@ set shiftwidth=2
 set softtabstop=2
 set shiftround
 set expandtab
-
-set laststatus=2
 
 " Shows result of substitute commands live
 set inccommand=nosplit
@@ -180,9 +170,6 @@ set showbreak=↳\
 if (has('termguicolors'))
     set termguicolors
 endif
-
-" Theme
-syntax enable
 
 " Vertical split for diffs
 set diffopt+=vertical
@@ -230,11 +217,6 @@ else
   let g:python_host_prog = '/usr/bin/python'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
-
-" Cursor line in insert mode
-augroup cursorlineinsert
-  autocmd InsertEnter,InsertLeave * set cul!
-augroup END
 
 " }}}
 
