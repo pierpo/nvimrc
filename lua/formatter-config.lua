@@ -26,11 +26,8 @@ stylua = {
     return {
       exe = "stylua",
       args = {
-        "--indent-type",
-        "Spaces",
-        "--indent-width",
-        "4",
         "-",
+        "-s",
         "--stdin-filepath",
         vim.api.nvim_buf_get_name(0),
       },
