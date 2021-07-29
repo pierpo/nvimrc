@@ -23,23 +23,6 @@ function PPWatchTestsCRA()
 endfunction
 command PPWatchTestsCRA call PPWatchTestsCRA()
 
-function PPWatchTestsAda()
-  execute 'vs term://yarn test:unit:ada --watch '.expand('%:t:r')
-endfunction
-command PPWatchTestsAda call PPWatchTestsAda()
-
-function PPWatchTestsAdaServer()
-  execute 'vs term://yarn test:unit --watch '.expand('%:t:r')
-endfunction
-command PPWatchTestsAdaServer call PPWatchTestsAdaServer()
-
-" Creates missing directories (useful when used with ,gF)
-function WriteCreatingDirs()
-    execute ':silent !mkdir -p %:h'
-    write
-endfunction
-command W call WriteCreatingDirs()
-
 function PPOpenTest()
   let l:testname = expand('%:r') . '.test.' . expand('%:e')
   execute ':e ' . l:testname
@@ -53,20 +36,3 @@ function PPOpenTestSplit()
 endfunction
 command PPOpenTestSplit call PPOpenTestSplit()
 nnoremap <Leader>vtest :PPOpenTestSplit<CR>
-
-function PPCheckImportAndRequire()
-  let l:current_filename = expand('%:t:r')
-  execute ':grep! "import.*' . l:current_filename . '\|require.*' . l:current_filename . '"'
-endfunction
-command PPCheckImportAndRequire call PPCheckImportAndRequire()
-
-function PPCheckRequire()
-  let l:current_filename = expand('%:t:r')
-  execute ':grep! "require.*' . l:current_filename . '"'
-endfunction
-command PPCheckRequire call PPCheckRequire()
-
-function PPImport()
-  let @a = 'import ' . expand('%:t:r') . ' from ' . '"' . expand('%:r') . '"'
-endfunction
-command PPImport call PPImport()
