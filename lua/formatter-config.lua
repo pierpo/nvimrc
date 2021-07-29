@@ -20,6 +20,21 @@ luafmt = {
     end
 }
 
+stylua = {
+    -- luafmt
+    function()
+        return {
+            exe = "stylua",
+            args = {
+              "-",
+              "--stdin-filepath",
+              vim.api.nvim_buf_get_name(0),
+            },
+            stdin = true
+        }
+    end
+}
+
 prettierjson = {
     -- prettier
     function()
@@ -49,7 +64,7 @@ require("formatter").setup(
             typescript = eslintfix,
             typescriptreact = eslintfix,
             json = prettierjson,
-            lua = luafmt
+            lua = stylua
         }
     }
 )
