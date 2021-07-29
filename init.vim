@@ -87,7 +87,6 @@ Plug 'nvim-treesitter/playground'
 Plug 'kevinhwang91/rnvimr'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'kosayoda/nvim-lightbulb'
 Plug 'hrsh7th/nvim-compe'
 
 " Telescope
