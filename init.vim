@@ -124,9 +124,6 @@ filetype plugin indent on    " required
 "
 
 set scrolljump=5
-set nocursorcolumn
-set nocursorline
-set norelativenumber
 syntax sync minlines=256
 set foldmethod=marker
 
@@ -143,9 +140,6 @@ syntax on         " syntax highlighting
 
 " Sets shell
 set shell=/bin/bash
-
-" Makes scrolling quicker
-" set lazyredraw
 
 " Activates mouse
 set mouse=a
@@ -221,14 +215,6 @@ set errorformat+=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-" Always keep the gutter on the left
-augroup gutter
-  autocmd BufRead,BufNewFile * setlocal signcolumn=yes
-augroup END
-
-" Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=4000
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
