@@ -47,19 +47,25 @@ local on_attach = function(client, bufnr)
   end
 end
 
-require("compe").setup {
-  preselect = "always",
-  source = {
-    path = true,
-    buffer = true,
-    nvim_lsp = true,
-    nvim_lua = true,
+local cmp = require "cmp"
+cmp.setup {
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
+    { name = "buffer" },
+    { name = "path" },
+  },
+  mapping = {
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+  },
+  completion = {
+    completeopt = "menu,menuone,noinsert",
   },
 }
-
-vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { expr = true, silent = true })
-vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm("<CR>")]], { expr = true, silent = true })
-vim.api.nvim_set_keymap("i", "<C-e>", [[compe#close("<C-e>")]], { expr = true, silent = true })
 
 -- Add borders to hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -74,6 +80,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 -- {{{ typescript
 nvim_lsp.tsserver.setup {
+  capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
