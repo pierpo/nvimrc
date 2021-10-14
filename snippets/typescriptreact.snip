@@ -29,6 +29,9 @@ snippet cn
 snippet theme
   \${({ theme }) => theme.${1}}
 
+snippet themesp
+  \${({ theme }) => theme.space[${1}] + 'px'}
+
 snippet trans
 options word
   {I18n.t('${1}')}
@@ -53,6 +56,11 @@ snippet eslf
 
 snippet styleddiv
   export const ${1} = styled.div\`
+    ${2}
+  \`;
+
+snippet styledview
+  export const ${1} = styled.View\`
     ${2}
   \`;
 
