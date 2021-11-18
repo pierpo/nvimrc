@@ -50,3 +50,8 @@ snippet findwhile
   do
       …code using "$file"
   done
+
+snippet ifcontains
+  if echo ${1} | grep -q '${2}'; then
+    ${3}
+  fi
