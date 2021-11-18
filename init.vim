@@ -356,6 +356,8 @@ endfunction
 " Actually, it's no use if noautochdir is set (but let's keep it anyway)
 command! ProjectFiles execute 'Files' s:find_git_root()
 nnoremap <silent> <C-p> :ProjectFiles<CR>
+nnoremap <silent> <A-p> :Files<CR>
+nnoremap <silent> π :Files<CR>
 
 nnoremap <silent> <leader>; :Buffers<CR>
 " }}}
