@@ -72,6 +72,13 @@ cmp.setup {
   },
 }
 
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+  }
+}
+
 -- Add borders to hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "double",
