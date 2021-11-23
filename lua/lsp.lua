@@ -2,6 +2,8 @@
 -- https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
 
 local nvim_lsp = require "lspconfig"
+local lsp_configs = require "lspconfig/configs"
+local util = require "lspconfig/util"
 
 -- {{{ Global configuration
 
@@ -189,3 +191,16 @@ nvim_lsp.clangd.setup {
   on_attach = on_attach,
 }
 -- }}}
+
+lsp_configs.prosemd = {
+  default_config = {
+    cmd = { "/Users/pierpo/bin/prosemd-lsp", "--stdio" },
+    filetypes = { "markdown" },
+    root_dir = function(fname)
+      return util.find_git_ancestor(fname) or vim.fn.getcwd()
+    end,
+    settings = {},
+  },
+}
+
+nvim_lsp.prosemd.setup { on_attach = on_attach }
