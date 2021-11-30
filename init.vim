@@ -128,6 +128,8 @@ Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
+Plug 'simrat39/symbols-outline.nvim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
