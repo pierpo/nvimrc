@@ -1,5 +1,5 @@
 " Enable spellcheck for markdown files
-setlocal spell spelllang=en_us
+" setlocal spell spelllang=en_us
 
 " display the rendered markdown in your browser
 " if executable('grip')
