@@ -74,11 +74,11 @@ cmp.setup {
   },
 }
 
-local lspkind = require('lspkind')
+local lspkind = require "lspkind"
 cmp.setup {
   formatting = {
-    format = lspkind.cmp_format({with_text = true, maxwidth = 50})
-  }
+    format = lspkind.cmp_format { with_text = true, maxwidth = 50 },
+  },
 }
 
 -- Add borders to hover
