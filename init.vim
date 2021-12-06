@@ -130,6 +130,9 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
 Plug 'simrat39/symbols-outline.nvim'
 
+" Useful for ANSI colors on log dumps
+Plug 'norcalli/nvim-terminal.lua'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
@@ -374,6 +377,7 @@ lua require('telescope-config')
 lua require('dap-config')
 lua require('autopairs-config')
 lua require'colorizer'.setup()
+lua require'terminal'.setup()
 " }}}
 
 " {{{ Dirvish
