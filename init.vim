@@ -337,8 +337,7 @@ let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
 " }}}
 
 " Colorscheme {{{
-colorscheme tokyonight
-set background=dark
+" See colorscheme lua file
 " }}}
 
 " {{{ RnVimr
@@ -372,7 +371,7 @@ lua require('lsp')
 lua require('treesitter-conf')
 lua require('gitsigns-conf')
 lua require('formatter-config')
-lua require('lualine-conf')
+lua require('colorscheme-and-lualine')
 lua require('telescope-config')
 lua require('dap-config')
 lua require('autopairs-config')

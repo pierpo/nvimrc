@@ -1,6 +1,18 @@
+COLORSCHEME = "tokyonight"
+
+local catppuccin = require("catppuccin")
+
+catppuccin.setup {
+  integrations = {
+    cmp = true,
+  }
+}
+
+vim.cmd([[colorscheme ]] .. COLORSCHEME)
+
 require("lualine").setup {
   options = {
-    theme = "tokyonight",
+    theme = COLORSCHEME,
     section_separators = { "", "" },
     component_separators = { "", "" },
     icons_enabled = true,
