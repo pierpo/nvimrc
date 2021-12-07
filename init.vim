@@ -68,6 +68,7 @@ Plug 'AndrewRadev/switch.vim'
 " colorscheme for treesitter
 Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 Plug 'folke/tokyonight.nvim'
+Plug 'catppuccin/nvim'
 
 " Cycle arguments/properties
 Plug 'AndrewRadev/sideways.vim'
