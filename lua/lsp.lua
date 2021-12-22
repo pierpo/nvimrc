@@ -195,7 +195,7 @@ nvim_lsp.clangd.setup {
 if not lsp_configs.prosemd then
   lsp_configs.prosemd = {
     default_config = {
-      cmd = { "/Users/pierpo/bin/prosemd-lsp", "--stdio" },
+      cmd = { "prosemd-lsp", "--stdio" },
       filetypes = { "markdown" },
       root_dir = function(fname)
         return util.find_git_ancestor(fname) or vim.fn.getcwd()
