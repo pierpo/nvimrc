@@ -206,3 +206,7 @@ if not lsp_configs.prosemd then
 end
 
 nvim_lsp.prosemd.setup { on_attach = on_attach }
+
+nvim_lsp.rust_analyzer.setup{
+  on_attach = on_attach,
+}
