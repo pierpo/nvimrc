@@ -25,7 +25,7 @@ local on_attach = function(client, bufnr)
     bufnr,
     "n",
     "<space>a",
-    '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>',
+    '<cmd>Telescope diagnostics bufnr=0<CR>',
     { noremap = true }
   )
   buf_map(
