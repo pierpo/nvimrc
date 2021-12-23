@@ -21,13 +21,7 @@ local on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
   buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
   buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
-  buf_map(
-    bufnr,
-    "n",
-    "<space>a",
-    '<cmd>Telescope diagnostics bufnr=0<CR>',
-    { noremap = true }
-  )
+  buf_map(bufnr, "n", "<space>a", "<cmd>Telescope diagnostics bufnr=0<CR>", { noremap = true })
   buf_map(
     bufnr,
     "n",
@@ -110,8 +104,11 @@ nvim_lsp.tsserver.setup {
 }
 
 -- Enable eslint code actions
-require("null-ls").config {}
-require("lspconfig")["null-ls"].setup {}
+require("null-ls").setup {
+  sources = {
+    require("null-ls").builtins.code_actions.eslint_d,
+  },
+}
 
 -- }}}
 
