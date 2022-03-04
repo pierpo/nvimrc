@@ -316,6 +316,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " Plugins config {{{
 
+" Disable netrw
+let loaded_netrwPlugin = 1
+
 " {{{ Sideways mappings
 omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
