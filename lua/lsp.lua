@@ -89,7 +89,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 -- {{{ typescript
 nvim_lsp.tsserver.setup {
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
     on_attach(client)
@@ -150,6 +150,8 @@ local diagnosticFormatters = {
 local diagnosticFormatFiletypes = {
   typescript = "eslint",
   typescriptreact = "eslint",
+  javascript = "eslint",
+  javascriptreact = "eslint",
 }
 
 local diagnosticFiletypes = {
@@ -204,6 +206,6 @@ end
 
 nvim_lsp.prosemd.setup { on_attach = on_attach }
 
-nvim_lsp.rust_analyzer.setup{
+nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
 }
