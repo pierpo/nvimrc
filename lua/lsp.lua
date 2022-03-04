@@ -90,9 +90,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 nvim_lsp.tsserver.setup {
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
-    on_attach(client)
+    on_attach(client, bufnr)
 
     local ts_utils = require "nvim-lsp-ts-utils"
     ts_utils.setup {
