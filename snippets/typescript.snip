@@ -229,8 +229,11 @@ snippet timesep
 	console.log('------------------- $1 ---------------------')
 
 snippet consoleseparator
-alias csep cls
+alias csep
 	console.log('--------------------------------------------')
+
+snippet cls
+  console.log('$1')
 
 snippet addprofiler
 	const PROFILER__${1} = logger.startProfiler();
