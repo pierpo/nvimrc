@@ -1,13 +1,5 @@
 COLORSCHEME = "tokyonight"
 
-local catppuccin = require("catppuccin")
-
-catppuccin.setup {
-  integrations = {
-    cmp = true,
-  }
-}
-
 vim.cmd([[colorscheme ]] .. COLORSCHEME)
 
 require("lualine").setup {
@@ -16,6 +8,7 @@ require("lualine").setup {
     section_separators = { "", "" },
     component_separators = { "", "" },
     icons_enabled = true,
+    globalstatus = true,
   },
   sections = {
     lualine_a = { { "mode", upper = true } },
