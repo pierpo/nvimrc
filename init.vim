@@ -129,7 +129,7 @@ Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 
-Plug 'simrat39/symbols-outline.nvim'
+" Plug 'simrat39/symbols-outline.nvim'
 
 " Useful for ANSI colors on log dumps
 Plug 'norcalli/nvim-terminal.lua'
