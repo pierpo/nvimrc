@@ -19,8 +19,10 @@ local on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
   buf_map(bufnr, "n", "]g", '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
   buf_map(bufnr, "n", "[g", '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
-  buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
-  buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
+  buf_map(bufnr, "n", "gA", '<cmd>lua vim.lsp.buf.code_action()<cr>', { noremap = true })
+  buf_map(bufnr, "v", "ga", '<cmd>lua vim.lsp.buf.range_code_action()<cr>', { noremap = true })
+  -- buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
+  -- buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
   buf_map(bufnr, "n", "<space>a", "<cmd>Telescope diagnostics bufnr=0<CR>", { noremap = true })
   buf_map(
     bufnr,
@@ -208,4 +210,9 @@ nvim_lsp.prosemd.setup { on_attach = on_attach }
 
 nvim_lsp.rust_analyzer.setup {
   on_attach = on_attach,
+}
+
+nvim_lsp.kotlin_language_server.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern "settings.gradle",
 }
