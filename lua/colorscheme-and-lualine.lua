@@ -1,5 +1,8 @@
 COLORSCHEME = "tokyonight"
 
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+vim.g.tokyonight_colors = { border = "blue" }
+
 vim.cmd([[colorscheme ]] .. COLORSCHEME)
 
 require("lualine").setup {
