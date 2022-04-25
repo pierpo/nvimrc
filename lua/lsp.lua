@@ -37,7 +37,7 @@ local on_attach = function(client, bufnr)
       [[
         augroup LspAutocommands
             autocmd! * <buffer>
-            autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting_sync(nil, 500)
+            autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil)
         augroup END
         ]],
       true
