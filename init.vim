@@ -134,6 +134,9 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring'
 " Useful for ANSI colors on log dumps
 Plug 'norcalli/nvim-terminal.lua'
 
+" Override vim ui
+Plug 'stevearc/dressing.nvim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
