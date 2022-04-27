@@ -22,6 +22,7 @@ endif
 
 " Snippets
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin

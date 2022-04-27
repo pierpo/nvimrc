@@ -49,7 +49,7 @@ local cmp = require "cmp"
 cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      require'luasnip'.lsp_expand(args.body)
     end,
   },
   sources = {
@@ -57,6 +57,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "path" },
+    { name = 'luasnip' },
   },
   mapping = {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
