@@ -1,29 +1,31 @@
-snippet testcompo
-	import React from 'react';
-	import { shallow } from 'enzyme';
+snippet c
+	<${1:Component} ${2:Props}/>
 
-	import { ${1:Component} } from '../$1';
+snippet p
+	${1:prop}={${2:value}}
 
-	describe('[$1] component test', (): void => {
-		it('Should ${2:do stuff}', (): void => {
-			const wrapper = shallow(<$1 />);
-			expect(true).toBe(true);
-		});
+snippet att
+	${1:attr}="${2:value}"
+
+snippet it
+	it('${1}', () => {
+		${2:TARGET}
 	});
 
-snippet component
-	import React from 'react';
+snippet describe
+	describe('${1}', () => {
+		${2:TARGET}
+	});
 
-	interface ${1:Component}PropsType {
-		a: string;
-	}
+snippet aftereach
+	afterEach(() => {
+		${1:TARGET}
+	});
 
-	export const ${1} = ({ a }: ${1}PropsType) => {
-		return <div>coucou</div>;
-	};
-
-snippet cn
-	className={classes.${1:name}}
+snippet beforeeach
+	beforeEach(() => {
+		${1:TARGET}
+	});
 
 snippet theme
 	\${({ theme }) => theme.${1}}
@@ -33,6 +35,12 @@ snippet themesp
 
 snippet trans
 	{I18n.t('${1}')}
+
+snippet cl
+	console.log('${1:var}');
+
+snippet clv
+	console.log('${1:var}: ', $1);
 
 snippet clblack
 	console.log('%c${1:var}', 'background: black; color: white');
