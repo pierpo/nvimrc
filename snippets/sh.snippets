@@ -31,27 +31,27 @@ snippet promptyesno
 	fi
 
 snippet green
-  GREEN=$'\e[0;32m'
+	GREEN=$'\e[0;32m'
 
 snippet red
-  RED=$'\e[0;31m'
+	RED=$'\e[0;31m'
 
 snippet defaultcolor
-  NC=$'\e[0m'
+	NC=$'\e[0m'
 
 snippet echogreen
-  echo "${GREEN}${1}${NC}"
+	echo "${GREEN}${1}${NC}"
 
 snippet echored
-  echo "${RED}${1}${NC}"
+	echo "${RED}${1}${NC}"
 
 snippet findwhile
-  find . -name "*.txt" -print0 | while read -d $'\0' file
-  do
-      …code using "$file"
-  done
+	find . -name "*.txt" -print0 | while read -d $'\0' file
+	do
+			…code using "$file"
+	done
 
 snippet ifcontains
-  if echo ${1} | grep -q '${2}'; then
-    ${3}
-  fi
+	if echo ${1} | grep -q '${2}'; then
+		${3}
+	fi

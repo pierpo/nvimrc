@@ -1,61 +1,59 @@
 snippet if
-  if (${1}) {
-    ${2:TARGET}
+	if (${1}) {
+		${2:TARGET}
 	}
 
 snippet ifl
-  if (${1}) return;
+	if (${1}) return;
 
 snippet func
-  function ${1:functionName} (${2:functionArgs}) {
-    ${3:TARGET}
-  }${4}
+	function ${1:functionName} (${2:functionArgs}) {
+		${3:TARGET}
+	}${4}
 
 snippet exp
-  module.exports = {
-    ${1:exports}
-  }${2}
+	module.exports = {
+		${1:exports}
+	}${2}
 
 snippet funca
-  function(${1:args}) {
-    ${2:body}
-  }${3}
+	function(${1:args}) {
+		${2:body}
+	}${3}
 
 snippet cl
-  console.log('${1:var}');
+	console.log('${1:var}');
 
 snippet clblack
-  console.log('%c${1:var}', 'background: black; color: white');
+	console.log('%c${1:var}', 'background: black; color: white');
 
 snippet clblue
-  console.log('%c${1:var}', 'background: blue; color: white');
+	console.log('%c${1:var}', 'background: blue; color: white');
 
 snippet clvblue
-  console.log('%c${1:var}', 'background: blue; color: white', $1);
+	console.log('%c${1:var}', 'background: blue; color: white', $1);
 
 snippet clred
-  console.log('%c${1:var}', 'background: red; color: white');
+	console.log('%c${1:var}', 'background: red; color: white');
 
 snippet clvred
-  console.log('%c${1:var}', 'background: red; color: white', $1);
+	console.log('%c${1:var}', 'background: red; color: white', $1);
 
 snippet clv
-  console.log('${1:var}: ', $1);
+	console.log('${1:var}: ', $1);
 
 snippet clt
-  console.table(${1:var});
+	console.table(${1:var});
 
 snippet clo
-options word
-  console.log('${1:var}: ', $1) || 
+	console.log('${1:var}: ', $1) || 
 
 snippet fservice
-  ${1:function}: function (${2:args}) {
-    ${3:TARGET}
-  },${4}
+	${1:function}: function (${2:args}) {
+		${3:TARGET}
+	},${4}
 
 snippet sty
-options word
 	style={styles.${1}}
 
 snippet component
@@ -113,11 +111,9 @@ snippet testsnap
 	});
 
 snippet trad
-options word
 	I18n.t('${1}')
 
 snippet ttrad
-options word
 	{I18n.t('${1}')}
 
 snippet rcomment
@@ -153,30 +149,24 @@ snippet beforeeach
 	});
 
 snippet strt
-options word
 	\${${1:TARGET}}
 
 snippet ali
-options word
 	alignItems: '${1}',
 
 snippet jus
-options word
 	justifyContent: '${1}',
 
 snippet ct
-options word
 	center
 
 snippet c
 	<${1:Component} ${2:Props}/>
 
 snippet p
-options word
 	${1:prop}={${2:value}}
 
 snippet att
-options word
 	${1:attr}="${2:value}"
 
 snippet decprop
@@ -244,7 +234,6 @@ snippet mapc
 	})}
 
 snippet flowfixme
-alias flowfix
 	// $FlowFixMe
 
 snippet ntccompo
@@ -294,13 +283,11 @@ snippet esl
 	// eslint-disable-next-line
 
 snippet exportconstfunction
-alias ecfunc
 	export const ${1} = (${2}) => {
 		${3}
 	}
 
 snippet constfunction
-alias cfunc
 	const ${1} = (${2}) => {
 		${3}
 	}
@@ -309,32 +296,27 @@ snippet req
 	const ${2} = require('${1}');
 
 snippet ifnothtml
-  if (!(${1:element} instanceof HTMLElement)) return;
+	if (!(${1:element} instanceof HTMLElement)) return;
 
 snippet fuck
 	window.fakjnsdkqwjnasjdo();
 
 snippet then
-options word
 	then((${1:res}) => {
 		${2:body}
 	})
 
 snippet success
-options word
 	chalk.black.bgGreen.bold(' SUCCESS ')
 
 snippet failure
-options word
 	chalk.black.bgRed.bold(' FAILURE ')
 
 snippet successtick
-options word
 	chalk.green('✓')
 
 snippet progress
-options word
-  chalk.yellow('…')
+	chalk.yellow('…')
 
 snippet mock
 	jest.mock('${1:module}', () => ({
@@ -342,46 +324,46 @@ snippet mock
 	}));
 
 snippet flowignore
-  // $FlowIgnore
+	// $FlowIgnore
 
 snippet pageada
-  // @flow
+	// @flow
 
-  import React, { Component } from 'react';
-  import { SafeAreaView } from 'react-native';
-  import type { NavigationScreenProp } from 'react-navigation';
-  import styled from 'styled-components/native';
-  import { Page } from 'AdaExpress/src/components/Page';
-  import I18n from 'AdaExpress/i18n/i18n';
-  import { Header } from 'AdaExpress/src/components/Header';
+	import React, { Component } from 'react';
+	import { SafeAreaView } from 'react-native';
+	import type { NavigationScreenProp } from 'react-navigation';
+	import styled from 'styled-components/native';
+	import { Page } from 'AdaExpress/src/components/Page';
+	import I18n from 'AdaExpress/i18n/i18n';
+	import { Header } from 'AdaExpress/src/components/Header';
 
-  export class ${1:Page} extends Component<PropsType> {
-    goBack = () => {
-      this.props.navigation.navigate('${2:previousPage}');
-    };
+	export class ${1:Page} extends Component<PropsType> {
+		goBack = () => {
+			this.props.navigation.navigate('${2:previousPage}');
+		};
 
-    render() {
-      return (
-        <Page>
-          <StyledScrollView bounces={false}>
-            <Header hasBackIcon hasCrossIcon={false} backAction={this.goBack} title={I18n.t('${3:page}.title')} />
-            <SafeAreaView />
-          </StyledScrollView>
-        </Page>
-      );
-    }
-  }
+		render() {
+			return (
+				<Page>
+					<StyledScrollView bounces={false}>
+						<Header hasBackIcon hasCrossIcon={false} backAction={this.goBack} title={I18n.t('${3:page}.title')} />
+						<SafeAreaView />
+					</StyledScrollView>
+				</Page>
+			);
+		}
+	}
 
-  const StyledScrollView = styled.ScrollView\`
-    width: 100%;
-    background-color: \${({ theme }) => theme.colors.white};
-  \`;
+	const StyledScrollView = styled.ScrollView\`
+		width: 100%;
+		background-color: \${({ theme }) => theme.colors.white};
+	\`;
 
-  type OwnProps = {
-    navigation: NavigationScreenProp<*>,
-  };
+	type OwnProps = {
+		navigation: NavigationScreenProp<*>,
+	};
 
-  type PropsType = OwnProps;
+	type PropsType = OwnProps;
 
 snippet eslf
-  /* eslint-disable ${1} */
+	/* eslint-disable ${1} */

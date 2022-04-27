@@ -21,8 +21,7 @@ else
 endif
 
 " Snippets
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'L3MON4D3/LuaSnip'
 
 Plug 'godlygeek/tabular' "align stuff plugin
 Plug 'bronson/vim-trailing-whitespace' "trailing whitespace plugin
@@ -100,9 +99,6 @@ Plug 'hrsh7th/nvim-cmp'
 
 " Icons for nvim cmp
 Plug 'onsails/lspkind-nvim'
-
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 
 " Telescope
 Plug 'nvim-lua/popup.nvim'
@@ -306,14 +302,18 @@ nnoremap <leader>grep :grep! -F ""<LEFT>
 
 " Snippets config {{{
 
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-imap <C-j> <Plug>(neosnippet_jump)
+" press <C-k> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+imap <silent><C-k> <Plug>luasnip-expand-or-jump
+" -1 for jumping backwards.
+inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 " }}}
 
@@ -336,11 +336,6 @@ let g:switch_mapping = 'gs'
 " {{{ vim-qf
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
-" }}}
-
-" {{{ neosnippet
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/snippets/'
 " }}}
 
 " Colorscheme {{{
@@ -384,6 +379,7 @@ lua require('dap-config')
 lua require('autopairs-config')
 lua require'colorizer'.setup()
 lua require'terminal'.setup()
+lua require("luasnip.loaders.from_snipmate").load()
 " }}}
 
 " {{{ Dirvish
@@ -395,3 +391,4 @@ augroup END
 " }}}
 
 " }}}
+

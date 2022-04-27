@@ -12,7 +12,6 @@ snippet testcompo
 	});
 
 snippet component
-alias compo
 	import React from 'react';
 
 	import { withStyles, Theme } from '@material-ui/core/styles';
@@ -40,26 +39,25 @@ snippet cn
 	className={classes.${1:name}}
 
 snippet theme
-  \${({ theme }) => theme.${1}}
+	\${({ theme }) => theme.${1}}
 
 snippet trans
-options word
-  {I18n.t('${1}')}
+	{I18n.t('${1}')}
 
 snippet clblack
-  console.log('%c${1:var}', 'background: black; color: white');
+	console.log('%c${1:var}', 'background: black; color: white');
 
 snippet clblue
-  console.log('%c${1:var}', 'background: blue; color: white');
+	console.log('%c${1:var}', 'background: blue; color: white');
 
 snippet clvblue
-  console.log('%c${1:var}', 'background: blue; color: white', $1);
+	console.log('%c${1:var}', 'background: blue; color: white', $1);
 
 snippet clred
-  console.log('%c${1:var}', 'background: red; color: white');
+	console.log('%c${1:var}', 'background: red; color: white');
 
 snippet clvred
-  console.log('%c${1:var}', 'background: red; color: white', $1);
+	console.log('%c${1:var}', 'background: red; color: white', $1);
 
 snippet eslf
-  /* eslint-disable ${1} */
+	/* eslint-disable ${1} */
