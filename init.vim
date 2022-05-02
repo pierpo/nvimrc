@@ -380,7 +380,7 @@ lua require('dap-config')
 lua require('autopairs-config')
 lua require'colorizer'.setup()
 lua require'terminal'.setup()
-lua require("luasnip.loaders.from_snipmate").load()
+lua require("snippets-config")
 " }}}
 
 " {{{ Dirvish
