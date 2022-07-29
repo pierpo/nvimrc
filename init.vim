@@ -80,6 +80,9 @@ Plug 'romainl/vim-qf'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
+" Git conflicts
+Plug 'akinsho/git-conflict.nvim'
+
 " nginx
 Plug 'chr4/nginx.vim'
 
@@ -381,6 +384,7 @@ lua require('autopairs-config')
 lua require'colorizer'.setup()
 lua require'terminal'.setup()
 lua require("snippets-config")
+lua require'git-conflict'.setup()
 " }}}
 
 " {{{ Dirvish
