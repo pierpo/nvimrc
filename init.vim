@@ -214,11 +214,6 @@ set errorformat+=%f:\ line\ %l\\,\ col\ %c\\,\ %tarning\ -\ %m
 " set errorformat+=%f(%l,%c):\ %trror\ TS%n:\ %m
 set errorformat+=%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
