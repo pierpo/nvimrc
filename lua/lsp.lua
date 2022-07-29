@@ -112,74 +112,15 @@ nvim_lsp.tsserver.setup {
   end,
 }
 
--- Enable eslint code actions
-require("null-ls").setup {
-  sources = {
-    require("null-ls").builtins.code_actions.eslint_d,
-  },
-}
+nvim_lsp.eslint.setup{}
 
--- }}}
+-- TODO use nvim 0.7 autocmd api
+vim.cmd [[
+  augroup ESlintAutosave
+    autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+  augroup end
+]]
 
--- {{{ Diagnosticls configuration
-local diagnosticLinters = {
-  eslint = {
-    sourceName = "eslint",
-    command = "eslint_d",
-    rootPatterns = { ".eslintrc.js", "package.json" },
-    debounce = 100,
-    args = { "--stdin", "--stdin-filename", "%filepath", "--format", "json" },
-    parseJson = {
-      errorsRoot = "[0].messages",
-      line = "line",
-      column = "column",
-      endLine = "endLine",
-      endColumn = "endColumn",
-      message = "${message} [${ruleId}]",
-      security = "severity",
-    },
-    securities = { [2] = "error", [1] = "warning" },
-  },
-}
-
-local diagnosticFormatters = {
-  prettier = {
-    command = "prettierd",
-    rootPatterns = { ".prettierrc", "package.json" },
-    args = { "%filepath" },
-  },
-  eslint = {
-    command = "eslint_d",
-    rootPatterns = { ".eslintrc", "package.json" },
-    args = { "--stdin", "--fix-to-stdout", "--stdin-filename", "%filepath" },
-  },
-}
-
--- eslint formatter
-local diagnosticFormatFiletypes = {
-  typescript = "eslint",
-  typescriptreact = "eslint",
-  javascript = "eslint",
-  javascriptreact = "eslint",
-}
-
-local diagnosticFiletypes = {
-  typescript = "eslint",
-  typescriptreact = "eslint",
-  javascript = "eslint",
-  javascriptreact = "eslint",
-}
-
-nvim_lsp.diagnosticls.setup {
-  on_attach = on_attach,
-  filetypes = vim.tbl_keys(diagnosticFiletypes),
-  init_options = {
-    filetypes = diagnosticFiletypes,
-    linters = diagnosticLinters,
-    formatters = diagnosticFormatters,
-    formatFiletypes = diagnosticFormatFiletypes,
-  },
-}
 -- }}}
 
 -- {{{ gdscript
