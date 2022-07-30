@@ -34,7 +34,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
