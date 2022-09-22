@@ -32,7 +32,7 @@ local on_attach = function(client, bufnr)
     { noremap = true }
   )
 
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_exec(
       [[
         augroup LspAutocommands
@@ -100,7 +100,7 @@ nvim_lsp.tsserver.setup {
   capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
     on_attach(client, bufnr)
 
     local ts_utils = require "nvim-lsp-ts-utils"
