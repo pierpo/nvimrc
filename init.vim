@@ -137,6 +137,8 @@ Plug 'norcalli/nvim-terminal.lua'
 " Override vim ui
 Plug 'stevearc/dressing.nvim'
 
+Plug 'rcarriga/nvim-notify'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
@@ -380,6 +382,7 @@ lua require'colorizer'.setup()
 lua require'terminal'.setup()
 lua require("snippets-config")
 lua require'git-conflict'.setup()
+lua require'notify-config'
 " }}}
 
 " {{{ Dirvish
