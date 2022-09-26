@@ -139,6 +139,8 @@ Plug 'stevearc/dressing.nvim'
 
 Plug 'rcarriga/nvim-notify'
 
+Plug 'numToStr/Comment.nvim'
+
 " All of your Plugins must be added before the following line
 call plug#end()
 
