@@ -116,8 +116,7 @@ Plug 'mhartington/formatter.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jose-elias-alvarez/typescript.nvim'
 
 Plug 'norcalli/nvim-colorizer.lua'
 
