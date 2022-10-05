@@ -19,8 +19,8 @@ local on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
   buf_map(bufnr, "n", "]g", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
   buf_map(bufnr, "n", "[g", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
-  buf_map(bufnr, "n", "gA", '<cmd>lua vim.lsp.buf.code_action()<cr>', { noremap = true })
-  buf_map(bufnr, "v", "ga", '<cmd>lua vim.lsp.buf.range_code_action()<cr>', { noremap = true })
+  buf_map(bufnr, "n", "gA", "<cmd>lua vim.lsp.buf.code_action()<cr>", { noremap = true })
+  buf_map(bufnr, "v", "ga", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", { noremap = true })
   -- buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
   -- buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
   buf_map(bufnr, "n", "<space>a", "<cmd>Telescope diagnostics bufnr=0<CR>", { noremap = true })
@@ -49,7 +49,7 @@ local cmp = require "cmp"
 cmp.setup {
   snippet = {
     expand = function(args)
-      require'luasnip'.lsp_expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   sources = {
@@ -57,24 +57,24 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "buffer" },
     { name = "path" },
-    { name = 'luasnip' },
+    { name = "luasnip" },
   },
-  mapping = cmp.mapping.preset.insert({
+  mapping = cmp.mapping.preset.insert {
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm { select = true },
-  }),
+  },
   completion = {
     completeopt = "menu,menuone,noinsert",
   },
 }
 
 cmp.setup.cmdline {
-  mapping = cmp.mapping.preset.cmdline({
+  mapping = cmp.mapping.preset.cmdline {
     -- Your configuration here.
-  })
+  },
 }
 
 local lspkind = require "lspkind"
