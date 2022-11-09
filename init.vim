@@ -101,6 +101,8 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/nvim-cmp'
 
+Plug 'williamboman/mason.nvim'
+
 " Icons for nvim cmp
 Plug 'onsails/lspkind-nvim'
 
@@ -387,6 +389,7 @@ lua require'terminal'.setup()
 lua require("snippets-config")
 lua require'git-conflict'.setup()
 lua require'notify-config'
+lua require'mason'.setup()
 " }}}
 
 " {{{ Dirvish
