@@ -234,6 +234,9 @@ else
   let g:python3_host_prog = '/usr/bin/python3'
 endif
 
+" Highlight stuff after yank
+autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
+
 " }}}
 
 " Mappings {{{
