@@ -122,6 +122,14 @@ require('packer').startup(function()
 
   use 'numToStr/Comment.nvim' -- comments
 
+  use({
+    'Wansmer/treesj',
+    requires = { 'nvim-treesitter' },
+    config = function()
+      require('treesj').setup()
+    end,
+  })
+
   if packer_bootstrap then
     require('packer').sync()
   end
