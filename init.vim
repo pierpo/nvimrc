@@ -222,28 +222,6 @@ let g:qf_auto_open_loclist = 0
 nnoremap <silent> + :RnvimrToggle<CR>
 " }}}
 
-" {{{ Fzf
-let $FZF_DEFAULT_COMMAND= 'rg --hidden --files'
-
-" Fuzzy find path with ,gf (useful when a project uses absolute imports
-" instead of relative)
-map <Leader>gf :call fzf#vim#files('', {'options':'--query '.'\'''.expand('<cfile>')})<CR>
-
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-" Bind C-p to fzf
-" Besides, execute it in the root directory of the project
-" Actually, it's no use if noautochdir is set (but let's keep it anyway)
-command! ProjectFiles execute 'Files' s:find_git_root()
-nnoremap <silent> <C-p> :ProjectFiles<CR>
-nnoremap <silent> <A-p> :Files<CR>
-nnoremap <silent> π :Files<CR>
-
-nnoremap <silent> <leader>; :Buffers<CR>
-" }}}
-
 " {{{ Lua plugins
 lua require('lsp')
 lua require('treesitter-conf')

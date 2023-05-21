@@ -63,7 +63,7 @@ require('packer').startup(function()
 
   use 'romainl/vim-qf' -- Filter the quickfix list
 
-  use 'nvim-lua/plenary.nvim' -- Instead of gitgutter
+  -- Instead of gitgutter
   use 'lewis6991/gitsigns.nvim'
 
   use 'akinsho/git-conflict.nvim' -- Git conflicts
@@ -92,6 +92,7 @@ require('packer').startup(function()
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   use 'justinmk/vim-dirvish' -- file explorer
 
