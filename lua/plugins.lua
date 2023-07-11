@@ -84,7 +84,10 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/nvim-cmp'
 
-  use 'williamboman/mason.nvim' -- Symbols
+  use {
+    "williamboman/mason.nvim",
+    run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+  }
 
   use 'onsails/lspkind-nvim' -- Icons for nvim cmp
 
