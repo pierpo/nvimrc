@@ -7,6 +7,12 @@ require("nvim-treesitter.configs").setup {
   },
   highlight = {
     enable = true, -- false will disable the whole extension
+    disable = function(lang, bufnr)
+      -- Get the number of characters in the buffer
+      local char_count = vim.api.nvim_buf_get_offset(bufnr, vim.api.nvim_buf_line_count(bufnr))
+      -- Disable treesitter if the buffer has more than 500,000 characters
+      return char_count > 500000
+    end,
   },
   incremental_selection = {
     enable = true,
