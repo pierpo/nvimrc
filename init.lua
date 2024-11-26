@@ -105,6 +105,7 @@ require "config.dap"
 require "config.autopairs"
 require "config.snippets"
 require "config.notify"
+require "config.cmp"
 
 require("git-conflict").setup()
 require("colorizer").setup()

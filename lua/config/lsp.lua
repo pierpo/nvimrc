@@ -48,45 +48,6 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local cmp = require "cmp"
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    { name = "buffer" },
-    { name = "path" },
-    { name = "luasnip" },
-  },
-  mapping = cmp.mapping.preset.insert {
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm { select = true },
-  },
-  completion = {
-    completeopt = "menu,menuone,noinsert",
-  },
-}
-
-cmp.setup.cmdline {
-  mapping = cmp.mapping.preset.cmdline {
-    -- Your configuration here.
-  },
-}
-
-local lspkind = require "lspkind"
-cmp.setup {
-  formatting = {
-    format = lspkind.cmp_format { with_text = true, maxwidth = 50 },
-  },
-}
-
 -- Add borders to hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "double",
