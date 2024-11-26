@@ -200,3 +200,15 @@ mason_lsp.setup_handlers {
     -- do nothing, managed by typescript-tools
   end,
 }
+
+nvim_lsp.lua_ls.setup {
+  on_attach = on_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global.
+        globals = { "vim" },
+      },
+    },
+  },
+}
