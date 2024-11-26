@@ -207,7 +207,7 @@ nvim_lsp.lua_ls.setup {
     Lua = {
       diagnostics = {
         -- Get the language server to recognize the `vim` global.
-        globals = { "vim" },
+        globals = { "vim", "use" },
       },
     },
   },

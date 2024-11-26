@@ -25,12 +25,12 @@ require("packer").startup(function()
   use "L3MON4D3/LuaSnip"
   use "saadparwaiz1/cmp_luasnip"
 
-  use "godlygeek/tabular" -- align stuff plugin
+  use "godlygeek/tabular"               -- align stuff plugin
   use "bronson/vim-trailing-whitespace" -- trailing whitespace plugin
 
-  use "hoob3rt/lualine.nvim" -- status line
+  use "hoob3rt/lualine.nvim"            -- status line
 
-  use "AndrewRadev/splitjoin.vim" -- Split lines (like js objects)
+  use "AndrewRadev/splitjoin.vim"       -- Split lines (like js objects)
 
   -- tpope plugins
   use "tpope/vim-surround"
@@ -50,9 +50,9 @@ require("packer").startup(function()
 
   use "michaeljsmith/vim-indent-object" -- Select by indent
 
-  use "arp242/jumpy.vim" -- Remap [[ and ]] to make it work properly with most filetypes
+  use "arp242/jumpy.vim"                -- Remap [[ and ]] to make it work properly with most filetypes
 
-  use "AndrewRadev/switch.vim" -- Switch true to false
+  use "AndrewRadev/switch.vim"          -- Switch true to false
 
   -- Colorschemes
   use "ChristianChiarulli/nvcode-color-schemes.vim" -- colorscheme for treesitter
@@ -61,14 +61,14 @@ require("packer").startup(function()
 
   use "AndrewRadev/sideways.vim" -- Cycle arguments/properties
 
-  use "romainl/vim-qf" -- Filter the quickfix list
+  use "romainl/vim-qf"           -- Filter the quickfix list
 
   -- Instead of gitgutter
   use "lewis6991/gitsigns.nvim"
 
   use "akinsho/git-conflict.nvim" -- Git conflicts
 
-  use "chr4/nginx.vim" -- nginx
+  use "chr4/nginx.vim"            -- nginx
 
   -- treesitter
   use "nvim-treesitter/nvim-treesitter"
@@ -97,13 +97,13 @@ require("packer").startup(function()
   use "nvim-telescope/telescope.nvim"
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
-  use "justinmk/vim-dirvish" -- file explorer
+  use "justinmk/vim-dirvish"         -- file explorer
 
-  use "mhartington/formatter.nvim" -- formatter
+  use "mhartington/formatter.nvim"   -- formatter
 
   use "kyazdani42/nvim-web-devicons" -- icons
 
-  use "norcalli/nvim-colorizer.lua" -- colorizer
+  use "norcalli/nvim-colorizer.lua"  -- colorizer
 
   -- debugger
   use "mfussenegger/nvim-dap"
@@ -118,11 +118,11 @@ require("packer").startup(function()
 
   use "norcalli/nvim-terminal.lua" -- Useful for ANSI colors on log dumps
 
-  use "stevearc/dressing.nvim" -- Override vim ui
+  use "stevearc/dressing.nvim"     -- Override vim ui
 
-  use "rcarriga/nvim-notify" -- notifications
+  use "rcarriga/nvim-notify"       -- notifications
 
-  use "numToStr/Comment.nvim" -- comments
+  use "numToStr/Comment.nvim"      -- comments
 
   use { "projekt0n/github-nvim-theme" }
 
@@ -143,6 +143,22 @@ require("packer").startup(function()
     config = function()
       require("treesj").setup()
     end,
+  }
+
+  use {
+    "folke/noice.nvim",
+    requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+  }
+
+  use {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    },
   }
 
   if packer_bootstrap then

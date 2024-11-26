@@ -105,10 +105,11 @@ require "config.dap"
 require "config.autopairs"
 require "config.snippets"
 require "config.notify"
+
 require("git-conflict").setup()
 require("colorizer").setup()
 require("terminal").setup()
-require("mason").setup()
+require("noice").setup()
 
 -- Dirvish configuration
 vim.api.nvim_create_autocmd("FileType", {
