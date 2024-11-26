@@ -1,6 +1,9 @@
 -- Inspired from
 -- https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
 
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local nvim_lsp = require "lspconfig"
 local lsp_configs = require "lspconfig.configs"
 local util = require "lspconfig/util"
@@ -96,16 +99,12 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 -- }}}
 
 -- {{{ typescript
-require("typescript").setup {
-  server = {
-    capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      on_attach(client, bufnr)
-    end,
-  },
+
+require("typescript-tools").setup {
+  on_attach = on_attach,
 }
+
+-- nvim_lsp.ts_ls.setup()
 
 nvim_lsp.eslint.setup {
   root_dir = util.root_pattern(
@@ -121,7 +120,7 @@ nvim_lsp.eslint.setup {
       [[
         augroup EslintAutofix
             autocmd! * <buffer>
-            autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+            autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
         augroup END
         ]],
       true
@@ -172,4 +171,32 @@ nvim_lsp.rust_analyzer.setup {
 nvim_lsp.kotlin_language_server.setup {
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern "settings.gradle",
+}
+
+local mason_lsp = require "mason-lspconfig"
+mason_lsp.setup {
+  ensure_installed = {
+    "bashls",
+    "cssls",
+    "eslint",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "sqlls",
+    -- managed by typescript-tools
+    "ts_ls",
+  },
+  automatic_installation = true,
+}
+mason_lsp.setup_handlers {
+  -- default setup for all servers (without a key)
+  function(server_name)
+    require("lspconfig")[server_name].setup {}
+  end,
+  -- LSP specific handlers
+  ["ts_ls"] = function()
+    -- do nothing, managed by typescript-tools
+  end,
 }

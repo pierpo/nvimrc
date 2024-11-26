@@ -103,14 +103,13 @@ require('packer').startup(function()
 
   use 'kyazdani42/nvim-web-devicons' -- icons
 
-  use 'jose-elias-alvarez/typescript.nvim' -- typescript
-
   use 'norcalli/nvim-colorizer.lua' -- colorizer
 
   -- debugger
   use 'mfussenegger/nvim-dap'
   use 'nvim-telescope/telescope-dap.nvim'
   use 'rcarriga/nvim-dap-ui'
+  use 'nvim-neotest/nvim-nio'
 
   -- autopairs and autotags
   use 'windwp/nvim-autopairs'
@@ -124,6 +123,19 @@ require('packer').startup(function()
   use 'rcarriga/nvim-notify' -- notifications
 
   use 'numToStr/Comment.nvim' -- comments
+
+  use ({ 'projekt0n/github-nvim-theme' })
+
+  use {
+    "pmizio/typescript-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  }
+
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
 
   use({
     'Wansmer/treesj',
