@@ -6,7 +6,7 @@ vim.api.nvim_create_augroup('vimrc', {})
 vim.api.nvim_clear_autocmds({ group = 'vimrc' })
 
 -- Plugins
-require('plugins')
+require('config.plugins')
 
 -- Generic configuration
 vim.o.scrolljump = 5
@@ -93,19 +93,19 @@ vim.keymap.set('t', '<C-l>', '<C-\\><C-N><C-w>l', { noremap = true })
 
 -- Plugin configurations
 vim.g.loaded_netrwPlugin = 1
-require('lsp')
-require('treesitter-conf')
-require('gitsigns-conf')
-require('formatter-config')
-require('colorscheme-and-lualine')
-require('telescope-config')
-require('dap-config')
-require('autopairs-config')
+require('config.lsp')
+require('config.treesitter')
+require('config.gitsigns')
+require('config.formatter')
+require('config.colorscheme-and-lualine')
+require('config.telescope')
+require('config.dap')
+require('config.autopairs')
+require('config.snippets')
+require('config.notify')
+require('git-conflict').setup()
 require('colorizer').setup()
 require('terminal').setup()
-require('snippets-config')
-require('git-conflict').setup()
-require('notify-config')
 require('mason').setup()
 
 -- Dirvish configuration
