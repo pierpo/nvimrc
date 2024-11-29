@@ -101,7 +101,7 @@ require("packer").startup(function()
 
   use "mhartington/formatter.nvim"   -- formatter
 
-  use "kyazdani42/nvim-web-devicons" -- icons
+  use "nvim-tree/nvim-web-devicons" -- icons
 
   use "norcalli/nvim-colorizer.lua"  -- colorizer
 
