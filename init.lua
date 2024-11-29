@@ -110,7 +110,17 @@ require "config.cmp"
 require("git-conflict").setup()
 require("colorizer").setup()
 require("terminal").setup()
-require("noice").setup()
+require("noice").setup {
+  presets = {
+    lsp_doc_border = true,
+  },
+  routes = {
+    {
+      view = "notify",
+      filter = { event = "msg_showmode" },
+    },
+  },
+}
 
 -- Dirvish configuration
 vim.api.nvim_create_autocmd("FileType", {
@@ -120,3 +130,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "t", 'ddO<Esc>:let @"=substitute(@", "\\n", "", "g")<CR>', { noremap = true, buffer = true })
   end,
 })
+
+if vim.fn.executable "rg" == 1 then
+  vim.o.grepprg = "rg --vimgrep --no-heading --hidden"
+  vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+end
+
+vim.keymap.set("n", "<Leader>rg", ':grep! "<C-R><C-W>"<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>grep", ':grep! -F ""<Left>', { noremap = true, silent = true })
