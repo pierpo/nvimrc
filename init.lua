@@ -138,3 +138,28 @@ end
 
 vim.keymap.set("n", "<Leader>rg", ':grep! "<C-R><C-W>"<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "<Leader>grep", ':grep! -F ""<Left>', { noremap = true, silent = true })
+
+-- Clear search highlight with alt-h on macos
+vim.keymap.set("n", "¬", ":nohlsearch<CR>", { noremap = true, silent = true })
+-- Clear search highlight with alt-- on macos
+vim.keymap.set("n", "–", ":nohlsearch<CR>", { noremap = true, silent = true })
+
+vim.keymap.set("n", "-", ":Neotree filesystem reveal left<CR>", { noremap = true, silent = true })
+
+require("neo-tree").setup {
+  event_handlers = {
+
+    {
+      event = "file_open_requested",
+      handler = function()
+        -- auto close
+        -- vim.cmd("Neotree close")
+        -- OR
+        require("neo-tree.command").execute { action = "close" }
+      end,
+    },
+  },
+}
+
+-- Map ctrl + - to dismiss
+vim.keymap.set("n", "", ":lua require('notify').dismiss()<CR>", { noremap = true, silent = true })
