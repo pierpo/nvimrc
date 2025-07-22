@@ -4,8 +4,10 @@
 -- Autocommand group setup
 local vimrc_group = vim.api.nvim_create_augroup("vimrc", { clear = true })
 
+vim.g.mapleader = ","
+
 -- Plugins
-pcall(require, "config.plugins")
+require("config.lazy")
 
 -- General configuration
 vim.opt.scrolljump = 5
@@ -36,7 +38,6 @@ end
 
 vim.opt.diffopt:append("vertical")
 vim.opt.undofile = true
-vim.g.mapleader = ","
 
 -- HTML indent settings
 vim.g.html_indent_script1 = "inc"
@@ -135,16 +136,16 @@ vim.keymap.set("n", "–", ":nohlsearch<CR>", { noremap = true, silent = true })
 
 -- Neo-tree
 vim.keymap.set("n", "-", ":Neotree filesystem reveal left<CR>", { noremap = true, silent = true })
-pcall(require("neo-tree").setup, {
-  event_handlers = {
-    {
-      event = "file_open_requested",
-      handler = function()
-        require("neo-tree.command").execute { action = "close" }
-      end,
-    },
-  },
-})
+-- pcall(require("neo-tree").setup, {
+--   event_handlers = {
+--     {
+--       event = "file_open_requested",
+--       handler = function()
+--         require("neo-tree.command").execute { action = "close" }
+--       end,
+--     },
+--   },
+-- })
 
 -- Ctrl + - to dismiss notifications
 vim.keymap.set("n", "", ":lua require('notify').dismiss()<CR>", { noremap = true, silent = true }) -- Ctrl+_

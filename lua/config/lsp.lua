@@ -1,51 +1,83 @@
 require("mason").setup()
+
 require("mason-lspconfig").setup {
-  automatic_enable = true,
+  automatic_installation = true,
 }
 
-local util = require "lspconfig/util"
+local lspconfig = require "lspconfig"
+local util = require "lspconfig.util"
 local lsp_configs = require "lspconfig.configs"
 
 -- Global on_attach function
 local on_attach = function(client, bufnr)
-  local buf_map = vim.api.nvim_buf_set_keymap
-  buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
-  buf_map(bufnr, "n", "<c-]>", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
-  buf_map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {})
-  buf_map(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
-  buf_map(bufnr, "n", "<c-e>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {})
-  buf_map(bufnr, "n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {})
-  buf_map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
-  buf_map(bufnr, "n", "gR", "<cmd>lua vim.lsp.buf.rename()<CR>", {})
-  buf_map(bufnr, "n", "]g", '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "double" }})<CR>', {})
-  buf_map(bufnr, "n", "[g", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
-  buf_map(bufnr, "n", "gA", "<cmd>lua vim.lsp.buf.code_action()<cr>", { noremap = true })
-  buf_map(bufnr, "v", "ga", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", { noremap = true })
-  buf_map(bufnr, "n", "<space>a", "<cmd>Telescope diagnostics bufnr=0<CR>", { noremap = true })
-  buf_map(bufnr, "n", "<space>s", '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>',
-    { noremap = true })
+  local function buf_map(mode, lhs, rhs, opts)
+    opts = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
+    opts.buffer = bufnr
+    -- only pass string or function rhs
+    if type(rhs) == "string" or type(rhs) == "function" then
+      vim.keymap.set(mode, lhs, rhs, opts)
+    else
+      vim.notify(
+        string.format("Invalid RHS for keymap %s: expected string or function, got %s", lhs, type(rhs)),
+        vim.log.levels.ERROR
+      )
+    end
+  end
+
+  buf_map("n", "gd", vim.lsp.buf.declaration)
+  buf_map("n", "<c-]>", vim.lsp.buf.definition)
+  buf_map("n", "K", vim.lsp.buf.hover)
+  buf_map("n", "gD", vim.lsp.buf.implementation)
+  buf_map("n", "<c-e>", vim.lsp.buf.signature_help)
+  buf_map("n", "1gD", vim.lsp.buf.type_definition)
+  buf_map("n", "gr", vim.lsp.buf.references)
+  buf_map("n", "gR", vim.lsp.buf.rename)
+  buf_map("n", "]g", function()
+    vim.diagnostic.goto_next { float = { border = "double" } }
+  end)
+  buf_map("n", "[g", function()
+    vim.diagnostic.goto_prev { float = { border = "double" } }
+  end)
+  buf_map("n", "gA", vim.lsp.buf.code_action)
+  buf_map("v", "ga", function()
+    vim.lsp.buf.code_action {
+      range = {
+        ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
+        ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+      },
+      context = { only = { "quickfix", "refactor" }, diagnostics = {} },
+    }
+  end)
+  buf_map("n", "<space>a", function()
+    require("telescope.builtin").diagnostics { bufnr = 0 }
+  end)
+  buf_map("n", "<space>s", function()
+    require("telescope.builtin").lsp_dynamic_workspace_symbols()
+  end)
 
   if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_exec([[
-      augroup LspAutocommands
-        autocmd! * <buffer>
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.format(nil)
-      augroup END
-    ]], true)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormat" .. bufnr, { clear = true }),
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format()
+      end,
+    })
   end
 end
 
--- Borders
+-- Borders for floating windows
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
+
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" })
 
--- TypeScript (external plugin handles tsserver)
+-- TypeScript (uses external plugin)
 require("typescript-tools").setup {
   on_attach = on_attach,
 }
 
 -- ESLint
-require('lspconfig').eslint.setup {
+lspconfig.eslint.setup {
   root_dir = util.root_pattern(
     ".eslintrc",
     ".eslintrc.js",
@@ -55,38 +87,17 @@ require('lspconfig').eslint.setup {
     ".eslintrc.json"
   ),
   on_attach = function(client, bufnr)
-    vim.api.nvim_exec([[
-      augroup EslintAutofix
-        autocmd! * <buffer>
-        autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
-      augroup END
-    ]], true)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("EslintAutofix" .. bufnr, { clear = true }),
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
     on_attach(client, bufnr)
   end,
 }
 
--- vim.lsp.config("eslint", {
---   root_dir = util.root_pattern(
---     ".eslintrc",
---     ".eslintrc.js",
---     ".eslintrc.cjs",
---     ".eslintrc.yaml",
---     ".eslintrc.yml",
---     ".eslintrc.json"
---   ),
---   on_attach = function(client, bufnr)
---     vim.api.nvim_exec([[
---       augroup EslintAutofix
---         autocmd! * <buffer>
---         autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
---       augroup END
---     ]], true)
---     on_attach(client, bufnr)
---   end,
--- })
-
--- Lua
-vim.lsp.config("lua_ls", {
+-- Lua LSP (sumneko/lua-language-server or lua_ls)
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
@@ -95,19 +106,19 @@ vim.lsp.config("lua_ls", {
       },
     },
   },
-})
+}
 
--- Other servers
-vim.lsp.config("gdscript", { on_attach = on_attach })
-vim.lsp.config("flow", { on_attach = on_attach })
-vim.lsp.config("clangd", { on_attach = on_attach })
-vim.lsp.config("rust_analyzer", { on_attach = on_attach })
-vim.lsp.config("kotlin_language_server", {
+-- Other standard LSPs
+lspconfig.gdscript.setup { on_attach = on_attach }
+lspconfig.flow.setup { on_attach = on_attach }
+lspconfig.clangd.setup { on_attach = on_attach }
+lspconfig.rust_analyzer.setup { on_attach = on_attach }
+lspconfig.kotlin_language_server.setup {
   on_attach = on_attach,
-  root_dir = util.root_pattern("settings.gradle"),
-})
+  root_dir = util.root_pattern "settings.gradle",
+}
 
--- prosemd custom config
+-- prosemd-lsp (Markdown prose linter)
 if not lsp_configs.prosemd then
   lsp_configs.prosemd = {
     default_config = {
@@ -120,7 +131,10 @@ if not lsp_configs.prosemd then
     },
   }
 end
-vim.lsp.config("prosemd", { on_attach = on_attach })
 
--- Extra
-require("ts-error-translator").setup()
+lspconfig.prosemd.setup {
+  on_attach = on_attach,
+}
+
+-- Optional: translate TS errors to readable form
+pcall(require("ts-error-translator").setup)
