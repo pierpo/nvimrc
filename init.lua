@@ -2,42 +2,40 @@
 -- vim.cmd('scriptencoding utf-8')
 
 -- Autocommand group setup
-vim.api.nvim_create_augroup("vimrc", {})
-vim.api.nvim_clear_autocmds { group = "vimrc" }
+local vimrc_group = vim.api.nvim_create_augroup("vimrc", { clear = true })
 
 -- Plugins
-require "config.plugins"
+pcall(require, "config.plugins")
 
--- Generic configuration
-vim.o.scrolljump = 5
-vim.cmd "syntax sync minlines=256"
-vim.o.foldmethod = "marker"
+-- General configuration
+vim.opt.scrolljump = 5
+vim.cmd("syntax sync minlines=256")
+vim.opt.foldmethod = "marker"
 
-vim.opt.wildignore:append "*DS_Store*"
-vim.o.wildoptions = "pum"
+vim.opt.wildignore:append("*DS_Store*")
+vim.opt.wildoptions = "pum"
 
-vim.o.mouse = "a"
-vim.o.number = true
-vim.o.smartindent = true
-vim.o.smarttab = true
-vim.o.spell = false
-vim.o.showmatch = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.shiftround = true
-vim.o.expandtab = true
-vim.o.inccommand = "nosplit"
-vim.o.linebreak = true
-vim.o.showbreak = "↳ "
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.spell = false
+vim.opt.showmatch = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftround = true
+vim.opt.expandtab = true
+vim.opt.inccommand = "nosplit"
+vim.opt.linebreak = true
+vim.opt.showbreak = "↳ "
 
-if vim.fn.has "termguicolors" == 1 then
-  vim.o.termguicolors = true
+if vim.fn.has("termguicolors") == 1 then
+  vim.opt.termguicolors = true
 end
 
-vim.opt.diffopt:append "vertical"
-vim.o.hidden = true
-vim.o.undofile = true
+vim.opt.diffopt:append("vertical")
+vim.opt.undofile = true
 vim.g.mapleader = ","
 
 -- HTML indent settings
@@ -45,31 +43,29 @@ vim.g.html_indent_script1 = "inc"
 vim.g.html_indent_style1 = "inc"
 vim.g.html_indent_inctags = "html,body,head,tbody,p,li,dd,dt,h1,h2,h3,h4,h5,h6,blockquote,section"
 
--- Error formats
-vim.o.errorformat = vim.o.errorformat .. "%f:\\ line\\ %l\\,\\ col\\ %c\\,\\ %trror\\ -\\ %m"
-vim.o.errorformat = vim.o.errorformat .. "%f:\\ line\\ %l\\,\\ col\\ %c\\,\\ %tarning\\ -\\ %m"
+-- Error format
+vim.opt.errorformat:append {
+  "%f:\\ line\\ %l\\,\\ col\\ %c\\,\\ %trror\\ -\\ %m",
+  "%f:\\ line\\ %l\\,\\ col\\ %c\\,\\ %tarning\\ -\\ %m",
+}
 
-vim.o.shortmess = vim.o.shortmess .. "c"
-vim.o.signcolumn = "yes"
+vim.opt.shortmess:append("c")
+vim.opt.signcolumn = "yes"
 
+-- Close preview window on completion
 vim.api.nvim_create_autocmd("CompleteDone", {
-  group = "vimrc",
+  group = vimrc_group,
   pattern = "*",
   command = "silent! pclose!",
 })
 
--- Python provider
-if vim.fn.has "macunix" == 1 then
-  vim.g.python_host_prog = "/usr/local/bin/python"
-  vim.g.python3_host_prog = "/usr/local/bin/python3"
-else
-  vim.g.python_host_prog = "/usr/bin/python"
-  vim.g.python3_host_prog = "/usr/bin/python3"
-end
+-- Python provider (portable)
+vim.g.python3_host_prog = vim.fn.exepath("python3")
+vim.g.python_host_prog = vim.fn.exepath("python")
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = "vimrc",
+  group = vimrc_group,
   pattern = "*",
   callback = function()
     vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
@@ -95,22 +91,24 @@ vim.keymap.set("n", "<Leader>W", ":noautocmd w<CR>", { noremap = true, silent = 
 
 -- Plugin configurations
 vim.g.loaded_netrwPlugin = 1
-require "config.lsp"
-require "config.treesitter"
-require "config.gitsigns"
-require "config.formatter"
-require "config.colorscheme-and-lualine"
-require "config.telescope"
-require "config.dap"
-require "config.autopairs"
-require "config.snippets"
-require "config.notify"
-require "config.cmp"
 
-require("git-conflict").setup()
-require("colorizer").setup()
-require("terminal").setup()
-require("noice").setup {
+pcall(require, "config.lsp")
+pcall(require, "config.treesitter")
+pcall(require, "config.gitsigns")
+pcall(require, "config.formatter")
+pcall(require, "config.colorscheme-and-lualine")
+pcall(require, "config.telescope")
+pcall(require, "config.dap")
+pcall(require, "config.autopairs")
+pcall(require, "config.snippets")
+pcall(require, "config.notify")
+pcall(require, "config.cmp")
+
+pcall(require("git-conflict").setup)
+pcall(require("colorizer").setup)
+pcall(require("terminal").setup)
+
+pcall(require("noice").setup, {
   presets = {
     lsp_doc_border = true,
   },
@@ -120,46 +118,42 @@ require("noice").setup {
       filter = { event = "msg_showmode" },
     },
   },
-}
+})
 
--- -- Dirvish configuration
--- vim.api.nvim_create_autocmd("FileType", {
---   group = "vimrc",
---   pattern = "dirvish",
---   callback = function()
---     vim.keymap.set("n", "t", 'ddO<Esc>:let @"=substitute(@", "\\n", "", "g")<CR>', { noremap = true, buffer = true })
---   end,
--- })
-
-if vim.fn.executable "rg" == 1 then
-  vim.o.grepprg = "rg --vimgrep --no-heading --hidden"
-  vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+-- ripgrep as grepprg
+if vim.fn.executable("rg") == 1 then
+  vim.opt.grepprg = "rg --vimgrep --no-heading --hidden"
+  vim.opt.grepformat = { "%f:%l:%c:%m", "%f:%l:%m" }
 end
 
 vim.keymap.set("n", "<Leader>rg", ':grep! "<C-R><C-W>"<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "<Leader>grep", ':grep! -F ""<Left>', { noremap = true, silent = true })
 
--- Clear search highlight with alt-h on macos
-vim.keymap.set("n", "¬", ":nohlsearch<CR>", { noremap = true, silent = true })
--- Clear search highlight with alt-- on macos
-vim.keymap.set("n", "–", ":nohlsearch<CR>", { noremap = true, silent = true })
+-- Clear search highlight (macOS Alt+H / Alt+-)
+vim.keymap.set("n", "¬", ":nohlsearch<CR>", { noremap = true, silent = true }) -- Alt+H
+vim.keymap.set("n", "–", ":nohlsearch<CR>", { noremap = true, silent = true }) -- Alt+-
 
+-- Neo-tree
 vim.keymap.set("n", "-", ":Neotree filesystem reveal left<CR>", { noremap = true, silent = true })
-
-require("neo-tree").setup {
+pcall(require("neo-tree").setup, {
   event_handlers = {
-
     {
       event = "file_open_requested",
       handler = function()
-        -- auto close
-        -- vim.cmd("Neotree close")
-        -- OR
         require("neo-tree.command").execute { action = "close" }
       end,
     },
   },
-}
+})
 
--- Map ctrl + - to dismiss
-vim.keymap.set("n", "", ":lua require('notify').dismiss()<CR>", { noremap = true, silent = true })
+-- Ctrl + - to dismiss notifications
+vim.keymap.set("n", "", ":lua require('notify').dismiss()<CR>", { noremap = true, silent = true }) -- Ctrl+_
+
+-- Dirvish config (optional)
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = vimrc_group,
+--   pattern = "dirvish",
+--   callback = function()
+--     vim.keymap.set("n", "t", 'ddO<Esc>:let @"=substitute(@", "\\n", "", "g")<CR>', { noremap = true, buffer = true })
+--   end,
+-- })
