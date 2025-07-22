@@ -97,13 +97,13 @@ require("packer").startup(function()
   use "nvim-telescope/telescope.nvim"
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 
-  use "justinmk/vim-dirvish"         -- file explorer
+  -- use "justinmk/vim-dirvish"         -- file explorer
 
-  use "mhartington/formatter.nvim"   -- formatter
+  use "mhartington/formatter.nvim"  -- formatter
 
   use "nvim-tree/nvim-web-devicons" -- icons
 
-  use "norcalli/nvim-colorizer.lua"  -- colorizer
+  use "norcalli/nvim-colorizer.lua" -- colorizer
 
   -- debugger
   use "mfussenegger/nvim-dap"
@@ -130,6 +130,8 @@ require("packer").startup(function()
     "pmizio/typescript-tools.nvim",
     requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   }
+
+  use "dmmulroy/ts-error-translator.nvim"
 
   use {
     "williamboman/mason.nvim",

@@ -1,15 +1,12 @@
--- Inspired from
--- https://jose-elias-alvarez.medium.com/configuring-neovims-lsp-client-for-typescript-development-5789d58ea9c
-
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup {
+  automatic_enable = true,
+}
 
-local nvim_lsp = require "lspconfig"
-local lsp_configs = require "lspconfig.configs"
 local util = require "lspconfig/util"
+local lsp_configs = require "lspconfig.configs"
 
--- {{{ Global configuration
-
+-- Global on_attach function
 local on_attach = function(client, bufnr)
   local buf_map = vim.api.nvim_buf_set_keymap
   buf_map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
@@ -24,50 +21,31 @@ local on_attach = function(client, bufnr)
   buf_map(bufnr, "n", "[g", '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "double" }})<CR>', {})
   buf_map(bufnr, "n", "gA", "<cmd>lua vim.lsp.buf.code_action()<cr>", { noremap = true })
   buf_map(bufnr, "v", "ga", "<cmd>lua vim.lsp.buf.range_code_action()<cr>", { noremap = true })
-  -- buf_map(bufnr, "n", "gA", '<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>', { noremap = true })
-  -- buf_map(bufnr, "v", "ga", '<cmd>lua require("telescope.builtin").lsp_range_code_actions()<cr>V', { noremap = true })
   buf_map(bufnr, "n", "<space>a", "<cmd>Telescope diagnostics bufnr=0<CR>", { noremap = true })
-  buf_map(
-    bufnr,
-    "n",
-    "<space>s",
-    '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>',
-    { noremap = true }
-  )
+  buf_map(bufnr, "n", "<space>s", '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<cr>',
+    { noremap = true })
 
   if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_exec(
-      [[
-        augroup LspAutocommands
-            autocmd! * <buffer>
-            autocmd BufWritePre <buffer> lua vim.lsp.buf.format(nil)
-        augroup END
-        ]],
-      true
-    )
+    vim.api.nvim_exec([[
+      augroup LspAutocommands
+        autocmd! * <buffer>
+        autocmd BufWritePre <buffer> lua vim.lsp.buf.format(nil)
+      augroup END
+    ]], true)
   end
 end
 
--- Add borders to hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "double",
-})
+-- Borders
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" })
 
--- Add borders to signature help
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = "double",
-})
--- }}}
-
--- {{{ typescript
-
+-- TypeScript (external plugin handles tsserver)
 require("typescript-tools").setup {
   on_attach = on_attach,
 }
 
--- nvim_lsp.ts_ls.setup()
-
-nvim_lsp.eslint.setup {
+-- ESLint
+require('lspconfig').eslint.setup {
   root_dir = util.root_pattern(
     ".eslintrc",
     ".eslintrc.js",
@@ -77,39 +55,59 @@ nvim_lsp.eslint.setup {
     ".eslintrc.json"
   ),
   on_attach = function(client, bufnr)
-    vim.api.nvim_exec(
-      [[
-        augroup EslintAutofix
-            autocmd! * <buffer>
-            autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
-        augroup END
-        ]],
-      true
-    )
+    vim.api.nvim_exec([[
+      augroup EslintAutofix
+        autocmd! * <buffer>
+        autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
+      augroup END
+    ]], true)
     on_attach(client, bufnr)
   end,
 }
 
--- }}}
+-- vim.lsp.config("eslint", {
+--   root_dir = util.root_pattern(
+--     ".eslintrc",
+--     ".eslintrc.js",
+--     ".eslintrc.cjs",
+--     ".eslintrc.yaml",
+--     ".eslintrc.yml",
+--     ".eslintrc.json"
+--   ),
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_exec([[
+--       augroup EslintAutofix
+--         autocmd! * <buffer>
+--         autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js,*.cjs EslintFixAll
+--       augroup END
+--     ]], true)
+--     on_attach(client, bufnr)
+--   end,
+-- })
 
--- {{{ gdscript
-nvim_lsp.gdscript.setup {
+-- Lua
+vim.lsp.config("lua_ls", {
   on_attach = on_attach,
-}
--- }}}
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim", "use" },
+      },
+    },
+  },
+})
 
--- {{{ flow
-nvim_lsp.flow.setup {
+-- Other servers
+vim.lsp.config("gdscript", { on_attach = on_attach })
+vim.lsp.config("flow", { on_attach = on_attach })
+vim.lsp.config("clangd", { on_attach = on_attach })
+vim.lsp.config("rust_analyzer", { on_attach = on_attach })
+vim.lsp.config("kotlin_language_server", {
   on_attach = on_attach,
-}
--- }}}
+  root_dir = util.root_pattern("settings.gradle"),
+})
 
--- {{{ clangd
-nvim_lsp.clangd.setup {
-  on_attach = on_attach,
-}
--- }}}
-
+-- prosemd custom config
 if not lsp_configs.prosemd then
   lsp_configs.prosemd = {
     default_config = {
@@ -122,54 +120,7 @@ if not lsp_configs.prosemd then
     },
   }
 end
+vim.lsp.config("prosemd", { on_attach = on_attach })
 
-nvim_lsp.prosemd.setup { on_attach = on_attach }
-
-nvim_lsp.rust_analyzer.setup {
-  on_attach = on_attach,
-}
-
-nvim_lsp.kotlin_language_server.setup {
-  on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern "settings.gradle",
-}
-
-local mason_lsp = require "mason-lspconfig"
-mason_lsp.setup {
-  ensure_installed = {
-    "bashls",
-    "cssls",
-    "eslint",
-    "html",
-    "jsonls",
-    "lua_ls",
-    "pyright",
-    "rust_analyzer",
-    "sqlls",
-    -- managed by typescript-tools
-    "ts_ls",
-  },
-  automatic_installation = true,
-}
-mason_lsp.setup_handlers {
-  -- default setup for all servers (without a key)
-  function(server_name)
-    require("lspconfig")[server_name].setup {}
-  end,
-  -- LSP specific handlers
-  ["ts_ls"] = function()
-    -- do nothing, managed by typescript-tools
-  end,
-}
-
-nvim_lsp.lua_ls.setup {
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global.
-        globals = { "vim", "use" },
-      },
-    },
-  },
-}
+-- Extra
+require("ts-error-translator").setup()

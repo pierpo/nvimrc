@@ -122,14 +122,14 @@ require("noice").setup {
   },
 }
 
--- Dirvish configuration
-vim.api.nvim_create_autocmd("FileType", {
-  group = "vimrc",
-  pattern = "dirvish",
-  callback = function()
-    vim.keymap.set("n", "t", 'ddO<Esc>:let @"=substitute(@", "\\n", "", "g")<CR>', { noremap = true, buffer = true })
-  end,
-})
+-- -- Dirvish configuration
+-- vim.api.nvim_create_autocmd("FileType", {
+--   group = "vimrc",
+--   pattern = "dirvish",
+--   callback = function()
+--     vim.keymap.set("n", "t", 'ddO<Esc>:let @"=substitute(@", "\\n", "", "g")<CR>', { noremap = true, buffer = true })
+--   end,
+-- })
 
 if vim.fn.executable "rg" == 1 then
   vim.o.grepprg = "rg --vimgrep --no-heading --hidden"
