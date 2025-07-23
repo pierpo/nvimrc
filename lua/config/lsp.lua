@@ -1,9 +1,5 @@
 require("mason").setup()
 
-require("mason-lspconfig").setup {
-  automatic_installation = true,
-}
-
 local lspconfig = require "lspconfig"
 local util = require "lspconfig.util"
 local lsp_configs = require "lspconfig.configs"
@@ -76,26 +72,6 @@ require("typescript-tools").setup {
   on_attach = on_attach,
 }
 
--- -- ESLint
--- lspconfig.eslint.setup {
---   root_dir = util.root_pattern(
---     ".eslintrc",
---     ".eslintrc.js",
---     ".eslintrc.cjs",
---     ".eslintrc.yaml",
---     ".eslintrc.yml",
---     ".eslintrc.json"
---   ),
---   on_attach = function(client, bufnr)
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       group = vim.api.nvim_create_augroup("EslintAutofix" .. bufnr, { clear = true }),
---       buffer = bufnr,
---       command = "EslintFixAll",
---     })
---     on_attach(client, bufnr)
---   end,
--- }
-
 -- Lua LSP (sumneko/lua-language-server or lua_ls)
 lspconfig.lua_ls.setup {
   on_attach = on_attach,
@@ -139,33 +115,12 @@ lspconfig.prosemd.setup {
 -- Optional: translate TS errors to readable form
 pcall(require("ts-error-translator").setup)
 
--- ESLINT
 local null_ls = require "null-ls"
+
 null_ls.setup {
   sources = {
-    -- Use eslint_d for diagnostics (linting)
-    null_ls.builtins.diagnostics.eslint_d.with {
-      condition = function(utils)
-        return utils.root_has_file {
-          ".eslintrc.js",
-          ".eslintrc.json",
-          ".eslintrc.yaml",
-          ".eslintrc.yml",
-        }
-      end,
-    },
-
-    -- Use eslint_d for formatting
-    null_ls.builtins.formatting.eslint_d.with {
-      condition = function(utils)
-        return utils.root_has_file {
-          ".eslintrc.js",
-          ".eslintrc.json",
-          ".eslintrc.yaml",
-          ".eslintrc.yml",
-        }
-      end,
-    },
+    require "none-ls.diagnostics.eslint_d",
+    require "none-ls.code_actions.eslint_d",
+    require "none-ls.formatting.eslint_d",
   },
-  on_attach = on_attach, -- reuse your global on_attach
 }

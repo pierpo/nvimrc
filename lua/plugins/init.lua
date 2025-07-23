@@ -79,7 +79,7 @@ return {
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
   "hrsh7th/nvim-cmp",
-  { "williamboman/mason.nvim", build = ":MasonUpdate" },
+  { "williamboman/mason.nvim",      build = ":MasonUpdate" },
   "onsails/lspkind-nvim",
   "williamboman/mason-lspconfig.nvim",
 
@@ -133,17 +133,9 @@ return {
 
   {
     "nvimtools/none-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvimtools/none-ls-extras.nvim",
+    },
   },
-
-  -- optional: neo-tree (commented out in your original)
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v3.x",
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-tree/nvim-web-devicons",
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  -- },
 }
