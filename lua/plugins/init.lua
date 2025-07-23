@@ -3,8 +3,17 @@ return {
   -- lazy itself
   { "folke/lazy.nvim" },
 
-  -- Packer's equivalent (used to be bootstrap)
-  { "wbthomason/packer.nvim", lazy = false },
+  {
+    "stevearc/oil.nvim",
+    ---@module 'oil'
+    ---@type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
+    lazy = false,
+  },
 
   -- Snippets
   "L3MON4D3/LuaSnip",
@@ -33,8 +42,14 @@ return {
 
   -- text objects
   "kana/vim-textobj-user",
-  -- "Julian/vim-textobj-variable-segment",
-  "kana/vim-textobj-line",
+  {
+    "Julian/vim-textobj-variable-segment",
+    dependencies = { "kana/vim-textobj-user" },
+  },
+  {
+    "kana/vim-textobj-line",
+    dependencies = { "kana/vim-textobj-user" },
+  },
   "michaeljsmith/vim-indent-object",
 
   -- motion
@@ -55,7 +70,7 @@ return {
   "nvim-treesitter/playground",
 
   -- ranger
-  "kevinhwang91/rnvimr",
+  -- "kevinhwang91/rnvimr",
 
   -- LSP
   "neovim/nvim-lspconfig",
@@ -64,11 +79,11 @@ return {
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
   "hrsh7th/nvim-cmp",
-  { "williamboman/mason.nvim",         build = ":MasonUpdate" },
+  { "williamboman/mason.nvim", build = ":MasonUpdate" },
   "onsails/lspkind-nvim",
   "williamboman/mason-lspconfig.nvim",
 
-  { "pmizio/typescript-tools.nvim",             dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } },
+  { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } },
   "dmmulroy/ts-error-translator.nvim",
 
   -- Telescope
@@ -116,10 +131,9 @@ return {
     dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
   },
 
-  -- File explorer replacement
   {
-    "stevearc/oil.nvim",
-    config = true,
+    "nvimtools/none-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 
   -- optional: neo-tree (commented out in your original)

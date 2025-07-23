@@ -7,14 +7,14 @@ local vimrc_group = vim.api.nvim_create_augroup("vimrc", { clear = true })
 vim.g.mapleader = ","
 
 -- Plugins
-require("config.lazy")
+require "config.lazy"
 
 -- General configuration
 vim.opt.scrolljump = 5
-vim.cmd("syntax sync minlines=256")
+vim.cmd "syntax sync minlines=256"
 vim.opt.foldmethod = "marker"
 
-vim.opt.wildignore:append("*DS_Store*")
+vim.opt.wildignore:append "*DS_Store*"
 vim.opt.wildoptions = "pum"
 
 vim.opt.mouse = "a"
@@ -32,11 +32,11 @@ vim.opt.inccommand = "nosplit"
 vim.opt.linebreak = true
 vim.opt.showbreak = "↳ "
 
-if vim.fn.has("termguicolors") == 1 then
+if vim.fn.has "termguicolors" == 1 then
   vim.opt.termguicolors = true
 end
 
-vim.opt.diffopt:append("vertical")
+vim.opt.diffopt:append "vertical"
 vim.opt.undofile = true
 
 -- HTML indent settings
@@ -50,7 +50,7 @@ vim.opt.errorformat:append {
   "%f:\\ line\\ %l\\,\\ col\\ %c\\,\\ %tarning\\ -\\ %m",
 }
 
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append "c"
 vim.opt.signcolumn = "yes"
 
 -- Close preview window on completion
@@ -61,8 +61,8 @@ vim.api.nvim_create_autocmd("CompleteDone", {
 })
 
 -- Python provider (portable)
-vim.g.python3_host_prog = vim.fn.exepath("python3")
-vim.g.python_host_prog = vim.fn.exepath("python")
+vim.g.python3_host_prog = vim.fn.exepath "python3"
+vim.g.python_host_prog = vim.fn.exepath "python"
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -104,6 +104,7 @@ pcall(require, "config.autopairs")
 pcall(require, "config.snippets")
 pcall(require, "config.notify")
 pcall(require, "config.cmp")
+pcall(require, "config.oil")
 
 pcall(require("git-conflict").setup)
 pcall(require("colorizer").setup)
@@ -122,7 +123,7 @@ pcall(require("noice").setup, {
 })
 
 -- ripgrep as grepprg
-if vim.fn.executable("rg") == 1 then
+if vim.fn.executable "rg" == 1 then
   vim.opt.grepprg = "rg --vimgrep --no-heading --hidden"
   vim.opt.grepformat = { "%f:%l:%c:%m", "%f:%l:%m" }
 end
@@ -135,7 +136,7 @@ vim.keymap.set("n", "¬", ":nohlsearch<CR>", { noremap = true, silent = true }) 
 vim.keymap.set("n", "–", ":nohlsearch<CR>", { noremap = true, silent = true }) -- Alt+-
 
 -- Neo-tree
-vim.keymap.set("n", "-", ":Neotree filesystem reveal left<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "-", ":Neotree filesystem reveal left<CR>", { noremap = true, silent = true })
 -- pcall(require("neo-tree").setup, {
 --   event_handlers = {
 --     {
