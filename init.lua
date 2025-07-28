@@ -1,10 +1,10 @@
 -- Initialization
 -- vim.cmd('scriptencoding utf-8')
 
+vim.g.mapleader = ","
+
 -- Autocommand group setup
 local vimrc_group = vim.api.nvim_create_augroup("vimrc", { clear = true })
-
-vim.g.mapleader = ","
 
 -- Plugins
 require "config.lazy"

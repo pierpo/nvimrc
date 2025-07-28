@@ -14,18 +14,3 @@ vim.api.nvim_set_keymap(
   ":Telescope find_files hidden=true no_ignore=true<CR>",
   { noremap = true, silent = true }
 )
-
--- local function find_git_root()
---   local handle = io.popen "git rev-parse --show-toplevel 2> /dev/null"
---   local result = handle:read "*a"
---   handle:close() -- close process
---   result = result:gsub("%s+$", "") -- trim trailing whitespace
---   return result
--- end
-
--- vim.api.nvim_set_keymap(
---   "n",
---   "<C-p>",
---   ":Telescope find_files search_dirs={" .. '"' .. find_git_root() .. '"' .. "}<CR>",
---   { noremap = true, silent = true }
--- )
