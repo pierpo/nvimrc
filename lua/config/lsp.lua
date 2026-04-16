@@ -1,15 +1,11 @@
 require("mason").setup()
 
-local lspconfig = require "lspconfig"
-local util = require "lspconfig.util"
-local lsp_configs = require "lspconfig.configs"
-
 -- Global on_attach function
 local on_attach = function(client, bufnr)
   local function buf_map(mode, lhs, rhs, opts)
     opts = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
     opts.buffer = bufnr
-    -- only pass string or function rhs
+
     if type(rhs) == "string" or type(rhs) == "function" then
       vim.keymap.set(mode, lhs, rhs, opts)
     else
@@ -29,23 +25,23 @@ local on_attach = function(client, bufnr)
   buf_map("n", "gr", vim.lsp.buf.references)
   buf_map("n", "gR", vim.lsp.buf.rename)
   buf_map("n", "]g", function()
-    vim.diagnostic.goto_next { float = { border = "double" } }
+    vim.diagnostic.goto_next({ float = { border = "double" } })
   end)
   buf_map("n", "[g", function()
-    vim.diagnostic.goto_prev { float = { border = "double" } }
+    vim.diagnostic.goto_prev({ float = { border = "double" } })
   end)
   buf_map("n", "gA", vim.lsp.buf.code_action)
   buf_map("v", "ga", function()
-    vim.lsp.buf.code_action {
+    vim.lsp.buf.code_action({
       range = {
         ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
         ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
       },
       context = { only = { "quickfix", "refactor" }, diagnostics = {} },
-    }
+    })
   end)
   buf_map("n", "<space>a", function()
-    require("telescope.builtin").diagnostics { bufnr = 0 }
+    require("telescope.builtin").diagnostics({ bufnr = 0 })
   end)
   buf_map("n", "<space>s", function()
     require("telescope.builtin").lsp_dynamic_workspace_symbols()
@@ -63,17 +59,23 @@ local on_attach = function(client, bufnr)
 end
 
 -- Borders for floating windows
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "double" })
+vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+  config = vim.tbl_deep_extend("force", config or {}, { border = "double" })
+  return vim.lsp.handlers.hover(err, result, ctx, config)
+end
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "double" })
+vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+  config = vim.tbl_deep_extend("force", config or {}, { border = "double" })
+  return vim.lsp.handlers.signature_help(err, result, ctx, config)
+end
 
--- TypeScript (uses external plugin)
-require("typescript-tools").setup {
+-- TypeScript
+require("typescript-tools").setup({
   on_attach = on_attach,
-}
+})
 
--- Lua LSP (sumneko/lua-language-server or lua_ls)
-lspconfig.lua_ls.setup {
+-- Lua
+vim.lsp.config("lua_ls", {
   on_attach = on_attach,
   settings = {
     Lua = {
@@ -82,45 +84,61 @@ lspconfig.lua_ls.setup {
       },
     },
   },
-}
+})
+vim.lsp.enable("lua_ls")
 
--- Other standard LSPs
-lspconfig.gdscript.setup { on_attach = on_attach }
-lspconfig.flow.setup { on_attach = on_attach }
-lspconfig.clangd.setup { on_attach = on_attach }
-lspconfig.rust_analyzer.setup { on_attach = on_attach }
-lspconfig.kotlin_language_server.setup {
+-- GDScript
+vim.lsp.config("gdscript", {
   on_attach = on_attach,
-  root_dir = util.root_pattern "settings.gradle",
-}
+})
+vim.lsp.enable("gdscript")
+
+-- Flow
+vim.lsp.config("flow", {
+  on_attach = on_attach,
+})
+vim.lsp.enable("flow")
+
+-- clangd
+vim.lsp.config("clangd", {
+  on_attach = on_attach,
+})
+vim.lsp.enable("clangd")
+
+-- Rust
+vim.lsp.config("rust_analyzer", {
+  on_attach = on_attach,
+})
+vim.lsp.enable("rust_analyzer")
+
+-- Kotlin
+vim.lsp.config("kotlin_language_server", {
+  on_attach = on_attach,
+  root_markers = { "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", ".git" },
+})
+vim.lsp.enable("kotlin_language_server")
 
 -- prosemd-lsp (Markdown prose linter)
-if not lsp_configs.prosemd then
-  lsp_configs.prosemd = {
-    default_config = {
-      cmd = { "prosemd-lsp", "--stdio" },
-      filetypes = { "markdown" },
-      root_dir = function(fname)
-        return util.find_git_ancestor(fname) or vim.fn.getcwd()
-      end,
-      settings = {},
-    },
-  }
-end
-
-lspconfig.prosemd.setup {
+vim.lsp.config("prosemd", {
+  cmd = { "prosemd-lsp", "--stdio" },
+  filetypes = { "markdown" },
+  root_markers = { ".git" },
+  settings = {},
   on_attach = on_attach,
-}
+})
+vim.lsp.enable("prosemd")
 
 -- Optional: translate TS errors to readable form
-pcall(require("ts-error-translator").setup)
+pcall(function()
+  require("ts-error-translator").setup()
+end)
 
-local null_ls = require "null-ls"
+local null_ls = require("null-ls")
 
-null_ls.setup {
+null_ls.setup({
   sources = {
-    require "none-ls.diagnostics.eslint_d",
-    require "none-ls.code_actions.eslint_d",
-    require "none-ls.formatting.eslint_d",
+    require("none-ls.diagnostics.eslint_d"),
+    require("none-ls.code_actions.eslint_d"),
+    require("none-ls.formatting.eslint_d"),
   },
-}
+})
