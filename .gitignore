@@ -4,3 +4,4 @@ plugged
 .netrwhist
 ginit.vim
 private.vim
+lazy-lock.json
