@@ -97,7 +97,7 @@ return {
 
   -- UI/UX
   "nvim-tree/nvim-web-devicons",
-  "norcalli/nvim-colorizer.lua",
+  "NvChad/nvim-colorizer.lua",
   "stevearc/dressing.nvim",
   "rcarriga/nvim-notify",
 
@@ -114,9 +114,6 @@ return {
   -- Autopairs
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
-
-  -- Terminal ANSI support
-  "norcalli/nvim-terminal.lua",
 
   -- Treesitter-based smart join/split
   {

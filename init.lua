@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = vimrc_group,
   pattern = "*",
   callback = function()
-    vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
+    vim.hl.on_yank { higroup = "IncSearch", timeout = 700 }
   end,
 })
 
@@ -108,7 +108,6 @@ pcall(require, "config.oil")
 
 pcall(require("git-conflict").setup)
 pcall(require("colorizer").setup)
-pcall(require("terminal").setup)
 
 pcall(require("noice").setup, {
   presets = {
