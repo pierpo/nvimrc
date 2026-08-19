@@ -66,8 +66,7 @@ return {
   "akinsho/git-conflict.nvim",
 
   -- treesitter
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  "nvim-treesitter/playground",
+  { "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
 
   -- ranger
   -- "kevinhwang91/rnvimr",
